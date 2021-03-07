@@ -1,7 +1,7 @@
 ---
 authors:
 - admin
-avatar_image: user-full.png
+avatar_image: GitHub2.jpg
 bio: My research interests include economics and efficiencies of small scale farming as well as welfare effects of various agricultural interventions on the farming populace.
 btn:
 - label: Download Resume
@@ -18,7 +18,7 @@ education:
   - course: BSc in Agriculture
     institution: Ahmadu Bello University, Zaria
     year: 1987
-email: ""
+email: "job.nmadu@gmail.com"
 interests:
 - Economics and Efficiencies of Small Scale farming
 - Econometric (Regressions) Modelling
@@ -33,14 +33,14 @@ social:
 - icon: envelope
   icon_pack: fas
   link: '#contact'
-- icon: email
-  icon_pack: fab
+- icon: envelope
+  icon_pack: fas
   link: job.nmadu@gmail.com
 - icon: twitter
   icon_pack: fab
   link: https://twitter.com/JobNmadu
 - icon: google-scholar
-  icon_pack: ai
+  icon_pack: fab
   link: http://scholar.google.com/citations?user=C1_-HgIAAAAJ&hl=en
 - icon: github
   icon_pack: fab
@@ -57,7 +57,7 @@ social:
 - icon: orcid-id
   icon_pack: fab
   link: https://orcid.org/0000-0002-1320-8957
-superuser: true
+superuser: false
 user_groups:
 - Researchers
 - Visitors
