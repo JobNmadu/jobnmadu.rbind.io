@@ -6,7 +6,7 @@ bio: My research interests include economics and efficiencies of small scale far
 btn:
 - label: Download Resume
   url: https://sourcethemes.com/academic/docs/install/
-display_education: false
+display_education: true
 education:
   courses:
   - course: PhD in Agricultural Economics
@@ -57,7 +57,7 @@ social:
 - icon: orcid-id
   icon_pack: fab
   link: https://orcid.org/0000-0002-1320-8957
-superuser: false
+superuser: true
 user_groups:
 - Researchers
 - Visitors
