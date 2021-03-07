@@ -25,7 +25,7 @@ twitter = "JobNmadu"
 
 # Diplay a logo in navigation bar rather than title (optional).
 #   To enable, place an image in `static/img/` and reference its filename below. To disable, set the value to "".
-logo = "icon.png"
+logo = ""
 
 # Enable global source code highlighting? true/false
 # Documentation: https://sourcethemes.com/academic/docs/writing-markdown-latex/#highlighting-options
@@ -35,7 +35,7 @@ highlight = true
 
 # Enable global LaTeX math rendering?
 #   If false, you can enable it locally on a per page basis.
-math = false
+math = true
 
 # Privacy pack
 #   Show a cookie consent message to visitors
@@ -69,10 +69,10 @@ contact_links = [
   {icon = "twitter", icon_pack = "fab", name = "Twitter", link = "https://twitter.com/JobNmadu"},
   {icon = "linkedin", icon_pack = "fab", name = "LinkedIn", link = "https://www.linkedin.com/in/jobnmadu"},
   {icon = "github", icon_pack = "fab", name = "GitHud", link = "https://github.com/JobNmadu"},
-  {icon = "orcid", icon_pack = "fas", name = "ORCID ID", link = "https://orcid.org/0000-0002-1320-8957"},
+  {icon = "orcid", icon_pack = "fab", name = "ORCID ID", link = "https://orcid.org/0000-0002-1320-8957"},
   {icon = "telegram", icon_pack = "fab", name = "Telegram Me", link = "https://t.me/Job_Nmadu"},
   {icon = "blogger", icon_pack = "fab", name = "Blogger", link = "https://jobnmadu.blogspot.com/"},
-  {icon = "bloggergoogle-scholar", icon_pack = "ai", name = "Google Scholar", link = "http://scholar.google.com/citations?user=C1_-HgIAAAAJ&hl=en"},
+  {icon = "bloggergoogle-scholar", icon_pack = "fab", name = "Google Scholar", link = "http://scholar.google.com/citations?user=C1_-HgIAAAAJ&hl=en"},
   ]
 
 # Display a map.
