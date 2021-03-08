@@ -40,4 +40,4 @@ taxonomies:
   author: authors
   category: categories
   publication_type: publication_types
-  tag: ["Econometrics", "Regresioons", "Data Scinece", "Machine Learning", "Climate Change", "CGE Modelling", "Nigeria", "R", "Analysis"]
+  tag: tags = ["Econometrics", "Regresioons", "Data Scinece", "Machine Learning", "Climate Change", "CGE Modelling", "Nigeria", "R", "Analysis"]
