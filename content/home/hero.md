@@ -5,10 +5,10 @@ headless = true  # This file represents a page section.
 active = true  # Activate this widget? true/false
 weight = 10  # Order that this section will appear.
 
-title = "Academia"
+title = "Data modelling to develop ..."
 
 # Hero image (optional). Enter filename of an image in the `static/img/` folder.
-hero_media = "user-2.jpg"
+hero_media = "user_2021.jpg"
 
 [design.background]
   # Apply a background color, gradient, or image.
@@ -24,8 +24,8 @@ hero_media = "user-2.jpg"
   # gradient_end = "#000"
   
   # Background image.
-  # image = ""  # Name of image in `static/img/`.
-  # image_darken = 0.6  # Darken the image? Range 0-1 where 0 is transparent and 1 is opaque.
+   image = "back_2021.jpg"  # Name of image in `static/img/`.
+   image_darken = 0.4  # Darken the image? Range 0-1 where 0 is transparent and 1 is opaque.
 
   # Text color (true=light or false=dark).
   text_color_light = false
@@ -42,6 +42,6 @@ hero_media = "user-2.jpg"
   label = "Contact me"
 
 +++
-## My name is **Michael Vahn** and I'm a **Professor** specializing in **Artificial Intelligence**
+## **Job Nmadu**, **Professor of Agricultural Economics** specializing in **Econometrics**
 
-Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC.
+Academic, Researcher, Consultant, Administrator and Community Leader with skills in Regression modelling, Data Science, Machine Learning and Computable General Equilibrium. I have supervised over 100 students' projects, theses and dissertations and at least five of my students have become professors.
