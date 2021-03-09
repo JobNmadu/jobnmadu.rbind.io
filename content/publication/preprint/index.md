@@ -1,32 +1,40 @@
 ---
-abstract: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis posuere tellus
-  ac convallis placerat. Proin tincidunt magna sed ex sollicitudin condimentum. Sed
-  ac faucibus dolor, scelerisque sollicitudin nisi. Cras purus urna, suscipit quis
-  sapien eu, pulvinar tempor diam. Quisque risus orci, mollis id ante sit amet, gravida
-  egestas nisl. Sed ac tempus magna. Proin in dui enim. Donec condimentum, sem id
-  dapibus fringilla, tellus enim condimentum arcu, nec volutpat est felis vel metus.
-  Vestibulum sit amet erat at nulla eleifend gravida.
+abstract: This study presents the results from a meso-inventory with a recall over 10 years of numbers of actors of different size strata in the fish value chain segments in Niger State, Northern Nigeria. It was conducted between March and July 2018. We explore the growth and changing structure of the fish value chain in the state. The 9 segments studied include hatcheries and feed mills (as inputs to the farmed fish segment), fish production (fish farmers and fishers), urban and rural wholesalers and retailers, and fish processors.
 authors:
-- admin
-date: "2019-04-07T00:00:00Z"
+-  G. Ebiloma
+-  R. Olatunji
+-  T. Matthias
+-  admin
+-  E. Olorunsanya
+-  K. Baba
+-  A. Jirgi
+-  J. H. Tsado
+-  S. Liverpool-Tasie
+-  T. Reardon
+date: "2018-09-09T00:00:00Z"
 doi: ""
 featured: false
 image:
-  caption: 'Image credit: [**Unsplash**](https://unsplash.com/photos/s9CC2SKySJM)'
+  #caption: 'Image credit: [**Unsplash**](https://unsplash.com/photos/s9CC2SKySJM)'
   focal_point: ""
   preview_only: false
-links: null
+links: https://www.canr.msu.edu/resources/the-rapid-transformation-of-the-fish-value-chain-in-nigeria-evidence-from-niger-state
 projects: null
-publication: ""
+publication: "Feed the Future Innovation Lab for Food Security Policy Research Paper 112"
 publication_short: ""
 publication_types:
 - "3"
-publishDate: "2017-01-01T00:00:00Z"
-summary: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis posuere tellus
-  ac convallis placerat. Proin tincidunt magna sed ex sollicitudin condimentum.
+publishDate: ""
+summary:.
 tags:
-- Source Themes
-title: An example preprint / working paper
+- agrifood system transformation
+- fsg research paper
+- household income and livelihoods
+- input use and market development
+- land
+- nigeria
+- nutrition
+title: The rapid transformation of the fish value chain in Nigeria: evidence from Niger State.
 ---
 
 {{% alert note %}}
