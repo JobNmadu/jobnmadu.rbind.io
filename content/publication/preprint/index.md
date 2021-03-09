@@ -24,7 +24,7 @@ publication: "Feed the Future Innovation Lab for Food Security Policy Research P
 publication_short: ""
 publication_types:
 - "3"
-publishDate: ""
+publishDate: "2018-09-09T00:00:00Z"
 summary: .
 tags:
 - agrifood system transformation
