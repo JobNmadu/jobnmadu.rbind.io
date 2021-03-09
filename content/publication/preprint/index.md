@@ -20,7 +20,7 @@ image:
   preview_only: false
 links: https://www.canr.msu.edu/resources/the-rapid-transformation-of-the-fish-value-chain-in-nigeria-evidence-from-niger-state
 projects: null
-publication: "Feed the Future Innovation Lab for Food Security Policy Research Paper 112"
+publication: "Feed the Future Innovation Lab for Food Security"
 publication_short: ""
 publication_types:
 - "3"
@@ -34,7 +34,7 @@ tags:
 - land
 - nigeria
 - nutrition
-title: The rapid transformation of the fish value chain in Nigeria: evidence from Niger State
+title: The rapid transformation of the fish value chain in Nigeria: evidence from Niger State / Policy Research Paper 112
 ---
 
 {{% alert note %}}
