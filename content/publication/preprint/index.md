@@ -34,7 +34,7 @@ tags:
 - land
 - nigeria
 - nutrition
-title: The rapid transformation of the fish value chain in Nigeria: evidence from Niger State.
+title:  The rapid transformation of the fish value chain in Nigeria: evidence from Niger State.
 ---
 
 {{% alert note %}}
