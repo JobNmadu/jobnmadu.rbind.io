@@ -41,14 +41,5 @@ date_format = "Jan 2006"
   date_start = "1992-01-14"
   date_end = "2006-09-30"
   description = """Lecturing, Research and Community Development."""
-
-[[experience]]
-  title = ""
-  company = ""
-  company_url = ""
-  location = ""
-  date_start = ""
-  date_end = ""
-  description = """"""
   
 +++
