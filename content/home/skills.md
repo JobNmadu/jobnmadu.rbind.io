@@ -6,7 +6,7 @@ active = true  # Activate this widget? true/false
 weight = 30  # Order that this section will appear.
 
 title = "Skills"
-subtitle = "My soft skills"
+subtitle = ""
 
 # Showcase personal skills or business features.
 # 
@@ -29,7 +29,7 @@ subtitle = "My soft skills"
 [[feature]]
   icon = "toolbox"
   icon_pack = "fas"
-  name = "Econometric Modelling, Data Science, Macine Learning and CGE Programming"
+  name = "Modelling, Data Science, Machine Learning, R/CGE Programming"
   parcent = "70%"
   
 [[feature]]
