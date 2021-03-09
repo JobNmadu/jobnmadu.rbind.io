@@ -30,7 +30,7 @@ date_format = "Jan 2006"
   * Teaching, Research and Community Development
   * Head of Department
   * Director and industrial Liaison Officer
-      *   Consultancies, Networking and Collaborations
+  * Consultancies, Networking and Collaborations
   """
 
 [[experience]]
