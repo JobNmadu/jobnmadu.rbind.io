@@ -15,7 +15,7 @@ date: "2018-09-09T00:00:00Z"
 doi: ""
 featured: false
 image:
-  #caption: 'Image credit: [**Unsplash**](https://unsplash.com/photos/s9CC2SKySJM)'
+ # caption: 'Image credit: [**Unsplash**](https://unsplash.com/photos/s9CC2SKySJM)'
   focal_point: ""
   preview_only: false
 links: https://www.canr.msu.edu/resources/the-rapid-transformation-of-the-fish-value-chain-in-nigeria-evidence-from-niger-state
