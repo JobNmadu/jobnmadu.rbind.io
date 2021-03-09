@@ -9,7 +9,7 @@ authors:
 -  Kpotun Baba
 -  Abigail Jirgi
 -  Jacob Tsado
--  Saweda LiverpoolTasie
+-  Saweda Liverpool-Tasie
 -  Tom Reardon
 date: "2018-09-09T00:00:00Z"
 doi: ""
@@ -25,7 +25,7 @@ publication_short: ""
 publication_types:
 - "3"
 publishDate: ""
-summary:  .
+summary: .
 tags:
 - agrifood system transformation
 - fsg research paper
