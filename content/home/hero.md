@@ -44,4 +44,4 @@ hero_media = "user_2021.jpg"
 +++
 ## **Job Nmadu**, **Professor of Agricultural Economics** specializing in **Econometrics**
 
-Academic, Researcher, Consultant, Administrator and Community Leader with skills in Regression modelling, Data Science, Machine Learning and Computable General Equilibrium. I have supervised over 100 students' projects, theses and dissertations and at least five of my students have become professors.
+Academic, Teacher, Researcher, Consultant, Administrator and Community Leader with skills in Regression modelling, Data Science, Machine Learning and Computable General Equilibrium who have graduated over 100 students (Undergraduates, Masters and Doctoral) and at least five of the students have become professors.
