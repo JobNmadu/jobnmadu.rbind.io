@@ -42,8 +42,8 @@ tags:
 featured: false
 
 links:
-# - name: Custom Link
-#   url: https://www.canr.msu.edu/resources/the-rapid-transformation-of-the-fish-value-chain-in-nigeria-evidence-from-niger-state
+ - name: Custom Link
+   url: https://www.canr.msu.edu/resources/the-rapid-transformation-of-the-fish-value-chain-in-nigeria-evidence-from-niger-state
 # url_pdf: http://arxiv.org/pdf/1512.04133v1
 # url_code: '#'
 # url_dataset: '#'
