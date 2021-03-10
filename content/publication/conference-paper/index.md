@@ -20,8 +20,8 @@ image:
 #  caption: 'Image credit: [**Unsplash**](https://unsplash.com/photos/pLCdAaMFLTE)'
   focal_point: ""
   preview_only: false
-links: null
-projects: null
+# links: null
+# projects: null
 publication: In *Agricultural Development in Nigeria: Evidence can Chart the Path*
 publication_short: In *STC*
 publication_types:
