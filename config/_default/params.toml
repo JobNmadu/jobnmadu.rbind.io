@@ -72,7 +72,7 @@ contact_links = [
   {icon = "orcid", icon_pack = "fab", name = "ORCID ID", link = "https://orcid.org/0000-0002-1320-8957"},
   {icon = "telegram", icon_pack = "fab", name = "Telegram Me", link = "https://t.me/Job_Nmadu"},
   {icon = "blogger", icon_pack = "fab", name = "Blogger", link = "https://jobnmadu.blogspot.com/"},
-  {icon = "bloggergoogle-scholar", icon_pack = "fab", name = "Google Scholar", link = "http://scholar.google.com/citations?user=C1_-HgIAAAAJ&hl=en"},
+  {icon = "google-scholar", icon_pack = "fab", name = "Google Scholar", link = "http://scholar.google.com/citations?user=C1_-HgIAAAAJ&hl=en"},
   ]
 
 # Display a map.
