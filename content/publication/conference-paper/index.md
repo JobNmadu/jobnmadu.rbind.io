@@ -22,7 +22,7 @@ image:
   preview_only: false
 links: null
 projects: null
-publication: In *Agricultural Development in Nigeria: Evidence can Chart the Path*, the Proceddings of the Nigerian Association of Agricultural Economists' Special National Conference in Honour of Professor Chinedum Nwajiuba
+publication: In *Agricultural Development in Nigeria: Evidence can Chart the Path* the Proceddings of the Nigerian Association of Agricultural Economists' Special National Conference in Honour of Professor Chinedum Nwajiuba
 # publication_short: In *STC*
 publication_types:
 - "1"
