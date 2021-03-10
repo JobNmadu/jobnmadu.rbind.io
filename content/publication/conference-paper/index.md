@@ -30,8 +30,12 @@ publishDate: "2017-01-01T00:00:00Z"
 summary: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis posuere tellus
   ac convallis placerat. Proin tincidunt magna sed ex sollicitudin condimentum.
 tags:
-- Source Themes
-title: An example conference paper
+- Computable General Equilibrium (CGE)
+- African Continental Free Trade Area (AfCFTA)
+- Social Accounting Matrix (SAM)
+- RStats
+- Nigeria
+title: African Continental Free Trade Area (AfCFTA): Potential Welfare Effects and Impacts on Nigerian Farmers
 ---
 
 {{% alert note %}}
