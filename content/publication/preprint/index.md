@@ -1,5 +1,5 @@
 ---
-title: "An example preprint / working paper"
+title: "The rapid transformation of the fish value chain in Nigeria: evidence from Niger State / Policy Research Paper 112"
 authors:
 -  Godwin Ebiloma
 -  Rachel Olatunji
@@ -15,7 +15,7 @@ date: "2018-09-09T00:00:00Z"
 doi: ""
 
 # Schedule page publish date (NOT publication's date).
-publishDate: "2017-01-01T00:00:00Z"
+publishDate: "2018-09-09T00:00:00Z"
 
 # Publication type.
 # Legend: 0 = Uncategorized; 1 = Conference paper; 2 = Journal article;
@@ -31,14 +31,19 @@ abstract: This study presents the results from a meso-inventory with a recall ov
 
 # Summary. An optional shortened abstract.
 # summary: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis posuere tellus ac convallis placerat. Proin tincidunt magna sed ex sollicitudin condimentum.
-
 tags:
-- Source Themes
+- agrifood system transformation
+- fsg research paper
+- household income and livelihoods
+- input use and market development
+- land
+- nigeria
+- nutrition
 featured: false
 
 links:
 # - name: Custom Link
-#   url: http://example.org
+   url: https://www.canr.msu.edu/resources/the-rapid-transformation-of-the-fish-value-chain-in-nigeria-evidence-from-niger-state
 # url_pdf: http://arxiv.org/pdf/1512.04133v1
 # url_code: '#'
 # url_dataset: '#'
@@ -51,7 +56,7 @@ links:
 # Featured image
 # To use, add an image named `featured.jpg/png` to your page's folder. 
 image:
-  caption: 'Image credit: [**Unsplash**](https://unsplash.com/photos/s9CC2SKySJM)'
+#  caption: 'Image credit: [**Unsplash**](https://unsplash.com/photos/s9CC2SKySJM)'
   focal_point: ""
   preview_only: false
 
