@@ -23,12 +23,11 @@ image:
 links: null
 projects: null
 publication: In *Agricultural Development in Nigeria: Evidence can Chart the Path*
-# publication_short: In *STC*
+publication_short: In *STC*
 publication_types:
 - "1"
 publishDate: "2017-01-01T00:00:00Z"
-# summary: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis posuere tellus
-#  ac convallis placerat. Proin tincidunt magna sed ex sollicitudin condimentum.
+# summary: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis posuere tellus.
 tags:
 - Computable General Equilibrium (CGE)
 - African Continental Free Trade Area (AfCFTA)
