@@ -1,8 +1,17 @@
 ---
 title: "An example preprint / working paper"
 authors:
-- admin
-date: "2019-04-07T00:00:00Z"
+-  Godwin Ebiloma
+-  Rachel Olatunji
+-  Tina Matthias
+-  admin
+-  Eniola Olorunsanya
+-  Kpotun Baba
+-  Abigail Jirgi
+-  Jacob Tsado
+-  Saweda Liverpool-Tasie
+-  Tom Reardon
+date: "2018-09-09T00:00:00Z"
 doi: ""
 
 # Schedule page publish date (NOT publication's date).
