@@ -22,7 +22,7 @@ image:
   preview_only: false
 links: null
 projects: null
- publication: In *Agricultural Development in Nigeria: Evidence can Chart the Path*
+# publication: In *Agricultural Development in Nigeria: Evidence can Chart the Path*
 # publication_short: In *STC*
 publication_types:
 - "1"
