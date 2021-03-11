@@ -17,13 +17,13 @@ date: "2021-01-28T00:00:00Z"
 doi: ""
 featured: true
 image:
-  caption: 'Image credit: [**Unsplash**](https://unsplash.com/photos/pLCdAaMFLTE)'
+#  caption: 'Image credit: [**Unsplash**](https://unsplash.com/photos/pLCdAaMFLTE)'
   focal_point: ""
   preview_only: false
 links: null
 projects: null
-# publication: In *Agricultural Development in Nigeria: Evidence can Chart the Path*
-publication_short: In *STC*
+ publication: In *Agricultural Development in Nigeria: Evidence can Chart the Path*
+# publication_short: In *STC*
 publication_types:
 - "1"
 publishDate: "2017-01-01T00:00:00Z"
