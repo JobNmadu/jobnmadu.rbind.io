@@ -18,7 +18,7 @@ education:
   - course: BSc in Agriculture
     institution: Ahmadu Bello University, Zaria
     year: 1987
-email: "job.nmadu@gmail.com"
+email: ""
 interests:
 - Economics and Efficiencies of Small Scale farming
 - Econometric (Regressions) Modelling
@@ -39,8 +39,8 @@ social:
 - icon: twitter
   icon_pack: fab
   link: https://twitter.com/JobNmadu
-- icon: google-scholar
-  icon_pack: fab
+- icon: Google Scholar
+  icon_pack: fas
   link: http://scholar.google.com/citations?user=C1_-HgIAAAAJ&hl=en
 - icon: github
   icon_pack: fab
@@ -54,8 +54,8 @@ social:
 - icon: blogger
   icon_pack: fab
   link: https://jobnmadu.blogspot.com/
-- icon: orcid-id
-  icon_pack: fab
+- icon: Green ORCID
+  icon_pack: fas
   link: https://orcid.org/0000-0002-1320-8957
 superuser: true
 user_groups:
