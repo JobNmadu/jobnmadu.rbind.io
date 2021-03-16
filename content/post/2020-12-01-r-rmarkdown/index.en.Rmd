@@ -1,37 +1,1519 @@
 ---
-title: "Hello R Markdown"
-author: "Frida Gomam"
-date: 2020-12-01T21:13:14-05:00
-categories: ["R"]
-tags: ["R Markdown", "plot", "regression"]
+title: 'Update on COVID-19 visuals for Nigeria'
+author: "Job Nmadu"
+bibliography: data/bibliography.bib
+date: 'March 15, 2021'
+always_allow_html: true
+output:
+  prettydoc::html_pretty:
+    theme: cayman #tactile, architect, leonids, hpstr
+    highlight: vignette #github
+    math: katex #latex
+  html_document: default
+  word_document: default
+  pdf_document: 
+    latex_engine: lualatex
+tags: [COVID-19, Nigeria, RStats, Visuals, Forecast, Model Selection]
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(collapse = TRUE)
+```{r setup, include=FALSE, message = FALSE, warning = FALSE}
+
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)    # main package
+library(zoo)          # was used for moving average
+library(gghighlight)  # for highlight specif plot at each facet
+library(ggthemes)     # may be needed for specif need
+library(ftplottools)  #
+library(coronavirus)  # used for corona dataset
+library(lubridate)     # for date manipulation
+library(tidytext)      # for analyzing text data
+library(scales)
+source("docs/RegressionDiagnosis.R")
+source("docs/percent function.R")
+theme_set(theme_minimal())  
+
+library(readxl)
+cumDaty <- read_excel("data/cumDat.xlsx")
+PMS <- read_excel("data/PMS.xlsx")
+PMS$Mnth <- as.Date(as.yearmon(PMS$Month))
+cumDaty$Date <- as.Date(cumDaty$Date, format = '%m/%d/%Y')
+options(scipen = 999, digits = 2)
+cumDat <- as.data.frame(cumDaty)
+cumDat$Month <- factor(cumDat$Month, levels = month.name)
+#Count <- cumDat %>% count(Cases)
+data <- cumDat 
+
+States <- c("Lagos", "FCT", "Oyo", "Edo","Ogun", "Kaduna",
+            "Kano", "Rivers", "Borno", 	"Bauchi",	"Plateau",
+            "Gombe",	 "Delta", "Ondo",	"Osun", "Kwara",
+            "Nasarawa", "Enugu","Katsina", "Abia", "Ekiti",
+            "Imo", "Ebonyi", "Niger",  "Bayelsa", "Akwa Ibom",
+            "Sokoto", "Kebbi", "Benue", "Adamawa", "Anambra",
+            "Jigawa",  "Yobe", "Cross River",	"Zamfara",
+            "Taraba", "Kogi")
+
+county <- c("South West", "North Central", "South South",
+            "North West", "South East", "Capital",
+            "North East")
+
+Tint <- c("aquamarine", "black",	"blue",	"brown",	"chartreuse",
+          "chocolate",	"coral","cornsilk",	"cyan",	"firebrick",
+          "forestgreen", "gainsboro",	"gold","goldenrod",	"gray",
+          "green",	"grey",	"honeydew", "ivory",	"khaki",
+          "linen",	"magenta",	"maroon",	"navyblue",	"orange",
+          "orangered", "orchid",	"pink",	"plum",	"purple",
+          "red", "rosybrown", "royalblue","salmon",	"sienna",
+          "tan", "thistle", "tomato", "turquoise","violet",	
+          	"wheat", "yellow")
+
+region_movavg <- data %>% 
+  as_tibble() %>% 
+  filter(Region %in% States) %>% 
+  filter(Date <= as.Date(Sys.Date())) %>% 
+  group_by(Date, Region) %>%
+  filter(Type == "confirmed") %>% 
+  summarise(total_deth = sum(Cases)) %>%
+  group_by(Region) %>% 
+  mutate(week_movavg = rollmean(total_deth, k = 7, fill = "extend")) %>% 
+  slice(match(TRUE, total_deth >= 1):n()) %>% 
+  mutate(id = row_number())
+
+county_movavg <- data %>% 
+  as_tibble() %>% 
+  filter(County %in% county) %>% 
+  filter(Date <= as.Date(Sys.Date())) %>% 
+  group_by(Date, County) %>%
+  filter(Type == "confirmed") %>% 
+  summarise(total_deth = sum(Cases)) %>%
+  group_by(County) %>% 
+  mutate(week_movavg = rollmean(total_deth, k = 7, fill = "extend")) %>% 
+  slice(match(TRUE, total_deth >= 1):n()) %>% 
+  mutate(id = row_number())
+
+library(dplyr)
+DData <- region_movavg %>% 
+  group_by(Region) %>% 
+  filter(id == id[max(id)]) %>% 
+  slice()
+
+MaximumDate <- as.Date(max(region_movavg$Date), format = '%m/%d/%Y')
+MinimumDate <- min(region_movavg$Date)
+Middle <- as.Date(median(region_movavg$Date), format = '%m/%d/%Y')
+Year123  <- format(Middle, "%Y")
+Month123 <- format(Middle, "%B")
+Day123   <- format(Middle, "%m")
+Year321  <- zoo::as.yearmon("Middle")
+DDMonthraw <- region_movavg %>% 
+  group_by(Region) %>% 
+  mutate("Daylast" = max(Date),
+         "DayFirst" = min(Date),
+         "TotalCases" = sum(id)) %>%
+  slice(1)
+DDMonthraw$Daylastlast <-  as.vector(MaximumDate - DDMonthraw$Daylast)
+DDMonthraw$DayFirstFirst <-  as.vector(DDMonthraw$DayFirst - MinimumDate)
+DDMonthraw$NumDays <-  as.vector(DDMonthraw$Daylast - DDMonthraw$DayFirst)
+DDMonthraw$NumperDay <- round(DDMonthraw$TotalCases/DDMonthraw$NumDays,0)
+
+DDMonth <- select(DDMonthraw, c(Region, Daylastlast))
+DDMonth <- DDMonth[order(-DDMonth$Daylastlast),]
+DDMonth$Scale <- scale(DDMonth$Daylastlast)
+DDMonth <- DDMonth[order(-DDMonth$Daylastlast),]
+DDMonth$Type <- ifelse(DDMonth$Scale < 0.00, "below",
+                         "above")
+#DDMonth$Rank <- rank(DDMonth$Daylastlast)
+
+DDMonth <- DDMonth[order(-DDMonth$Daylastlast), ]  # sort
+DDMonth$Region <- factor(DDMonth$Region, levels = DDMonth$Region)
+
+DData <- as.data.frame(cbind(DData$Region, DData$total_deth, DData$id))
+colnames(DData) <- c("Region","Cases", "id")
+#DData$Region <- States
+DData$Cases <- as.numeric(DData$Cases)
+DData$id <- as.numeric(DData$id)
+DData$Region <- factor(DData$Region, levels = States)
+DDR <- DData[order(-DData$id),]
+DDR$Region <- factor(DDR$Region, levels = DDR$Region)
+
+DData1 <- county_movavg %>% 
+  group_by(County) %>% 
+  filter(id == id[max(id)]) %>% 
+  slice()
+DData1 <- as.data.frame(cbind(DData1$County, DData1$total_deth, DData1$id))
+colnames(DData1) <- c("County","Cases", "id")
+DData1$Cases <- as.numeric(DData1$Cases)
+DData1$id <- as.numeric(DData1$id)
+DData1$County <- factor(DData1$County, levels = county)
+DDC <- DData1[order(-DData1$id),]
+DDC$County <- factor(DDC$County, levels = DDC$County)
+
+cumper <- cumDat %>% 
+  group_by(Date) %>% 
+  mutate(Day = row_number(),
+         DailyCase = cumsum(Cases),
+         cum_Cases = cumsum(DailyCase))
+
+DDFa <- cumper
+DDFa$Date <- as.Date(as.yearmon(DDFa$Date))
+
+DD1 <- cumper %>% 
+  group_by(Date) %>% 
+  filter(Day == Day[max(Day)]) %>% 
+  slice(1)
+
+cumper <- select(DD1, c(Date, DailyCase, cum_Cases))
+
+cumper <- cumper %>%
+  group_by(Date) %>% 
+  mutate(Per = DailyCase/sum(DailyCase),
+         PerCum = (DailyCase/cum_Cases)*100)
+
+dda <- colSums(cumper[,2:5])
+
+cumper$Per = (cumper$DailyCase/dda[1])*100
+LPer <- c(0,diff(cumper$Per, 1))
+LPerCum <- c(0,diff(cumper$PerCum, 1))
+cumper <- as.data.frame(cbind(cumper, LPer, LPerCum))
+names(cumper)[6:7] <- c("LPer", "LPerCum")
+
+cumper1 <- cumper %>%
+  pivot_longer(-c(Date, cum_Cases, DailyCase), names_to =
+                 "Models", values_to = "Per_Cent")
+
+library(splines)
+BREAKS <- c(70, 131, 173, 228, 274, 326)
+ss <- seq(1:length(cumper$DailyCase))
+Dss <- seq(cumDat$Date[1], by = "day", length.out = length(cumper$DailyCase))
+Dsf <- seq(as.Date(Dss[length(Dss)] + lubridate::days(1)),
+           by = "day", length.out = length(cumper$DailyCase))
+day01 <- format(Dss[1], format = "%B %d, %Y")
+daylast <- format(Dss[length(Dss)], format = "%B %d, %Y")
+casesstarts <- paste("Starting from", day01, "to", daylast,
+                     collapse=" ")
+casesstarts1 <- paste("Number of days from", day01, "to",
+                      daylast, collapse=" ")
+casesstarts11 <- paste("Number of days the last COVID19 case was recorded as at", daylast, collapse=" ")
+dayfo <- format(Dsf[1], format = "%B %d, %Y")
+dayfo2021 <- format(Dsf[1] - lubridate::days(1), format = "%m/%d/%Y")
+dayfo2021 <- as.Date(as.character(dayfo2021), format = "%m/%d/%Y")
+lastdayfo <- format(Dsf[length(Dsf)], format = "%B %d, %Y")
+forcaststarts <- paste("Starting from", dayfo, "to", lastdayfo, collapse=" ")
+
+DDA <- arrange(cumDat, Region)
+ 
+ DDT <- as.data.frame(table(cumDat$Region, cumDat$Month))
+ colnames(DDT) <- c("Region", "Month", "Cases")
+ DDT$Month  <- factor(DDT$Month, levels = month.name)
+ DDT <- DDT %>% 
+  as_tibble() %>% 
+  filter(Region %in% States)
+ 
+ DDc <- as.data.frame(table(cumDat$County, cumDat$Month))
+ colnames(DDc) <- c("County", "Month", "Cases")
+ DDc$Month <- factor(DDc$Month, levels = month.name)
+ DDc <- DDc %>% 
+  as_tibble() %>% 
+  filter(County %in% county)
+ 
+ DDP <- DDA %>%
+   group_by(Region) %>% 
+   mutate(Day = row_number(), 
+          Per = Cases/sum(Cases),
+          PerCum = cumsum(Per))
+ 
+ DDF <-  filter(cumDat, Date > "2020-05-31")
+ DDM <-  filter(cumDat, Date < "2020-05-31")
+ DDL <- filter(cumDat, Region == "Lagos") 
+ 
+ DDFa <- DDFa %>%
+   group_by(Date) %>% 
+   mutate(COVID19 = sum(Cases),
+          CumCases = cumsum(COVID19)) %>% 
+   slice(1)
+ 
+ DDFa <- select(DDFa, c(Date, COVID19))
+ DDFa$COVID19 <- log(DDFa$COVID19+1)
+ DDFa$Date <- as.Date(as.yearmon(DDFa$Date, format = "%m/%Y"))
+ 
+ DDFa <- cbind(DDFa,"PMSprice" = PMS$Price, "Inflation" = PMS$inflation, "Teledensity" = PMS$Teledensity, "Birth rate" = PMS$`Birth rate`, "Population" = log(PMS$population))
+ 
+ DDFa1 <- DDFa %>% 
+   pivot_longer(-Date, names_to = "Model", values_to = "Values")
+ DDFa1$Date <-  as.Date(DDFa1$Date, format = "%m/%Y")
+ # DDFa1$Date <-  format(DDFa1$Date, format = "%m/%Y")
+ 
+SSCee <-  select(DD1, c(Date, County, Country, Lat, Long, Type, DailyCase))
+SSCee <- as.data.frame(SSCee)
+niz2021 <- select(SSCee, c(Date, "Case" = DailyCase))
+z.s <- as.data.frame(cbind("Day" = ss, "Case" = cumper$DailyCase), "Day1" = Dss)
+monthlims<-range(z.s[,1])
+month.grid<-seq(from=monthlims[1], to = monthlims[2])
+niz <- as.data.frame(z.s)
+niz$Cum_case <- cumsum(niz$Case)
+#niz_times <- ts(niz, start = as.Date(day01, format = '%Y/%m/%d'), end = as.Date(daylast, format = '%Y/%m/%d'))
+
+SSCee$Date <- as.Date(SSCee$Date, format = '%m/%d/%Y')
+library("xlsx")
+write.xlsx2(SSCee, file = "D:/Working Documents 2020/.COVID19/data/updateDATA.xlsx",
+                  col.names = TRUE, row.names = FALSE)
+write.xlsx2(niz2021, file = "D:/Working Documents 2020/Dyn4kast/data/updateDATA.xlsx",
+                  col.names = TRUE, row.names = FALSE)
+
+##ZZZ <- read_excel("D:/.COVID19/data/coronavirus_dataset.xlsx")
+#ZZZ <- read_excel("D:/.COVID19/data/updateDATA.xlsx")
+
+DDFb <- cumDat %>%
+   group_by(Region) %>% 
+   mutate(COVID19 = sum(Cases))%>% 
+  slice(1)
+DDFb$Region <- factor(DDFb$Region, levels = States)
+DDFb$'Normalised cases' <- round((DDFb$COVID19 - mean(DDFb$COVID19))/sd(DDFb$COVID19), 2)
+DDFb$case_type <- ifelse(DDFb$`Normalised cases` < 0.00, "below",
+                         "above")
+DDFb <- DDFb[order(DDFb$`Normalised cases`), ]  # sort
+DDFb$Region <- factor(DDFb$Region, levels = DDFb$Region)
+DDFb <- DDFb[-1,]
 ```
 
-# R Markdown
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+```{r echo = FALSE, message = FALSE, warning = FALSE}
 
-You can embed an R code chunk like this:
+svglite::svglite("img/raw000.svg", width = 10, height = 7)
 
-```{r cars}
-summary(cars)
-fit <- lm(dist ~ speed, data = cars)
-fit
+plot(z.s[,1], z.s[,2], main = " ", col = "red", type = "l", lwd = 2, xlab = casesstarts, ylab = "COVID-19 confirmed cases")
+grid(10,20,lty=1,lwd=1)
+abline(v = BREAKS, lwd = 2, lty = 2, col = "black")
+#lines(density(z.s$Case), lwd = 2, type = "l", col = "blue", bw = 69.22)
+lines(fitted.values(smooth.spline(z.s[,1],z.s[,2])), type = "l", 
+      col = "blue", lwd = 2)
+DDf <- c("Observed", "Cut points", "Smooth spline") #, "Density")
+legend("topleft", 
+       inset = c(0, 0),  bty = "n", x.intersp = 0.5,
+       xjust = 0, yjust = 0,
+       legend = DDf, col = c("red", "black", "blue"),
+       lwd = 2, cex = 0.75, xpd = TRUE, horiz = FALSE)
+invisible(dev.off())
 ```
 
-# Including Plots
 
-You can also embed plots. See Figure \@ref(fig:pie) for example:
+```{r echo = FALSE, message = FALSE, warning = FALSE}
 
-```{r pie, fig.cap='A fancy pie chart.', tidy=FALSE}
-par(mar = c(0, 1, 0, 1))
-pie(
-  c(280, 60, 20),
-  c('Sky', 'Sunny side of pyramid', 'Shady side of pyramid'),
-  col = c('#0292D8', '#F7EA39', '#C4B632'),
-  init.angle = -50, border = NA
-)
+svglite::svglite("img/state05.svg", width = 10, height = 7)
+plot(cumper$Per, main = " ",
+     xlab = casesstarts, ylab = "Per Cent",
+     ylim = c(-50,100),
+     type = "l", lwd = 2, col="forestgreen")
+grid(10,20,lty=1,lwd=1)
+lines(cumper$Per, lty=1,lwd=2, col= "forestgreen")
+lines(cumper$PerCum, lty=1,lwd=2, col= "orangered")
+lines(log(cumper$DailyCase), lty=1,lwd=2, col= "magenta")
+lines(cumper$LPer, lty=1,lwd=2, col= "brown")
+lines(cumper$LPerCum, lty=1,lwd=2, col= "blue")
+legend("topright", 
+       inset = c(0, 0, 0, 0),  bty = "n", x.intersp = 0.5,
+       xjust = 0, yjust = 0,
+       "topright", col = c("forestgreen", "orangered", "magenta", "brown", "blue"),
+       c("Per cent of total cases","Percent of cummulative cases", 
+         "Daily cases, log transformed", 
+         "Difference from previsous rate",
+         "Difference from previous cummulative rate"),
+       lwd = 2, cex = 0.75, xpd = TRUE, horiz = FALSE)
+invisible(dev.off())
 ```
+
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+
+svglite::svglite("img/state06.svg", width = 10, height = 7)
+
+ggplot(cumper1) +
+  aes(x = Date, y = Per_Cent, colour = Models, group = Models) +
+  geom_line(size = 1L) +
+  scale_color_hue() +
+  theme_bw() +
+  theme(legend.position = "none") +
+  labs(title = "\n  \n",
+       subtitle = " ",
+       caption = "Graphics: Job Nmadu | @JobNmadu  \n Source: https://covid19.ncdc.gov.ng/")
+invisible(dev.off())
+```
+
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+
+svglite::svglite("img/state10.svg", width = 10, height = 7)
+
+fitp <- lm(Cum_case ~ Day + I(Day^2), data = niz)
+fitc<-lm(niz[,3] ~ bs(niz[,1], knots =NULL), data = niz)
+kkC <- forecast::forecast(fitted.values(fitc), h = length(Dsf))
+kkP <- forecast::forecast(fitted.values(fitp), h = length(Dsf))
+
+CCase <- as.data.frame(cbind("Day" = ss, "Spline forecast" = kkC[["mean"]], "Polynomial forecast" = kkP[["mean"]]))
+
+CCase1 <- as.data.frame(cbind("Day" = ss,"Cumulative case" = niz$Cum_case))
+
+KKz <- CCase %>%
+   pivot_longer(-c(Day), names_to = "Models",
+                values_to = "Forecast")
+KKZ <- ggplot(KKz) +
+   aes(x = Day, y = Forecast, colour = Models, group = Models) +
+   geom_line(size = 1L) +
+   scale_color_hue() +
+   theme_bw() +
+   labs(title = " ",
+        subtitle = " ",
+        caption = "Graphics: Job Nmadu | @JobNmadu  \n Source: https://covid19.ncdc.gov.ng/")
+
+KKZ1 <- ggplot(CCase1) +
+   aes(x = Day, y = `Cumulative case`) +
+   geom_line(size = 1L, colour = "#0c4c8a") +
+   scale_color_hue() +
+   theme_minimal() +
+   labs(title = " ",
+        subtitle = " ",
+        caption = "Graphics: Job Nmadu | @JobNmadu  \n Source: https://covid19.ncdc.gov.ng/")
+
+library(patchwork)
+KKZ + KKZ1
+
+invisible(dev.off())
+```
+
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+
+svglite::svglite("img/dectimes.svg", width = 10, height = 7)
+
+times_cumdat <- ts(niz$Cum_case, frequency = 7)
+
+#plot(decompose(times_cumdat), col = "red")
+
+#plot(stl(times_cumdat, s.window = "per"), col = "red")
+
+plot(stl(times_cumdat, s.window = "per", robust = TRUE), col = "red")
+
+#fit <- forecast::ets(niz$Cum_case)
+#plot(forecast::forecast(fit))
+
+invisible(dev.off())
+```
+
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+
+svglite::svglite("img/state00.svg", width = 10, height = 7)
+
+ggplot(region_movavg, aes(id, week_movavg, color=Region)) +
+  geom_path(color='forestgreen', lineend = "round", size=2) +
+  gghighlight() +
+  facet_wrap(~ Region, nrow = 4, scales = "free_x") +
+  labs(x = "Number of cases", y = "Weekly rolling average") +
+  theme(legend.position = "none")
+#rsvg_svg("state00.svg")
+
+invisible(dev.off())
+```
+
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+mytheme <- 
+  theme(panel.grid.major.x =element_line(colour = "wheat4"),
+        panel.grid.major.y =element_line(colour = "wheat4"),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.text = element_text(colour = "black", size = 24, face = "bold"),
+        axis.title.x = element_text(colour = "black", size = 28, face = "bold", vjust = 0.8),
+        axis.title.y = element_blank(),
+        strip.text = element_text(size=24, colour = "orangered", face = "bold"),
+        plot.title = element_text(color = "black", size = 40, face = "bold"),
+        plot.subtitle = element_text(color = "black", size = 30),
+        plot.tag = element_text(color = "black", face = "italic", size = 24, lineheight = 0.9),
+        plot.tag.position = c(0.15,0.02),
+        panel.background = element_rect(fill = "seashell2"),
+        plot.background = element_rect(fill = "seashell2"), 
+        panel.border = element_blank(),
+        panel.spacing.y = unit(3, "lines")
+  )
+
+#here::dr_here()
+
+svglite::svglite("img/state02.svg", width = 30, height = 27)
+ggplot(region_movavg, aes(id, week_movavg, color = Region)) +
+  geom_path(color='forestgreen', lineend = "round", size=2) +
+  gghighlight() +
+  facet_wrap(~ Region, nrow = 4, scales = "free_x") +
+  scale_y_log10(limits=c(1,750)) +
+  scale_x_continuous(breaks = c(0,50,100,150, 200, 250, 300, 350)) +
+  mytheme +
+  labs(title="\n \n",
+       x ="\n Days since average daily confirmed cases passed 1 \n", 
+       subtitle = " ",
+       tag = "Graphics: Job Nmadu | @JobNmadu  \n Source: https://covid19.ncdc.gov.ng/")
+
+invisible(dev.off())
+
+#here::set_here()
+#knitr::include_graphics("testold.png")
+```
+
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+
+svglite::svglite("img/state04.svg", width = 12, height = 7)
+Numbers <-  ggplot(DDR) +
+  aes(x = Region, weight = id, fill = Region) +
+  geom_bar(position = "dodge") +
+  scale_fill_manual(values = Tint) +
+  coord_flip() +
+  theme_minimal()+
+  theme(legend.position = "none")+
+  labs(title = " ",
+       y ="\n Number of Days \n", 
+       x = "\n State \n")
+
+Tinty <- c("aquamarine", "black",	"blue",	"brown",	"chartreuse",
+          "chocolate",	"coral","cornsilk",	"cyan",	"firebrick",
+          "forestgreen", "gainsboro",	"gold","goldenrod",	"gray",
+          "green",	"grey",	"honeydew", "ivory",	"khaki",
+          "linen",	"magenta",	"maroon",	"navyblue",	"orange",
+          "orangered", "orchid",	"pink",	"plum",	"purple",
+          "red", "rosybrown", "royalblue","salmon",	"sienna",
+          "tan", "thistle")
+
+Numbers1 <- DDR %>%
+   ggplot(aes(x = id, y = Region)) +
+  geom_segment(aes(xend = 18, yend = Region),
+               color = "forestgreen",
+               size = 1.0,
+               linetype = "solid") +
+  geom_point(size = 4,
+             color = Tinty) +
+  geom_text(aes(x = 1.0, label = Region), 
+            size = 2.5, 
+            hjust = .5) +
+  scale_x_continuous(limits = c(1,NA)) +
+  labs(title = " ",
+       x = "Number of days",
+       y = "States",
+       caption = " ") +
+  theme_minimal(base_size = 8) +
+  theme(panel.grid = element_blank(),
+        plot.title.position = "plot",
+        axis.text.y = element_blank(),
+        plot.background = element_rect(fill = "white"))
+
+Numbers + Numbers1 + plot_annotation(
+  caption = "Graphics: Job Nmadu | @JobNmadu
+  \n Source: https://covid19.ncdc.gov.ng/")
+
+invisible(dev.off())
+```
+
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+
+svglite::svglite("img/lastday.svg", width = 10, height = 7)
+
+ggplot(DDMonth) +
+  aes(x = Region, weight = 
+        Daylastlast, fill = Region) +
+  geom_bar(position = "dodge") +
+  scale_fill_manual(values = Tint) +
+  coord_flip() +
+  theme_minimal()+
+  theme(legend.position = "none")+
+  labs(title = " ",
+       y ="\n Number of Days", 
+       x = "\n State \n",
+       caption = "Graphics: Job Nmadu | @JobNmadu  \n Source: https://covid19.ncdc.gov.ng/")
+
+invisible(dev.off())
+```
+
+
+```{r echo = FALSE, message = FALSE, warning = FALSE, eval = FALSE}
+svglite::svglite("img/divbars.svg", width = 10, height = 7)
+
+ggplot(DDMonthraw, aes(colour = NumperDay)) +
+  #plot project duration
+  geom_segment(aes(x = DayFirst, xend = Daylast,
+                   y = Region, yend = Region), size = 4.5) +
+  #colour by cost
+  scale_colour_gradient2(low = "#ee8a82",
+                         mid = "#c8586c",
+                         high = "#70284a",
+                         midpoint = median(DDMonthraw$Daylast),
+                         space = "Lab",
+                         guide = "colourbar",
+                         aesthetics = "colour") + 
+  #order countries 
+  scale_y_discrete(limits = factor(DDMonthraw$Region[order(DDMonthraw$DayFirst)], levels = DDMonthraw$Region[order(DDMonthraw$DayFirst)])) +
+  scale_x_continuous(breaks = seq(min(DDMonthraw$DayFirst), max(DDMonthraw$Daylast), by = "month")) +
+  #note current year
+  geom_segment(aes(x = max(Daylast), y = DDMonthraw$Region[which.min(DDMonthraw$DayFirst)], xend = max(Daylast), yend = DDMonthraw$Region[which.max(DDMonthraw$DayFirst)]), colour = "#70284a", linetype="dashed", size = 1.5) +
+  #visualisation
+  theme_classic() +
+  theme(plot.background = element_rect(fill = "#fbe6c5"),
+        panel.background = element_rect(fill = "#fbe6c5"),
+        legend.background = element_rect(fill = "#fbe6c5"),
+        plot.title = element_text(colour = "#70284a", size=18,
+                                  face="bold"),
+        plot.subtitle = element_text(colour = "#70284a", size=12),
+        axis.text.x= element_text(colour="#70284a", size=12),
+        axis.text.y= element_text(colour="#70284a", size=11)) +
+  xlab("") + ylab("") +  
+  labs(subtitle=" ", 
+       title= " ",
+       caption = "Graphics: Job Nmadu | @JobNmadu 
+       \n Source: https://covid19.ncdc.gov.ng/",
+       labs(x = "Cases normalised", y = "Region"))
+
+invisible(dev.off())
+```
+
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+svglite::svglite("img/divbars.svg", width = 10, height = 7)
+theme_set(theme_bw())  
+
+# Diverging Barcharts
+ggplot(DDFb, aes(x= Region, y = `Normalised cases`,
+                 label = `Normalised cases`)) + 
+  geom_bar(stat='identity', aes(fill = case_type), width=.5)  +
+  scale_fill_manual(name="Cases", 
+                    labels = c("Above Average", "Below Average"),
+                    values = c("forestgreen", "orangered")) + 
+  labs(subtitle=" ", 
+       title= " ",
+       caption = "Graphics: Job Nmadu | @JobNmadu 
+       \n Source: https://covid19.ncdc.gov.ng/",
+       labs(x = "Cases normalised", y = "Region")) + 
+  coord_flip()
+
+invisible(dev.off())
+```
+
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+
+# HHk <- lood.model(data = niz)
+#plot(stl(niz[,2], "per"))
+#plot(stl(niz[,2], s.window = 7, t.window = 50, t.jump = 1))
+
+```
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+svglite::svglite("img/state11.svg", width = 10, height = 7)
+ggplot(DDT) +
+   aes(x = Month, colour = Month, weight = Cases) +
+   geom_bar(position = "dodge", fill = "#0c4c8a") +
+   scale_color_brewer(palette = "Accent") +
+   coord_flip() +
+   theme_minimal() +
+   theme(legend.position = "none") +
+   facet_wrap(vars(Region), scales = "free_y")
+
+invisible(dev.off())
+```
+
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+svglite::svglite("img/state11a.svg", width = 10, height = 7)
+ggplot(DDT, aes(x = Cases, fill = Region)) + #Draw overlaying histogram
+  geom_histogram(position = "identity", alpha = 0.2, bins = 50)
+
+invisible(dev.off())
+```
+
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+svglite::svglite("img/state11b.svg", width = 10, height = 7)
+ggplot(DDT, aes(x = Cases, fill = Month)) + #Draw overlaying histogram
+  geom_histogram(position = "identity", alpha = 0.2, bins = 50)
+
+invisible(dev.off())
+```
+
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+#png(filename = "state4.png", width = 1263, height = 800, type = "cairo", units = "in", res = 24)
+#ggplot(cumDat) +
+#   aes(x = Date, y = Cases, fill = Region, colour = Region) +
+#   geom_line(size = 1L) +
+#   scale_fill_hue() +
+#   scale_color_hue() +
+#   scale_y_continuous(trans = "log") +
+#   labs(x = "date", y = "Daily confimed cases") +
+#   ggthemes::theme_map() +
+#   facet_wrap(vars(Region), scales = "free_y", ncol = 3)
+```
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+
+svglite::svglite("img/state13.svg", width = 10, height = 7)
+
+CUMdat <- cumDat %>% 
+  filter(cumDat$Cases > 0)
+
+ggplot(CUMdat) +
+   aes(x = Date, y = Cases, fill = Region, colour = Region) +
+   geom_line(size = 1L) +
+   scale_fill_hue() +
+   scale_color_hue() +
+   scale_y_continuous(trans = "log") +
+   labs(x = "Date", y = "Daily confirmed cases") +
+   theme_minimal() +
+   theme(legend.position = "none") +
+   facet_wrap(vars(Region), scales = "free_y", ncol = 3)
+
+invisible(dev.off())
+```
+
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+svglite::svglite("img/state01.svg", width = 10, height = 7)
+
+ggplot(county_movavg, aes(id, week_movavg, color=County)) +
+  geom_path(color='magenta', lineend = "round", size=2) +
+  gghighlight() +
+  facet_wrap(~ County, scales = "free_x") +
+  labs(x = "Number of cases", y = "Weekly rolling average") +
+  theme(legend.position = "none")
+invisible(dev.off())
+```
+
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+
+# region_movavg$Region <- factor(region_movavg$Region, levels = States)
+svglite::svglite("img/state03.svg", width = 10, height = 7)
+ggplot(DDC) +
+  aes(x = County, weight = id, fill = County) +
+  geom_bar(position = "dodge") +
+  scale_fill_manual(values = Tint) +
+  coord_flip() +
+  theme_minimal()+
+  theme(legend.position = "none") +
+  labs(title = " ",
+       y ="\n Number of Days \n", 
+       x = "\n Region \n",
+       caption = "Graphics: Job Nmadu | @JobNmadu  \n Source: https://covid19.ncdc.gov.ng/")
+
+invisible(dev.off())
+```
+
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+svglite::svglite("img/state12.svg", width = 10, height = 7)
+ggplot(DDc) +
+   aes(x = Month, colour = Month, weight = Cases) +
+   geom_bar(position = "dodge", fill = "orangered") +
+   scale_fill_distiller() +
+   coord_flip() +
+   theme_minimal() +
+   theme(legend.position = "none") +
+   facet_wrap(vars(County), scales = "free_y")
+
+invisible(dev.off())
+```
+
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+svglite::svglite("img/state12a.svg", width = 10, height = 7)
+ggplot(DDc, aes(x = Cases, fill = County)) + #Draw overlaying histogram
+  geom_histogram(position = "identity", alpha = 0.2, bins = 50)
+
+invisible(dev.off())
+```
+
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+svglite::svglite("img/state12b.svg", width = 10, height = 7)
+ggplot(DDc, aes(x = Cases, fill = Month)) + #Draw overlaying histogram
+  geom_histogram(position = "identity", alpha = 0.2, bins = 50)
+
+invisible(dev.off())
+```
+
+
+```{r echo = FALSE, message = FALSE, warning = TRUE}
+svglite::svglite("img/PMScases1.svg", width = 10, height = 7)
+
+ggplot(DDFa1) +
+ aes(x = Date, y = Values, colour = Model) +
+ geom_line(size = 1L) +
+ scale_color_hue() +
+ scale_y_continuous() +
+ theme_minimal() +
+  labs(x = "Date", 
+       y = "Macroeconomic variables") +
+  theme(panel.grid.minor = element_blank()) +
+  labs(title = "")
+
+invisible(dev.off())
+```
+
+
+```{r echo = FALSE, message = FALSE, warning = TRUE}
+svglite::svglite("img/PMScases.svg", width = 10, height = 7)
+
+ggplot(DDFa1, aes(Date, Values, shape = Model, colour = Model,
+                  fill = Model)) +
+  geom_smooth(method = "lm", show.legend = FALSE) +
+  geom_point(size=3) +
+  theme_bw() + 
+  xlab("Months") +
+  ylab("Macroeconomic variables") +
+  ggtitle(" ") + 
+  scale_y_continuous() + 
+  guides(fill = "none")
+
+invisible(dev.off())
+```
+
+
+```{r echo = FALSE, message = FALSE, warning = TRUE, eval = FALSE}
+svglite::svglite("img/COVIDcases.svg", width = 10, height = 7)
+
+ggplot(DDFa, aes(x = COVID19 + Inflation + Teledensity, y = PMSprice)) +
+  geom_point()  + 
+  geom_smooth(method = "lm", formula = "y ~ x", 
+              colour = "blue") +
+  scale_x_continuous() +
+  scale_y_continuous() +
+  labs(y = "Monthly PMS price", 
+       x = "Model") +
+  theme(panel.grid.minor = element_blank()) +
+  labs(title = "")
+
+invisible(dev.off())
+```
+
+
+```{r echo = FALSE, message = FALSE, warning = TRUE, eval = FALSE}
+svglite::svglite("img/inflation.svg", width = 10, height = 7)
+
+ggplot(DDFa, aes(x = COVID19 + PMSprice + Teledensity, y = Inflation)) +
+  geom_point()  + 
+  geom_smooth(method = "lm", formula = "y ~ x", 
+              colour = "blue") +
+  scale_x_continuous() +
+  scale_y_continuous() +
+  labs(y = "Monthly Inflation", 
+       x = "Model") +
+  theme(panel.grid.minor = element_blank()) +
+  labs(title = "")
+
+invisible(dev.off())
+```
+
+
+```{r echo = FALSE, message = FALSE, warning = TRUE, , eval = FALSE}
+svglite::svglite("img/teledensity.svg", width = 10, height = 7)
+
+ggplot(DDFa, aes(x = COVID19 + PMSprice + Inflation, y = Teledensity)) +
+  geom_point()  + 
+  geom_smooth(method = "lm", formula = "y ~ x", 
+              colour = "blue") +
+  scale_x_continuous() +
+  scale_y_continuous() +
+  labs(y = "Monthly Inflation", 
+       x = "Model") +
+  theme(panel.grid.minor = element_blank()) +
+  labs(title = "")
+
+invisible(dev.off())
+```
+
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+
+#Table 1 Regression estimates of the effect of price of PMS on COVID-19 and vice versa
+#Table 1 Regression estimates of the effect of price of PMS on COVID-19 and vice versa
+PMSll <- lm(COVID19 ~ PMSprice + Inflation + Teledensity + `Birth rate` + Population, data = DDFa)
+PMSlll <- lm(PMSprice ~ COVID19 + Inflation + Teledensity + `Birth rate` + Population, data = DDFa)
+PMSlla <- lm(Inflation ~ COVID19 + PMSprice + Teledensity + `Birth rate` + Population, data = DDFa)
+PMSllt <- lm(Teledensity ~ Inflation + COVID19 + PMSprice + `Birth rate` + Population, data = DDFa)
+PMSllb <- lm(`Birth rate` ~ Teledensity + Inflation + COVID19 + PMSprice + Population, data = DDFa)
+PMSllp <- lm(Population ~ `Birth rate` + Teledensity + Inflation + COVID19 + PMSprice, data = DDFa)
+#PMSLL <- knitr::kable(broom::tidy(PMSll))
+#broom::glance(PMSll)
+PMSLL <- huxtable::huxreg("COVID19" = PMSll ,
+                          "PMS" = PMSlll,"Inflation" = PMSlla,
+                          "Teledensity" = PMSllt, "Birth rate" = PMSllb,
+                          "Population" = PMSllp,
+                  stars = c(`****` = 0.001, `***` = 0.01, `**` = 0.05,
+                            '*' = 0.1),
+                  statistics = NULL)
+#PMSLL
+#exp(coef((PMSlla)))
+#lmtest::grangertest(Inflation ~ COVID19, order = 1, data = DDFa)
+#lmtest::grangertest(COVID19 ~ Inflation, order = 1, data = DDFa)
+
+#ks <- margins::margins(PMSll)
+#ks1 <- margins::margins(PMSlll)
+#ks2 <- margins::margins(PMSlla)
+#rbind(ks, ks1, ks2)
+
+#ols.4 <- lm(Cases ~ as.factor(Region), data = cumDat)
+#summary(ols.4)
+
+invisible(dev.off())
+```
+
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+#png(filename = "state7.png", width = 1263, height = 800, type = "cairo", units = "in", res = 24)
+#ggplot(DDF) +
+#   aes(x = Date, y = cum_Cases, fill = Region, colour = Region) +
+#   geom_line(size = 1L) +
+#   scale_fill_hue() +
+#   scale_color_hue() +
+#   scale_y_continuous() +
+#   labs(x = "Date", y = "Daily confirmed cases, June-August") +
+#   theme_minimal() +
+#   theme(legend.position = "none") +
+#   facet_wrap(vars(Region), scales = "free_y", ncol = 3)
+```
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+#png(filename = "state8.png", width = 1263, height = 800, type = "cairo", units = "in", res = 24)
+#ggplot(DDM) +
+#   aes(x = Date, y = cum_Cases, fill = Region, colour = Region) +
+#   geom_line(size = 1L) +
+#   scale_fill_hue() +
+#   scale_color_hue() +
+#   scale_y_continuous() +
+#   labs(x = "Date", y = "Daily confirmed cases, February - May") #+
+#   theme_minimal() +
+#   theme(legend.position = "none") +
+#   facet_wrap(vars(Region), scales = "free_y", ncol = 3)
+```
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+#png(filename = "state9.png", width = 1263, height = 800, type = "cairo", units = "in", res = 24)
+#ggplot(DDL) +
+#   aes(x = Date, y = Cases) +
+#   geom_line(size = 1L) +
+#   scale_fill_hue() +
+#   scale_color_hue() +
+#   scale_y_continuous() +
+#   labs(x = "Date", y = "Daily confirmed cases, Lagos") +
+#   theme_minimal() +
+#   theme(legend.position = "right")
+```
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+#ggplot(DDL) +
+#   aes(x = Date, y = Cases) +
+#   geom_line(size = 1L, colour = "#00441b") +
+#   scale_y_continuous() +
+#   labs(x = "Date", y = "Daily confirmed cases, Lagos") +
+#   theme_minimal()
+```
+
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+svglite::svglite("img/state07.svg", width = 14, height = 10)
+
+fit0  <- lm(niz[,2] ~ bs(niz[,1], knots = NULL), data = niz)
+fit   <- lm(niz[,2] ~ bs(niz[,1], knots = BREAKS), data = niz)
+fit1  <- smooth.spline(z.s[,1],z.s[,2])
+fita  <- forecast::auto.arima(z.s$Case)
+fitpi <- lm(Case ~ Day + I(Day^2), data = niz)
+
+#z <- ts(niz$Case, start = c(2020,2,29), frequency = 7, end=c(2021,1,11))
+#zforecasts <- HoltWinters(z)
+
+plot(z.s[,1], fitted.values(fit), main = " ",
+     col = "red", type = "l", lwd = 2,
+     xlab = casesstarts,
+     ylab = "COVID-19 confirmed cases")
+lines(fitted.values(fit), col="red",lwd=2)
+grid(10,20,lty=1,lwd=1)
+lines(z.s[,2], col="brown")
+lines(fitted.values(fit0), col = "blue", lwd = 2)
+lines(fitted.values(fit1), col = "cyan", lwd = 2)
+lines(fita[["fitted"]], col = "yellow", lwd = 2)
+lines(fitted.values(fitpi), col = "skyblue", lwd = 2)
+#adding cutpoints
+abline(v = BREAKS, lwd = 2, lty = 2, col = "black")
+DDf <- c("Observed", "Spline-with knots", 
+         "Spline-without knots", "Smooth Spline",
+         "ARIMA", "Polynomial", "Cut points")
+legend("topleft", 
+       inset = c(0, 0),  bty = "n", x.intersp = 0.5,
+       xjust = 0, yjust = 0,
+       legend = DDf, col = c("brown", "red", "blue", "cyan",
+                             "yellow", "skyblue", "black"),
+       lwd = 2, cex = 0.75, xpd = TRUE, horiz = FALSE)
+
+FITS <- huxtable::huxreg("Spline with knots" = fit0 ,
+                          "Spline without knots" = fit, 
+                         # "Smooth spline" = fit1,
+                          "ARIMA" = fita,
+                          "Quardratic polynomial" = fitpi,
+                  stars = c(`****` = 0.001, `***` = 0.01,
+                            `**` = 0.05, '*' = 0.1),
+                  statistics = NULL)
+
+'Spline with knots' <- ModelSelection(Observed = niz[,2], Model = fit0, K =2, Name = "Nil", Form = "LM", kutuf = 0, TTy = "Number", Data = niz)
+'Spline without knots' <- ModelSelection(Observed = niz[,2], Model = fit, K =2,  Name = "Nil", Form = "LM", kutuf = 0, TTy = "Number", Data = niz)
+'Smooth spline' <- ModelSelection(Observed = niz[,2], Model = fit1, K =2,  Name = "SMOOTH", Form = "LM", kutuf = 0, TTy = "Number", Data = niz)
+ARIMA <- ModelSelection(Observed = niz[,2], Model = fita, K =2,  Name = "ARIMA", Form = "LM", kutuf = 0, TTy = "Number", Data = niz)
+'Quardratic polynomial' <- ModelSelection(Observed = niz[,2], Model = fitpi, K =2,  Name = "QUADRATIC", Form = "LM", kutuf = 0, TTy = "Number", Data = niz)
+SelectionCriteria <- as.data.frame(cbind(`Spline with knots`, `Spline without knots`, `Smooth spline`, ARIMA, `Quardratic polynomial`))
+
+XYZ <- knitr::kable(SelectionCriteria, "html")
+#kableExtra::kable_styling(XYZ, "striped", position = "center")
+
+invisible(dev.off())
+```
+
+
+```{r echo = FALSE, message = FALSE, warning = FALSE, eval = FALSE}
+library(gridExtra)
+pdf("docs/Selection.pdf")
+aXYZ <- knitr::kable(SelectionCriteria, format = "pipe", padding = 0)
+asas <- kableExtra::kable_styling(aXYZ, "striped")
+grid.table(asas)
+```
+
+
+```{r echo = FALSE, message = FALSE, warning = FALSE, eval = FALSE}
+
+library("performance")
+
+compare_performance(fit0, fit, fita, fitpi, rank = TRUE)
+
+plot(compare_performance(fit0, fit, fit1, fita, fitpi, rank = TRUE))
+
+compare_performance(fit0, fit, fit1, fita, fitpi)
+
+check_model(fitpi)
+```
+
+
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+kk  <- forecast::forecast(fitted.values(fit), 
+                           h = length(Dsf))
+ kk0 <- forecast::forecast(fitted.values(fit0),
+                           h = length(Dsf))
+ kk1 <- forecast::forecast(fitted.values(fit1),
+                           h = length(Dsf))
+ kk10 <- forecast::forecast(fitted.values(fitpi),
+                            h = length(Dsf))
+ kk2 <- forecast::forecast(fita, h = length(Dsf))
+ 
+ kk30 <- (fitted.values(fit) + fitted.values(fit0) +
+              fitted.values(fit1) + fitted.values(fitpi) +
+            fita[["fitted"]])/5
+ kk31 <- forecast::forecast(kk30, h = length(Dsf))
+ 
+ kk40 <- lm(niz[,2]~fitted.values(fit)*fitted.values(fit0)*
+              fitted.values(fit1)*fitted.values(fitpi)*
+              fita[["fitted"]])
+ kk41 <- forecast::forecast(fitted.values(kk40),
+                            h = length(Dsf))
+ kk60 <- lm(niz[,2]~fitted.values(fit)+fitted.values(fit0)+
+              fitted.values(fit1)+fitted.values(fitpi)+
+              fita[["fitted"]])
+ kk61 <- forecast::forecast(fitted.values(kk60),
+                            h = length(Dsf))
+ 
+ KK <- as.data.frame(cbind("Date" = Dsf,"Day" = ss, "Without Knots" = kk[["mean"]], "Smooth spline" = kk0[["mean"]],  "With Knots" = kk1[["mean"]], "Polynomial" = kk10[["mean"]], "Lower ARIMA" = kk2[["lower"]], "Upper ARIMA" = 
+                             kk2[["upper"]]))
+
+ KK <- KK[,-c(7,9)]
+names(KK) <- c("Date", "Day", "Without Knots", "Smooth spline", "With Knots", "Polynomial", "Lower ARIMA", "Upper ARIMA") 
+
+WK   <- sum(KK$`Without Knots`)
+WKs  <- sum(KK$`With Knots`)   
+SMsp <- sum(KK$`Smooth spline`)
+LA   <- sum(KK$`Lower ARIMA`)  
+UA   <- sum(KK$`Upper ARIMA`)  
+POL  <- sum(KK$Polynomial)
+
+RMSE <- c("Without knots" = rmse(niz[,2],
+                                 fitted.values(fit)),
+"Smooth Spline" = rmse(niz[,2], fitted.values(fit0)),
+"With knots" = rmse(niz[,2], fitted.values(fit1)),
+"Polynomial" = rmse(niz[,2], fitted.values(fitpi)),
+"Lower ARIMA" = rmse(niz[,2], fita[["fitted"]]),
+"Upper ARIMA" = rmse(niz[,2], fita[["fitted"]]))
+
+#RMSE <- 1/RMSE
+RMSE_weight <- as.list(RMSE / sum(RMSE))
+
+KK$Date <- as.Date(KK$Date)
+
+DDf <- c("Without knots", "Smooth Spline", 
+          "With knots", "Quadratic Polynomial",
+         "Lower ARIMA", "Upper ARIMA",
+         "Essembled with equal weight",
+         "Essembled based on weight",
+         "Essembled based on summed weight",
+         "Essembled based on weight of fit" )
+```
+
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+
+KK$`Essembled with equal weight` <- kk31[["mean"]]
+KK$`Essembled based on weight` <- kk41[["mean"]]
+KK$`Essembled based on summed weight` <- kk61[["mean"]]
+ESS  <- sum(KK$`Essembled with equal weight`)
+ESM  <- sum(KK$`Essembled based on weight`)
+ESMS  <- sum(KK$`Essembled based on summed weight`)
+P_weight <-
+  (fitted.values(fit) * RMSE_weight$`Without knots`) + (fitted.values(fit0) *
+                                                          RMSE_weight$`Smooth Spline`) +
+  (fitted.values(fit1) * RMSE_weight$`With knots`) + (fitted.values(fitpi) *
+                                                        RMSE_weight$Polynomial) + (fita[["fitted"]] * RMSE_weight$`Lower ARIMA`)
+kk51 <- forecast::forecast(P_weight, h = length(Dsf))
+KK$`Essembled based on weight of fit` <-
+  kk51[["mean"]]
+ESF  <- sum(KK$`Essembled based on weight of fit`)
+RMSE$`Essembled with equal weight` <- rmse(niz[,2], kk30)
+RMSE$`Essembled based on weight` <- rmse(niz[,2], fitted.values(kk40))
+RMSE$`Essembled based on summed weight` <- rmse(niz[,2], fitted.values(kk60))
+RMSE$`Essembled based on weight of fit` <- rmse(niz[,2], P_weight)
+Forcasts <- colSums(KK[,-c(1,2)])
+RMSE_f <- as.data.frame(cbind("Model" = DDf,
+                              "Confirmed cases" =
+                                comma(round(Forcasts, 0))))
+```
+
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+
+svglite::svglite("img/state08.svg", width = 10, height = 7)
+plot(KK$Day, KK$`Without Knots`, main = " ",
+      col = "red", type = "l", lwd = 2,
+      xlab = forcaststarts,
+      ylab = "COVID-19 daliy forecast")
+ grid(10,20,lty=1,lwd=1)
+ lines(KK$`Smooth spline`, col = "blue", lwd = 2)
+ lines(KK$`With Knots`, col = "cyan", lwd = 2)
+ lines(KK$Polynomial, col = "skyblue", lwd = 2)
+ lines(KK$`Lower ARIMA`, col = "green", lwd = 2)
+ lines(KK$`Upper ARIMA`, col = "yellow", lwd = 2)
+ lines(KK$`Essembled with equal weight`, col = "orange",
+       lwd = 2)
+ lines(KK$`Essembled based on weight`, 
+       col = "black", lwd = 2)
+ lines(KK$`Essembled based on weight of fit`,
+       col = "pink", lwd = 2)
+ legend("bottomleft", 
+        inset = c(0, 0),  bty = "n", x.intersp = 0.5,
+        xjust = 0, yjust = 0,
+        legend = DDf, col = c("red", "blue", "cyan",
+                              "skyblue", "green",
+                            "yellow",  "orange",
+                            "black", "pink"),
+        lwd = 2, cex = 0.75, xpd = TRUE, horiz = FALSE)
+ invisible(dev.off())
+```
+
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+
+svglite::svglite("img/state09.svg", width = 10, height = 7)
+ 
+KK1 <- KK %>%
+   pivot_longer(-c(Date, Day), names_to = "Models",
+                values_to = "Forecast")
+KK1$Date <- as.Date(KK1$Date) 
+
+ ggplot(KK1) +
+   aes(x = Date, y = Forecast, colour = Models, group = Models) +
+   geom_line(size = 1L) +
+   scale_color_hue() +
+   theme_bw() +
+   labs(title = "\n  \n",
+        subtitle = " ",
+        caption = "Graphics: Job Nmadu | @JobNmadu  \n Source: https://covid19.ncdc.gov.ng/")
+ 
+ invisible(dev.off())
+```
+
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+
+svglite::svglite("img/dynamic21.svg", width = 12, height = 11)
+
+#source("docs/DynamicForecast.R")
+library(Dyn4cast)
+niz1 <- cbind("Date" = cumper$Date, niz)
+lastdayfo21 <- Dss[length(Dss)]
+
+KK_14 <- niz1[niz1$Date <= lastdayfo21 - 14, ]
+Days_14 <- DynamicForecast(Data = KK_14, BREAKS = BREAKS, MaximumDate = dayfo2021 - lubridate::days(14), Trend = "Day")
+
+KK_07 <- niz1[niz1$Date <= lastdayfo21 - 07, ]
+Days_07 <- DynamicForecast(Data = KK_07, BREAKS = BREAKS, MaximumDate = dayfo2021 - lubridate::days(07), Trend = "Day")
+
+KK_04 <- niz1[niz1$Date <= lastdayfo21 - 04, ]
+Days_04 <- DynamicForecast(Data = KK_04, BREAKS = BREAKS, MaximumDate = dayfo2021 - lubridate::days(04), Trend = "Day")
+
+KK_03 <- niz1[niz1$Date <= lastdayfo21 - 03, ]
+Days_03 <- DynamicForecast(Data = KK_03, BREAKS = BREAKS, MaximumDate = dayfo2021 - lubridate::days(03), Trend = "Day")
+
+KK_02 <- niz1[niz1$Date <= lastdayfo21 - 02, ]
+Days_02 <- DynamicForecast(Data = KK_02, BREAKS = BREAKS, MaximumDate = dayfo2021 - lubridate::days(02), Trend = "Day")
+
+KK_01 <- niz1[niz1$Date <= lastdayfo21 - 01, ]
+Days_01 <- DynamicForecast(Data = KK_01, BREAKS = BREAKS, MaximumDate = dayfo2021 - lubridate::days(01), Trend = "Day")
+
+Forecast_dyn <-
+  cbind.data.frame("Model" = DDf,
+    cbind(Days_14[["Forecast"]][["Case"]],
+    Days_07[["Forecast"]][["Case"]],
+    Days_04[["Forecast"]][["Case"]],
+    Days_03[["Forecast"]][["Case"]],
+    Days_02[["Forecast"]][["Case"]],
+    Days_01[["Forecast"]][["Case"]]))
+names(Forecast_dyn) <- c("Model", Days_14$Date, Days_07$Date, Days_04$Date,
+                         Days_03$Date, Days_02$Date, Days_01$Date)
+Forecast_dyn1 <- knitr::kable(Forecast_dyn, "html")
+
+RMSE_dyn <-
+  cbind.data.frame("Model" = DDf, Days_14$RMSE[,2], Days_07$RMSE[,2],
+                   Days_04$RMSE[,2], Days_03$RMSE[,2], Days_02$RMSE[,2],
+                   Days_01$RMSE[,2])
+names(RMSE_dyn) <- c("Model", Days_14$Date, Days_07$Date, Days_04$Date,
+                         Days_03$Date, Days_02$Date, Days_01$Date)
+RMSE_dyn1 <- knitr::kable(RMSE_dyn, row.names = FALSE, "html")
+
+Days_14$Plot + Days_07$Plot + Days_04$Plot + Days_03$Plot + Days_02$Plot +  Days_01$Plot + plot_annotation() +
+plot_annotation(title = " ",
+                  subtitle = " ",
+                caption = "Graphics: Job Nmadu | @JobNmadu
+  \n Source: https://covid19.ncdc.gov.ng/") +
+  plot_layout(guides = "collect") &
+  theme(plot.title = element_text(hjust = 0.5, size = 12, face = "bold"),
+        plot.subtitle = element_text(hjust = 0.5, size = 12),
+        plot.background = element_rect(),
+        legend.position = "bottom",
+        legend.title = element_blank(),
+        legend.text = element_text(size = 10))
+
+invisible(dev.off())
+```
+
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+
+svglite::svglite("img/deaths.svg", width = 10, height = 7)
+Deaths <- readr::read_csv("data/today.csv")
+names(Deaths) <- c("Region", "Confirmed", "Active", "Recovered", "Deaths")
+DDmap <- Deaths
+States_county <- read_excel("data/States.xlsx")
+Deaths$County <- States_county$County
+Deaths <- Deaths[order(-Deaths$Deaths),]
+Deaths$Region <- factor(Deaths$Region, levels = Deaths$Region)
+Deaths$Ratio <- Deaths$Deaths/Deaths$Confirmed*100
+Deaths <- Deaths[order(-Deaths$Ratio),]
+Deaths$Region <- factor(Deaths$Region, levels = Deaths$Region)
+
+ggplot(Deaths) +
+  aes(x = Region, weight = Ratio, fill = Region) +
+  geom_bar(position = "dodge") +
+  scale_fill_manual(values = Tint) +
+  coord_flip() +
+  theme_minimal()+
+  theme(legend.position = "none")+
+  labs(title = " ",
+       y ="\n Percentage of deaths from confirmed COVID19 cases", 
+       x = "\n State \n",
+       caption = "Graphics: Job Nmadu | @JobNmadu  \n Source: https://covid19.ncdc.gov.ng/")
+
+invisible(dev.off())
+```
+
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+
+svglite::svglite("img/recover1.svg", width = 10, height = 7)
+Deaths$RecRatio <- Deaths$Recovered/Deaths$Confirmed*100
+Deaths <- Deaths[order(-Deaths$RecRatio),]
+Deaths$Region <- factor(Deaths$Region, levels = Deaths$Region)
+PerDeath <- round(sum((Deaths$Deaths)/
+                     sum(Deaths$Confirmed)*100), 2)
+PerRec <- round(sum((Deaths$Recovered)/
+                     sum(Deaths$Confirmed)*100), 2)
+
+Numbers2 <- ggplot(Deaths) +
+  aes(x = Region, weight = RecRatio, fill = Region) +
+  geom_bar(position = "dodge") +
+  scale_fill_manual(values = Tint) +
+  coord_flip() +
+  theme_minimal()+
+  theme(legend.position = "none")+
+  labs(title = " ",
+       y ="\n Percentage of recoveries from confirmed COVID19 cases", 
+       x = "\n State \n")
+
+Numbers3 <- Deaths %>%
+   ggplot(aes(x = RecRatio, y = Region)) +
+  geom_segment(aes(xend = 10, yend = Region),
+               color = "wheat",
+               size = 1.0,
+               linetype = "solid") +
+  geom_point(size = 4,
+             color = Tinty) +
+  geom_text(aes(x = 1.00, label = Region), 
+            size = 2.5, 
+            hjust = .5) +
+  scale_x_continuous(limits = c(0,NA)) +
+  labs(title = " ",
+       x = "Percentage of recoveries from confirmed COVID19 cases",
+       y = "States",
+       caption = " ") +
+  theme_minimal(base_size = 8) +
+  theme(panel.grid = element_blank(),
+        plot.title.position = "plot",
+        axis.text.y = element_blank(),
+        plot.background = element_rect(fill = "white"))
+
+Numbers2 + Numbers3 + plot_annotation(
+  caption = "Graphics: Job Nmadu | @JobNmadu
+  \n Source: https://covid19.ncdc.gov.ng/")
+
+invisible(dev.off())
+```
+
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+
+RMSE_f$Recoveries <- comma(round(Forcasts * PerRec/100, 0))
+RMSE_f$Fatalities <- round(Forcasts * PerDeath/100, 0)
+RMSE_f$RMSE <- RMSE
+RMSE_f <- RMSE_f[order(-RMSE_f$Fatalities),]
+RMSE_f$Model <- factor(RMSE_f$Model, levels = RMSE_f$Model)
+RMSE_f$Fatalities <- comma(RMSE_f$Fatalities)
+RMSE_fk <- knitr::kable(RMSE_f, row.names = FALSE, "html")
+
+```
+
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+svglite::svglite("img/recover.svg", width = 10, height = 7)
+
+DD121 <- Deaths %>% 
+  group_by(County) %>% 
+  mutate(Ratio1 = sum(Ratio),
+         SumCases = sum(Deaths)) %>% 
+  slice(1)
+DD121 <- DD121[order(-DD121$Ratio1),]
+DD121$County <- factor(DD121$County, levels = DD121$County)
+
+DD122 <- Deaths %>% 
+  filter(Region != "Kogi") %>% 
+  group_by(County) %>% 
+  mutate(Ratio1 = sum(Ratio),
+         SumCases = sum(Deaths)) %>% 
+  slice(1)
+DD122 <- DD122[order(-DD122$Ratio1),]
+DD122$County <- factor(DD122$County, levels = DD122$County)
+
+DD121r <- Deaths %>% 
+  group_by(County) %>% 
+  mutate(RecRatio1 = sum(RecRatio),
+         SumCases = sum(Deaths)) %>% 
+  slice(1)
+DD121r <- DD121r[order(-DD121r$RecRatio1),]
+DD121r$County <- factor(DD121r$County, levels = DD121r$County)
+
+DD122r <- Deaths %>% 
+  filter(Region != "Kogi") %>% 
+  group_by(County) %>% 
+  mutate(RecRatio1 = sum(RecRatio),
+         SumCases = sum(Deaths)) %>% 
+  slice(1)
+DD122r <- DD122r[order(-DD122r$RecRatio1),]
+DD122r$County <- factor(DD122r$County, levels = DD122r$County)
+
+uu1 <- ggplot(DD121) +
+  aes(x = County, weight = Ratio1, fill = County) +
+  geom_bar(position = "dodge") +
+  scale_fill_manual(values = Tint) +
+  coord_flip() +
+  theme_minimal()+
+  theme(legend.position = "none")+
+  labs(title = "Kogi State inclusive",
+       y ="\n Percentage of deaths from confirmed COVID19 cases", 
+       x = "\n Zone \n",
+       caption = " ")
+
+Colour <- c("black",	"blue",	"brown", "chartreuse","aquamarine", 
+          "chocolate",	"coral")
+uu2 <- ggplot(DD122) +
+  aes(x = County, weight = Ratio1, fill = County) +
+  geom_bar(position = "dodge") +
+  scale_fill_manual(values = Colour) +
+  coord_flip() +
+  theme_minimal()+
+  theme(legend.position = "none")+
+  labs(title = "Excluding Kogi State ",
+       y ="\n Percentage of deaths from confirmed COVID19 cases", 
+       x = "\n Zone \n",
+       caption = " ")
+
+rr1 <- ggplot(DD121r) +
+  aes(x = County, weight = RecRatio1, fill = County) +
+  geom_bar(position = "dodge") +
+  scale_fill_manual(values = Tint) +
+  coord_flip() +
+  theme_minimal()+
+  theme(legend.position = "none")+
+  labs(title = "Kogi State inclusive",
+       y ="\n Percentage of recoveries from confirmed COVID19 cases", 
+       x = "\n Zone \n",
+       caption = " ")
+
+Colour <- c("aquamarine", "black",	"blue",	"brown",	
+          "chocolate","chartreuse",	"coral")
+
+rr2 <- ggplot(DD122r) +
+  aes(x = County, weight = RecRatio1, fill = County) +
+  geom_bar(position = "dodge") +
+  scale_fill_manual(values = Colour) +
+  coord_flip() +
+  theme_minimal()+
+  theme(legend.position = "none")+
+  labs(title = "Excluding Kogi State ",
+       y ="\n Percentage of recoveries from confirmed COVID19 cases", 
+       x = "\n Zone \n",
+       caption = " ")
+
+(uu1 + uu2)/(rr1 + rr2) + plot_annotation(
+  caption = "Graphics: Job Nmadu | @JobNmadu
+  \n Source: https://covid19.ncdc.gov.ng/")
+
+
+invisible(dev.off())
+```
+
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+
+svglite::svglite("img/heat.svg", width = 8, height = 9)
+
+death_long_table <- DDmap %>%
+    pivot_longer(
+        cols      = Confirmed:Deaths,
+        names_to  = "class",
+        values_to = "value"
+    )
+
+death_long_table %>%
+    ggplot(aes(class, Region, fill = value)) +
+    geom_tile() +
+    geom_label(aes(label = value), fill = "gold") +
+    scale_fill_steps() +
+    theme_minimal() +
+    labs(title = "")
+
+invisible(dev.off())
+```
+
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
+svglite::svglite("img/asia.svg", width = 11, height = 12)
+
+library(ggstatsplot)
+
+ppkhg <- ggdotplotstats(DDFb,
+  y = Region,
+  x = COVID19,
+  test.value = 0,
+  test.value.line = TRUE,
+  centrality.parameter = "median",
+  centrality.k = 0,
+  title = "Confirmed cases",
+  xlab = "cases")
+
+Deaths <- Deaths[order(-Deaths$Ratio),]
+Deaths$Region <- factor(Deaths$Region, levels = Deaths$Region)
+ppkhg1 <- ggdotplotstats(Deaths,
+  y = Region,
+  x = Ratio,
+  test.value = 0,
+  test.value.line = TRUE,
+  centrality.parameter = "median",
+  centrality.k = 0,
+  title = "Casualties",
+  xlab = "Per cent cases in the State")
+
+Deaths <- Deaths[order(-Deaths$Active),]
+Deaths$Region <- factor(Deaths$Region, levels = Deaths$Region)
+ppkhg2 <- ggdotplotstats(Deaths,
+  y = Region,
+  x = Active,
+  test.value = 0,
+  test.value.line = TRUE,
+  centrality.parameter = "median",
+  centrality.k = 0,
+  title = "Acitve cases",
+       xlab = "cases")
+
+ppkhg3 <- ggdotplotstats(Deaths,
+  y = Region,
+  x = RecRatio,
+  test.value = 0,
+  test.value.line = TRUE,
+  centrality.parameter = "median",
+  centrality.k = 0,
+  title = "Recovered cases",
+  xlab = "Per cent of cases in the State")
+
+ppkhg + ppkhg1 + ppkhg2 + ppkhg3 + plot_annotation(
+  caption = "Graphics: Job Nmadu | @JobNmadu
+  \n Source: https://covid19.ncdc.gov.ng/")
+
+invisible(dev.off())
+```
+
+
+```{r echo = FALSE, message = FALSE, warning = FALSE, eval = FALSE}
+
+### **`r  comma(round(WK  , 0))`** from grafted (spline) polynomial model without knots
+### **`r  comma(round(WKs , 0))`** from grafted (spline) polynomial model with knots
+### **`r  comma(round(SMsp, 0))`** from smooth spline model
+### **`r  comma(round(LA  , 0))`** from ARIMA model (95% lower confidence band)
+### **`r  comma(round(UA  , 0))`** from ARIMA model (95% upper confidence band)
+### **`r  comma(round(POL , 0))`** from quadratic polynomial model
+### **`r  comma(round(ESS , 0))`** from essembled forcast with equal weight to all the models
+### **`r  comma(round(ESM , 0))`** from essembled forcast based on  weight of each model
+### **`r  comma(round(ESF , 0))`** from essembled forcast based on weight of fit of each model  
+
+**Root mean square error of the various forcasts**
+
+  \newpage
+
+### Appendix
+The full script for the various visuals:
+r ref.label = knitr::all_labels, echo = TRUE, eval = FALSE
+```
+  
+  
+### It is now **`r length(cumper$DailyCase)`** days since the first COVID-19 case was reported in Nigeria. As at `r daylast` the confirmed cases are **`r comma(sum(niz$Case))`** with **`r comma(sum(Deaths$Deaths))`** (**`r Percent(Data = PerDeath, Type = "Value")`**) fatalities, however, **`r comma(sum(Deaths$Recovered))`** (**`r Percent(Data = PerRec, Type = "Value")`**) have recovered. 
+### Based on **equal days forecast**, by `r lastdayfo`, Nigeria's aggregate confirmed COVID-19 cases are forecast to be:
+
+`r kableExtra::kable_styling(RMSE_fk, "striped", position = "center")`  
+_Refer to Table 2 and Table 3 as well as Fig. 18-20 for more details on how the estimates and forecasts were obtained._ 
+
+
+  
+# Take a further look at some of the visuals 
+
+
+![Fig. 1a Daily observed cases of COVID-19 in Nigeria](img/raw000.svg)
+  
+![Fig. 2 Perecentages and previous days differences of COVID-19 in Nigeria `r casesstarts`](img/state05.svg)
+  
+![Fig. 3 Cases recorded in percentages `r casesstarts` (legend as Fig. 2)](img/state06.svg)
+  
+![Fig. 4 Cumulative cases and Forecast of COVID-19 cases in Nigeria `r forcaststarts`](img/state10.svg)
