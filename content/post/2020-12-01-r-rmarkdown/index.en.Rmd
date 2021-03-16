@@ -1500,11 +1500,21 @@ r ref.label = knitr::all_labels, echo = TRUE, eval = FALSE
   
   
 ### It is now **`r length(cumper$DailyCase)`** days since the first COVID-19 case was reported in Nigeria. As at `r daylast` the confirmed cases are **`r comma(sum(niz$Case))`** with **`r comma(sum(Deaths$Deaths))`** (**`r Percent(Data = PerDeath, Type = "Value")`**) fatalities, however, **`r comma(sum(Deaths$Recovered))`** (**`r Percent(Data = PerRec, Type = "Value")`**) have recovered. 
+
 ### Based on **equal days forecast**, by `r lastdayfo`, Nigeria's aggregate confirmed COVID-19 cases are forecast to be:
 
-`r kableExtra::kable_styling(RMSE_fk, "striped", position = "center")`  
-_Refer to Table 2 and Table 3 as well as Fig. 18-20 for more details on how the estimates and forecasts were obtained._ 
-
+Model                           | Confirmed cases  |Recoveries  |Fatalities | RMSE
+------------------------------- |------------------|------------|-----------|-----
+Smooth Spline                   |   889,385        |805,694     |11,117     | 371
+Upper ARIMA                     |   805,328        |729,547     |10,067     | 209 
+Quadratic Polynomial            |   598,274        |541,977     |7,478      | 374
+Essembled based on summed weight| -70,387          |-63,763     |-880       | 185
+Essembled based on weight of fit| -94,320          |-85,444     |-1,179     | 284
+Essembled based on weight       | -182,959         |-165,743    | -2,287    | 180
+Essembled with equal weight     | -426,038         |-385,948    | -5,325    | 232
+Lower ARIMA                     | -626,365         |-567,424    | -7,830    | 209 
+Without knots                   | -815,453         | -738,719   | -10,193   | 200 
+With knots                      | -1,114,856       | -1,009,948 | -13,936   | 187
 
   
 # Take a further look at some of the visuals 
@@ -1512,8 +1522,8 @@ _Refer to Table 2 and Table 3 as well as Fig. 18-20 for more details on how the 
 
 ![Fig. 1a Daily observed cases of COVID-19 in Nigeria](img/raw000.svg)
   
-![Fig. 2 Perecentages and previous days differences of COVID-19 in Nigeria `r casesstarts`](img/state05.svg)
+![](img/state05.svg)
   
-![Fig. 3 Cases recorded in percentages `r casesstarts` (legend as Fig. 2)](img/state06.svg)
+![)](img/state06.svg)
   
-![Fig. 4 Cumulative cases and Forecast of COVID-19 cases in Nigeria `r forcaststarts`](img/state10.svg)
+![](img/state10.svg)
