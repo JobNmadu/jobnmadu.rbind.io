@@ -37,7 +37,7 @@ date_format = "Jan 2006"
 [[experience]]
   title = "Chief Lecturer"
   company = "The Federal Polytechic"
-  company_url = "www.fedpolybida.edu.ng"
+  company_url = "https://www.fedpolybida.edu.ng"
   location = "Bida"
   date_start = "1992-01-14"
   date_end = "2006-09-30"
