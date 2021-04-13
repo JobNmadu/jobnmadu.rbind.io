@@ -28,7 +28,7 @@ name: Job Nmadu
 organizations:
 - name: Federal University of Technology, Minna, Nigeria
   url: "www.futminna.edu.ng"
-role: Professor of Agricultural Economics and Industrial Liaison Officer
+role: Professor of Agricultural Economics and Dean of the School of Agriculture and Agricultural Technology
 social:
 - icon: envelope
   icon_pack: fas
