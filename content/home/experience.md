@@ -20,7 +20,7 @@ date_format = "Jan 2006"
 [[experience]]
   title = "Professor"
   company = "The Federal University of Technology"
-  company_url = "www.futminna.edu.ng"
+  company_url = "https://www.futminna.edu.ng"
   location = "Minna"
   date_start = "2006-10-01"
   date_end = ""
