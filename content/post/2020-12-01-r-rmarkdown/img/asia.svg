@@ -306,15 +306,15 @@
 <text x='126.76' y='406.52' style='font-size: 6.16px; font-family: Arial;' textLength='26.96px' lengthAdjust='spacingAndGlyphs'>difference</text>
 <text x='126.76' y='399.34' style='font-size: 6.16px; font-family: Arial;' textLength='23.98px' lengthAdjust='spacingAndGlyphs'>posterior</text>
 <text x='153.72' y='404.22' style='font-size: 8.80px; font-family: Arial;' textLength='10.04px' lengthAdjust='spacingAndGlyphs'> = </text>
-<text x='163.75' y='404.22' style='font-size: 8.80px; font-family: Arial;' textLength='34.75px' lengthAdjust='spacingAndGlyphs'>-4053.73</text>
+<text x='163.75' y='404.22' style='font-size: 8.80px; font-family: Arial;' textLength='34.75px' lengthAdjust='spacingAndGlyphs'>-4107.57</text>
 <text x='198.51' y='404.22' style='font-size: 8.80px; font-family: Arial;' textLength='4.90px' lengthAdjust='spacingAndGlyphs'>, </text>
 <text x='203.40' y='404.22' style='font-size: 8.80px; font-family: Arial;' textLength='8.80px' lengthAdjust='spacingAndGlyphs'>CI</text>
 <text x='212.20' y='407.06' style='font-size: 6.16px; font-family: Arial;' textLength='12.33px' lengthAdjust='spacingAndGlyphs'>95%</text>
 <text x='212.20' y='399.88' style='font-size: 6.16px; font-family: Arial;' textLength='10.60px' lengthAdjust='spacingAndGlyphs'>HDI</text>
 <text x='224.53' y='404.22' style='font-size: 8.80px; font-family: Arial;' textLength='4.90px' lengthAdjust='spacingAndGlyphs'> [</text>
-<text x='229.42' y='404.22' style='font-size: 8.80px; font-family: Arial;' textLength='34.75px' lengthAdjust='spacingAndGlyphs'>-7191.77</text>
+<text x='229.42' y='404.22' style='font-size: 8.80px; font-family: Arial;' textLength='34.75px' lengthAdjust='spacingAndGlyphs'>-7179.56</text>
 <text x='264.18' y='404.22' style='font-size: 8.80px; font-family: Arial;' textLength='4.90px' lengthAdjust='spacingAndGlyphs'>, </text>
-<text x='269.07' y='404.22' style='font-size: 8.80px; font-family: Arial;' textLength='29.86px' lengthAdjust='spacingAndGlyphs'>-923.06</text>
+<text x='269.07' y='404.22' style='font-size: 8.80px; font-family: Arial;' textLength='29.86px' lengthAdjust='spacingAndGlyphs'>-847.54</text>
 <text x='298.93' y='404.22' style='font-size: 8.80px; font-family: Arial;' textLength='7.34px' lengthAdjust='spacingAndGlyphs'>], </text>
 <text x='306.28' y='404.22' style='font-size: 8.80px; font-style: italic; font-family: Arial;' textLength='2.93px' lengthAdjust='spacingAndGlyphs'>r</text>
 <text x='309.91' y='407.06' style='font-size: 6.16px; font-family: Arial;' textLength='20.89px' lengthAdjust='spacingAndGlyphs'>Cauchy</text>
@@ -612,15 +612,15 @@
 <text x='556.45' y='406.52' style='font-size: 6.16px; font-family: Arial;' textLength='26.96px' lengthAdjust='spacingAndGlyphs'>difference</text>
 <text x='556.45' y='399.34' style='font-size: 6.16px; font-family: Arial;' textLength='23.98px' lengthAdjust='spacingAndGlyphs'>posterior</text>
 <text x='583.40' y='404.22' style='font-size: 8.80px; font-family: Arial;' textLength='10.04px' lengthAdjust='spacingAndGlyphs'> = </text>
-<text x='593.44' y='404.22' style='font-size: 8.80px; font-family: Arial;' textLength='20.07px' lengthAdjust='spacingAndGlyphs'>-2.90</text>
+<text x='593.44' y='404.22' style='font-size: 8.80px; font-family: Arial;' textLength='20.07px' lengthAdjust='spacingAndGlyphs'>-2.86</text>
 <text x='613.51' y='404.22' style='font-size: 8.80px; font-family: Arial;' textLength='4.90px' lengthAdjust='spacingAndGlyphs'>, </text>
 <text x='618.40' y='404.22' style='font-size: 8.80px; font-family: Arial;' textLength='8.80px' lengthAdjust='spacingAndGlyphs'>CI</text>
 <text x='627.20' y='407.06' style='font-size: 6.16px; font-family: Arial;' textLength='12.33px' lengthAdjust='spacingAndGlyphs'>95%</text>
 <text x='627.20' y='399.88' style='font-size: 6.16px; font-family: Arial;' textLength='10.60px' lengthAdjust='spacingAndGlyphs'>HDI</text>
 <text x='639.53' y='404.22' style='font-size: 8.80px; font-family: Arial;' textLength='4.90px' lengthAdjust='spacingAndGlyphs'> [</text>
-<text x='644.42' y='404.22' style='font-size: 8.80px; font-family: Arial;' textLength='20.07px' lengthAdjust='spacingAndGlyphs'>-4.90</text>
+<text x='644.42' y='404.22' style='font-size: 8.80px; font-family: Arial;' textLength='20.07px' lengthAdjust='spacingAndGlyphs'>-4.93</text>
 <text x='664.49' y='404.22' style='font-size: 8.80px; font-family: Arial;' textLength='4.90px' lengthAdjust='spacingAndGlyphs'>, </text>
-<text x='669.39' y='404.22' style='font-size: 8.80px; font-family: Arial;' textLength='20.07px' lengthAdjust='spacingAndGlyphs'>-0.81</text>
+<text x='669.39' y='404.22' style='font-size: 8.80px; font-family: Arial;' textLength='20.07px' lengthAdjust='spacingAndGlyphs'>-0.83</text>
 <text x='689.45' y='404.22' style='font-size: 8.80px; font-family: Arial;' textLength='7.34px' lengthAdjust='spacingAndGlyphs'>], </text>
 <text x='696.80' y='404.22' style='font-size: 8.80px; font-style: italic; font-family: Arial;' textLength='2.93px' lengthAdjust='spacingAndGlyphs'>r</text>
 <text x='700.43' y='407.06' style='font-size: 6.16px; font-family: Arial;' textLength='20.89px' lengthAdjust='spacingAndGlyphs'>Cauchy</text>
@@ -903,27 +903,27 @@
 <text x='359.40' y='446.65' style='font-size: 10.00px; font-family: Arial;' textLength='11.40px' lengthAdjust='spacingAndGlyphs'> = </text>
 <text x='370.80' y='446.65' style='font-size: 10.00px; font-family: Arial;' textLength='11.13px' lengthAdjust='spacingAndGlyphs'>37</text>
 <text x='61.84' y='429.76' style='font-size: 12.00px; font-weight: bold; font-family: Arial;' textLength='72.73px' lengthAdjust='spacingAndGlyphs'>Acitve cases</text>
-<text x='57.15' y='814.42' style='font-size: 8.80px; font-family: Arial;' textLength='11.74px' lengthAdjust='spacingAndGlyphs'>log</text>
-<text x='68.89' y='816.02' style='font-size: 6.16px; font-family: Arial;' textLength='3.43px' lengthAdjust='spacingAndGlyphs'>e</text>
-<text x='72.32' y='814.42' style='font-size: 8.80px; font-family: Arial;' textLength='14.17px' lengthAdjust='spacingAndGlyphs'>(BF</text>
-<text x='86.49' y='816.02' style='font-size: 6.16px; font-family: Arial;' textLength='6.85px' lengthAdjust='spacingAndGlyphs'>01</text>
-<text x='93.34' y='814.42' style='font-size: 8.80px; font-family: Arial;' textLength='12.97px' lengthAdjust='spacingAndGlyphs'>) = </text>
-<text x='106.31' y='814.42' style='font-size: 8.80px; font-family: Arial;' textLength='20.07px' lengthAdjust='spacingAndGlyphs'>-2.49</text>
-<text x='126.38' y='814.42' style='font-size: 8.80px; font-family: Arial;' textLength='4.90px' lengthAdjust='spacingAndGlyphs'>, </text>
-<text x='131.27' y='814.42' style='font-size: 8.80px; font-family: Arial;' textLength='5.28px' lengthAdjust='spacingAndGlyphs'>δ</text>
-<polyline points='131.27,807.66 133.91,805.77 136.55,807.66 ' style='stroke-width: 0.75;' />
-<text x='136.55' y='816.72' style='font-size: 6.16px; font-family: Arial;' textLength='26.96px' lengthAdjust='spacingAndGlyphs'>difference</text>
-<text x='136.55' y='809.55' style='font-size: 6.16px; font-family: Arial;' textLength='23.98px' lengthAdjust='spacingAndGlyphs'>posterior</text>
-<text x='163.51' y='814.42' style='font-size: 8.80px; font-family: Arial;' textLength='10.04px' lengthAdjust='spacingAndGlyphs'> = </text>
-<text x='173.54' y='814.42' style='font-size: 8.80px; font-family: Arial;' textLength='29.86px' lengthAdjust='spacingAndGlyphs'>-334.83</text>
-<text x='203.40' y='814.42' style='font-size: 8.80px; font-family: Arial;' textLength='4.90px' lengthAdjust='spacingAndGlyphs'>, </text>
-<text x='208.30' y='814.42' style='font-size: 8.80px; font-family: Arial;' textLength='8.80px' lengthAdjust='spacingAndGlyphs'>CI</text>
-<text x='217.10' y='817.26' style='font-size: 6.16px; font-family: Arial;' textLength='12.33px' lengthAdjust='spacingAndGlyphs'>95%</text>
-<text x='217.10' y='810.09' style='font-size: 6.16px; font-family: Arial;' textLength='10.60px' lengthAdjust='spacingAndGlyphs'>HDI</text>
-<text x='229.42' y='814.42' style='font-size: 8.80px; font-family: Arial;' textLength='4.90px' lengthAdjust='spacingAndGlyphs'> [</text>
-<text x='234.32' y='814.42' style='font-size: 8.80px; font-family: Arial;' textLength='29.86px' lengthAdjust='spacingAndGlyphs'>-558.23</text>
-<text x='264.18' y='814.42' style='font-size: 8.80px; font-family: Arial;' textLength='4.90px' lengthAdjust='spacingAndGlyphs'>, </text>
-<text x='269.07' y='814.42' style='font-size: 8.80px; font-family: Arial;' textLength='29.86px' lengthAdjust='spacingAndGlyphs'>-123.85</text>
+<text x='57.80' y='814.42' style='font-size: 8.80px; font-family: Arial;' textLength='11.74px' lengthAdjust='spacingAndGlyphs'>log</text>
+<text x='69.55' y='816.02' style='font-size: 6.16px; font-family: Arial;' textLength='3.43px' lengthAdjust='spacingAndGlyphs'>e</text>
+<text x='72.97' y='814.42' style='font-size: 8.80px; font-family: Arial;' textLength='14.17px' lengthAdjust='spacingAndGlyphs'>(BF</text>
+<text x='87.14' y='816.02' style='font-size: 6.16px; font-family: Arial;' textLength='6.85px' lengthAdjust='spacingAndGlyphs'>01</text>
+<text x='94.00' y='814.42' style='font-size: 8.80px; font-family: Arial;' textLength='12.97px' lengthAdjust='spacingAndGlyphs'>) = </text>
+<text x='106.97' y='814.42' style='font-size: 8.80px; font-family: Arial;' textLength='20.07px' lengthAdjust='spacingAndGlyphs'>-2.49</text>
+<text x='127.03' y='814.42' style='font-size: 8.80px; font-family: Arial;' textLength='4.90px' lengthAdjust='spacingAndGlyphs'>, </text>
+<text x='131.93' y='814.42' style='font-size: 8.80px; font-family: Arial;' textLength='5.28px' lengthAdjust='spacingAndGlyphs'>δ</text>
+<polyline points='131.93,807.66 134.57,805.77 137.21,807.66 ' style='stroke-width: 0.75;' />
+<text x='137.21' y='816.72' style='font-size: 6.16px; font-family: Arial;' textLength='26.96px' lengthAdjust='spacingAndGlyphs'>difference</text>
+<text x='137.21' y='809.55' style='font-size: 6.16px; font-family: Arial;' textLength='23.98px' lengthAdjust='spacingAndGlyphs'>posterior</text>
+<text x='164.16' y='814.42' style='font-size: 8.80px; font-family: Arial;' textLength='10.04px' lengthAdjust='spacingAndGlyphs'> = </text>
+<text x='174.20' y='814.42' style='font-size: 8.80px; font-family: Arial;' textLength='29.86px' lengthAdjust='spacingAndGlyphs'>-333.01</text>
+<text x='204.06' y='814.42' style='font-size: 8.80px; font-family: Arial;' textLength='4.90px' lengthAdjust='spacingAndGlyphs'>, </text>
+<text x='208.95' y='814.42' style='font-size: 8.80px; font-family: Arial;' textLength='8.80px' lengthAdjust='spacingAndGlyphs'>CI</text>
+<text x='217.75' y='817.26' style='font-size: 6.16px; font-family: Arial;' textLength='12.33px' lengthAdjust='spacingAndGlyphs'>95%</text>
+<text x='217.75' y='810.09' style='font-size: 6.16px; font-family: Arial;' textLength='10.60px' lengthAdjust='spacingAndGlyphs'>HDI</text>
+<text x='230.08' y='814.42' style='font-size: 8.80px; font-family: Arial;' textLength='4.90px' lengthAdjust='spacingAndGlyphs'> [</text>
+<text x='234.97' y='814.42' style='font-size: 8.80px; font-family: Arial;' textLength='29.86px' lengthAdjust='spacingAndGlyphs'>-550.30</text>
+<text x='264.83' y='814.42' style='font-size: 8.80px; font-family: Arial;' textLength='4.90px' lengthAdjust='spacingAndGlyphs'>, </text>
+<text x='269.73' y='814.42' style='font-size: 8.80px; font-family: Arial;' textLength='29.20px' lengthAdjust='spacingAndGlyphs'>-114.08</text>
 <text x='298.93' y='814.42' style='font-size: 8.80px; font-family: Arial;' textLength='7.34px' lengthAdjust='spacingAndGlyphs'>], </text>
 <text x='306.28' y='814.42' style='font-size: 8.80px; font-style: italic; font-family: Arial;' textLength='2.93px' lengthAdjust='spacingAndGlyphs'>r</text>
 <text x='309.91' y='817.26' style='font-size: 6.16px; font-family: Arial;' textLength='20.89px' lengthAdjust='spacingAndGlyphs'>Cauchy</text>
@@ -1218,15 +1218,15 @@
 <text x='541.76' y='816.72' style='font-size: 6.16px; font-family: Arial;' textLength='26.96px' lengthAdjust='spacingAndGlyphs'>difference</text>
 <text x='541.76' y='809.55' style='font-size: 6.16px; font-family: Arial;' textLength='23.98px' lengthAdjust='spacingAndGlyphs'>posterior</text>
 <text x='568.72' y='814.42' style='font-size: 8.80px; font-family: Arial;' textLength='10.04px' lengthAdjust='spacingAndGlyphs'> = </text>
-<text x='578.75' y='814.42' style='font-size: 8.80px; font-family: Arial;' textLength='24.96px' lengthAdjust='spacingAndGlyphs'>-82.80</text>
+<text x='578.75' y='814.42' style='font-size: 8.80px; font-family: Arial;' textLength='24.96px' lengthAdjust='spacingAndGlyphs'>-82.76</text>
 <text x='603.71' y='814.42' style='font-size: 8.80px; font-family: Arial;' textLength='4.90px' lengthAdjust='spacingAndGlyphs'>, </text>
 <text x='608.61' y='814.42' style='font-size: 8.80px; font-family: Arial;' textLength='8.80px' lengthAdjust='spacingAndGlyphs'>CI</text>
 <text x='617.41' y='817.26' style='font-size: 6.16px; font-family: Arial;' textLength='12.33px' lengthAdjust='spacingAndGlyphs'>95%</text>
 <text x='617.41' y='810.09' style='font-size: 6.16px; font-family: Arial;' textLength='10.60px' lengthAdjust='spacingAndGlyphs'>HDI</text>
 <text x='629.74' y='814.42' style='font-size: 8.80px; font-family: Arial;' textLength='4.90px' lengthAdjust='spacingAndGlyphs'> [</text>
-<text x='634.63' y='814.42' style='font-size: 8.80px; font-family: Arial;' textLength='24.96px' lengthAdjust='spacingAndGlyphs'>-89.87</text>
+<text x='634.63' y='814.42' style='font-size: 8.80px; font-family: Arial;' textLength='24.96px' lengthAdjust='spacingAndGlyphs'>-89.19</text>
 <text x='659.59' y='814.42' style='font-size: 8.80px; font-family: Arial;' textLength='4.90px' lengthAdjust='spacingAndGlyphs'>, </text>
-<text x='664.49' y='814.42' style='font-size: 8.80px; font-family: Arial;' textLength='24.96px' lengthAdjust='spacingAndGlyphs'>-76.20</text>
+<text x='664.49' y='814.42' style='font-size: 8.80px; font-family: Arial;' textLength='24.96px' lengthAdjust='spacingAndGlyphs'>-75.66</text>
 <text x='689.45' y='814.42' style='font-size: 8.80px; font-family: Arial;' textLength='7.34px' lengthAdjust='spacingAndGlyphs'>], </text>
 <text x='696.80' y='814.42' style='font-size: 8.80px; font-style: italic; font-family: Arial;' textLength='2.93px' lengthAdjust='spacingAndGlyphs'>r</text>
 <text x='700.43' y='817.26' style='font-size: 6.16px; font-family: Arial;' textLength='20.89px' lengthAdjust='spacingAndGlyphs'>Cauchy</text>
