@@ -20,7 +20,7 @@ date_format = "Jan 2006"
 [[experience]]
   title = "Professor"
   company = "The Federal University of Technology"
-  company_url = "www.futminna.edu.ng"
+  company_url = "https://www.futminna.edu.ng"
   location = "Minna"
   date_start = "2006-10-01"
   date_end = ""
@@ -30,13 +30,14 @@ date_format = "Jan 2006"
   * Teaching, Research and Community Development
   * Head of Department
   * Director and industrial Liaison Officer
+  * Dean of Faculty
   * Consultancies, Networking and Collaborations
   """
 
 [[experience]]
   title = "Chief Lecturer"
   company = "The Federal Polytechic"
-  company_url = "www.fedpolybida.edu.ng"
+  company_url = "https://fedpolybida.edu.ng"
   location = "Bida"
   date_start = "1992-01-14"
   date_end = "2006-09-30"

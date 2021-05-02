@@ -27,8 +27,8 @@ interests:
 name: Job Nmadu
 organizations:
 - name: Federal University of Technology, Minna, Nigeria
-  url: "www.futminna.edu.ng"
-role: Professor of Agricultural Economics and Industrial Liaison Officer
+  url: "https://www.futminna.edu.ng"
+role: Professor of Agricultural Economics and Dean, School of Agriculture and Agricultural Technology
 social:
 - icon: envelope
   icon_pack: fas
@@ -63,8 +63,8 @@ user_groups:
 - Visitors
 ---
 
-Job Nmadu is a Professor of Agricultural Economics at the Department of Agricultural Economics and Farm Management of the Federal University of Technology, Minna, Nigeria. His research interests include economics and efficiencies of small scale farming as well as welfare effects of various agricultural interventions on the farming populace.
+His research interests include economics and efficiencies of small scale farming as well as welfare effects of various agricultural interventions on the farming populace.
 
 ![reviews](../../img/certifacates.jpg)
 
-He has garner over three decades of industry experience in teaching research and community development. He has served in various roles in the University and in the community, including Head of Department, Student Industrial Work Experience Scheme (SIWES), Industrial Liaison Officer, Director, Consultant, Church and Community leader.
+He has garner over three decades of industry experience in teaching research and community development. He has served in various roles in the University and in the community, including Head of Department, Industrial Liaison Officer, Dean, Director, Consultant, Church and Community leader.
