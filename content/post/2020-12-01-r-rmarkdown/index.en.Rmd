@@ -581,16 +581,24 @@ kableExtra::kable_styling(RMSE_fk, "striped")
 # Take a further look at some of the visuals 
 
 ```{r echo = FALSE, message = FALSE, warning = FALSE}
-
 rsvg::rsvg_png("img/raw000.svg", "img/raw000.png")
 knitr::include_graphics("img/raw000.png")
+```
 
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
 rsvg::rsvg_png("img/state05.svg", "img/state05.png")
 knitr::include_graphics("img/state05.png")
+```
 
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
 rsvg::rsvg_png("img/state06.svg", "img/state06.png")
 knitr::include_graphics("img/state06.png")
+```
 
+
+```{r echo = FALSE, message = FALSE, warning = FALSE}
 rsvg::rsvg_png("img/state10.svg", "img/state10.png")
 knitr::include_graphics("img/state10.png")
 ```

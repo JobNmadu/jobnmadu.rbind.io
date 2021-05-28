@@ -50,7 +50,7 @@
 <text transform='translate(41.76,228.55) rotate(-90)' text-anchor='middle' style='font-size: 12.00px; font-family: Arial;' textLength='26.70px' lengthAdjust='spacingAndGlyphs'>1500</text>
 <text transform='translate(41.76,165.80) rotate(-90)' text-anchor='middle' style='font-size: 12.00px; font-family: Arial;' textLength='26.70px' lengthAdjust='spacingAndGlyphs'>2000</text>
 <text transform='translate(41.76,103.05) rotate(-90)' text-anchor='middle' style='font-size: 12.00px; font-family: Arial;' textLength='26.70px' lengthAdjust='spacingAndGlyphs'>2500</text>
-<polyline points='59.04,430.56 689.76,430.56 689.76,59.04 59.04,59.04 59.04,430.56 ' style='stroke-width: 0.75;' />
+<polygon points='59.04,430.56 689.76,430.56 689.76,59.04 59.04,59.04 ' style='stroke-width: 0.75; fill: none;' />
 <text x='374.40' y='34.67' text-anchor='middle' style='font-size: 14.40px; font-weight: bold; font-family: Arial;' textLength='4.00px' lengthAdjust='spacingAndGlyphs'> </text>
 <text x='374.40' y='485.28' text-anchor='middle' style='font-size: 12.00px; font-family: Arial;' textLength='270.17px' lengthAdjust='spacingAndGlyphs'>Starting from February 29, 2020 to March 15, 2021</text>
 <text transform='translate(12.96,244.80) rotate(-90)' text-anchor='middle' style='font-size: 12.00px; font-family: Arial;' textLength='146.09px' lengthAdjust='spacingAndGlyphs'>COVID-19 confirmed cases</text>
