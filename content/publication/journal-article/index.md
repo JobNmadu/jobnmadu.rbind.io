@@ -25,10 +25,9 @@ tags:
 - adaptive  capacity
 - IFAD-VCDP
 - exploratory and confirmatory factor analysis
-- North Central NigeriaSource Themes
+- North Central Nigeria
 title: Factor Path of Constraints to Adaptive Capacity on Climate Change among IFAD-VCDP Farmers in North Central Nigeria
 ---
-
 {{% alert note %}}
 Click the *Cite* button above to demo the feature to enable visitors to import publication metadata into their reference management software.
 {{% /alert %}}
