@@ -586,19 +586,22 @@ knitr::include_graphics("img/raw000.png")
 ```
 
 
-```{r echo = FALSE, message = FALSE, warning = FALSE}
+```{r echo = FALSE, message = FALSE, warning = FALSE, out.width = "200px", out.height= "170px,trim=0 0 190 0,clip=true", fig.align="center"}
+
 rsvg::rsvg_png("img/state05.svg", "img/state05.png")
 knitr::include_graphics("img/state05.png")
 ```
 
 
-```{r echo = FALSE, message = FALSE, warning = FALSE}
+```{r echo = FALSE, message = FALSE, warning = FALSE, out.width = "200px", out.height= "170px,trim=0 0 190 0,clip=true", fig.align="center"}
+
 rsvg::rsvg_png("img/state06.svg", "img/state06.png")
 knitr::include_graphics("img/state06.png")
 ```
 
 
-```{r echo = FALSE, message = FALSE, warning = FALSE}
+```{r echo = FALSE, message = FALSE, warning = FALSE, out.width = "200px", out.height= "170px,trim=0 0 190 0,clip=true", fig.align="center"}
+
 rsvg::rsvg_png("img/state10.svg", "img/state10.png")
 knitr::include_graphics("img/state10.png")
 ```
