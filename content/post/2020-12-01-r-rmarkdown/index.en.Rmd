@@ -254,10 +254,10 @@ niz$Cum_case <- cumsum(niz$Case)
 
 SSCee$Date <- as.Date(SSCee$Date, format = '%m/%d/%Y')
 library("xlsx")
-write.xlsx2(SSCee, file = "D:/Working Documents 2020/.COVID19/data/updateDATA.xlsx",
-                  col.names = TRUE, row.names = FALSE)
-write.xlsx2(niz2021, file = "D:/Working Documents 2020/Dyn4kast/data/updateDATA.xlsx",
-                  col.names = TRUE, row.names = FALSE)
+#write.xlsx2(SSCee, file = "D:/Working Documents 2020/.COVID19/data/updateDATA.xlsx",
+#                  col.names = TRUE, row.names = FALSE)
+#write.xlsx2(niz2021, file = "D:/Working Documents 2020/Dyn4kast/data/updateDATA.xlsx",
+#                  col.names = TRUE, row.names = FALSE)
 
 ##ZZZ <- read_excel("D:/.COVID19/data/coronavirus_dataset.xlsx")
 #ZZZ <- read_excel("D:/.COVID19/data/updateDATA.xlsx")
@@ -278,7 +278,8 @@ DDFb <- DDFb[-1,]
 
 ```{r echo = FALSE, message = FALSE, warning = FALSE}
 
-svglite::svglite("img/raw000.svg", width = 10, height = 7)
+#svglite::svglite("img/raw000.svg", width = 10, height = 7)
+png("img/raw000.png", width=1200, height=800)
 
 plot(z.s[,1], z.s[,2], main = " ", col = "red", type = "l", lwd = 2, xlab = casesstarts, ylab = "COVID-19 confirmed cases")
 grid(10,20,lty=1,lwd=1)
@@ -298,7 +299,9 @@ invisible(dev.off())
 
 ```{r echo = FALSE, message = FALSE, warning = FALSE}
 
-svglite::svglite("img/state05.svg", width = 10, height = 7)
+#svglite::svglite("img/state05.svg", width = 10, height = 7)
+png("img/state05.png", width=1200, height=800)
+
 plot(cumper$Per, main = " ",
      xlab = casesstarts, ylab = "Per Cent",
      ylim = c(-50,100),
@@ -324,7 +327,8 @@ invisible(dev.off())
 
 ```{r echo = FALSE, message = FALSE, warning = FALSE}
 
-svglite::svglite("img/state06.svg", width = 10, height = 7)
+#svglite::svglite("img/state06.svg", width = 10, height = 7)
+png("img/state06.png", width=1200, height=800)
 
 ggplot(cumper1) +
   aes(x = Date, y = Per_Cent, colour = Models, group = Models) +
@@ -341,7 +345,8 @@ invisible(dev.off())
 
 ```{r echo = FALSE, message = FALSE, warning = FALSE}
 
-svglite::svglite("img/state10.svg", width = 10, height = 7)
+#svglite::svglite("img/state10.svg", width = 10, height = 7)
+png("img/state10.png", width=1200, height=800)
 
 fitp <- lm(Cum_case ~ Day + I(Day^2), data = niz)
 fitc<-lm(niz[,3] ~ bs(niz[,1], knots =NULL), data = niz)
@@ -580,29 +585,19 @@ kableExtra::kable_styling(RMSE_fk, "striped")
 
 # Take a further look at some of the visuals 
 
-```{r echo = FALSE, message = FALSE, warning = FALSE}
-rsvg::rsvg_png("img/raw000.svg", "img/raw000.png")
-knitr::include_graphics("img/raw000.png")
-```
+
+![](img/raw000.png)   
 
 
-```{r echo = FALSE, message = FALSE, warning = FALSE, out.width = "200px", out.height= "170px,trim=0 0 190 0,clip=true", fig.align="center"}
 
-rsvg::rsvg_png("img/state05.svg", "img/state05.png")
-knitr::include_graphics("img/state05.png")
-```
+![](img/state05.png)   
 
 
-```{r echo = FALSE, message = FALSE, warning = FALSE, out.width = "200px", out.height= "170px,trim=0 0 190 0,clip=true", fig.align="center"}
-
-rsvg::rsvg_png("img/state06.svg", "img/state06.png")
-knitr::include_graphics("img/state06.png")
-```
+![](img/state06.png)   
 
 
-```{r echo = FALSE, message = FALSE, warning = FALSE, out.width = "200px", out.height= "170px,trim=0 0 190 0,clip=true", fig.align="center"}
 
-rsvg::rsvg_png("img/state10.svg", "img/state10.png")
-knitr::include_graphics("img/state10.png")
-```
+![](img/state10.png)   
+
+
 
