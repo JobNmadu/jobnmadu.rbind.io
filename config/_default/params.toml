@@ -15,7 +15,7 @@ day_night = true
 font = "classic"
 
 # Description for social sharing and search engines. If undefined, superuser role is used in place.
-description = "Job Nmadu is a Professor of Agriccultural Economics of the Department of Agricultural Economics of the Federal University of Technology, Minna, Nigeria. He obtained a PhD in 2002 from Ahmadu Bello University, Zaria with specialisation in Econometris."
+description = "Job Nmadu is a Professor of Agricultural Economics of the Department of Agricultural Economics of the Federal University of Technology, Minna, Nigeria. He obtained a PhD in 2002 from Ahmadu Bello University, Zaria with specialisation in Econometris."
 
 # Default image for social sharing and search engines. Place image in `static/img/` folder and specify image name here.
 sharing_image = "haggai_04.jpg"
@@ -66,13 +66,13 @@ appointment_url = "https://calendly.com/job-nmadu"
 # Contact links
 #   Set to `[]` to disable, or comment out unwanted lines with a hash `#`.
 contact_links = [
-  {icon = "twitter", icon_pack = "fab", name = "Twitter", link = "https://twitter.com/JobNmadu"},
+  {icon = "twitter", icon_pack = "fab", name = "Twitter", link = "https://www.twitter.com/JobNmadu"},
   {icon = "linkedin", icon_pack = "fab", name = "LinkedIn", link = "https://www.linkedin.com/in/jobnmadu"},
-  {icon = "github", icon_pack = "fab", name = "GitHud", link = "https://github.com/JobNmadu"},
-  {icon = "orcid", icon_pack = "fab", name = "fa-orcid", link = "https://orcid.org/0000-0002-1320-8957"},
+  {icon = "github", icon_pack = "fab", name = "GitHud", link = "https://www.github.com/JobNmadu"},
+  {icon = "orcid", icon_pack = "fab", name = "fa-orcid", link = "https://www.orcid.org/0000-0002-1320-8957"},
   {icon = "telegram", icon_pack = "fab", name = "Telegram Me", link = "https://t.me/Job_Nmadu"},
-  {icon = "blogger", icon_pack = "fab", name = "Blogger", link = "https://jobnmadu.blogspot.com/"},
-  {icon = "fa-google", icon_pack = "fab", name = "Google Scholar", link = "http://scholar.google.com/citations?user=C1_-HgIAAAAJ&hl=en"},
+  {icon = "blogger", icon_pack = "fab", name = "Blogger", link = "https://www.jobnmadu.blogspot.com/"},
+  {icon = "fa-google", icon_pack = "fab", name = "Google Scholar", link = "http://www.scholar.google.com/citations?user=C1_-HgIAAAAJ&hl=en"},
   ]
 
 # Display a map.
