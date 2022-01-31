@@ -39,8 +39,8 @@ social:
 - icon: twitter
   icon_pack: fab
   link: https://twitter.com/JobNmadu
-- icon: graduation
-  icon_pack: fas
+- icon: google-scholar
+  icon_pack: ai
   link: http://scholar.google.com/citations?user=C1_-HgIAAAAJ&hl=en
 - icon: github
   icon_pack: fab
@@ -54,8 +54,8 @@ social:
 - icon: blogger
   icon_pack: fab
   link: https://jobnmadu.blogspot.com/
-- icon: <div itemscope itemtype="https://schema.org/Person"><a itemprop="sameAs" content="https://orcid.org/0000-0002-1320-8957" href="https://orcid.org/0000-0002-1320-8957" target="orcid.widget" rel="me noopener noreferrer" style="vertical-align:top;"><img src="https://orcid.org/sites/default/files/images/orcid_16x16.png" style="width:1em;margin-right:.5em;" alt="ORCID iD icon">https://orcid.org/0000-0002-1320-8957</a></div>
-  #icon_pack: 
+- icon: orcid
+  icon_pack: ai
   link: https://orcid.org/0000-0002-1320-8957
 superuser: true
 user_groups:
