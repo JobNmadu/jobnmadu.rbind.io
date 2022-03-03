@@ -3,16 +3,7 @@ title: 'Update on COVID-19 visuals for Nigeria'
 author: "Job Nmadu"
 bibliography: data/bibliography.bib
 date: 'March 15, 2021'
-always_allow_html: true
-output:
-  prettydoc::html_pretty:
-    theme: cayman #tactile, architect, leonids, hpstr
-    highlight: vignette #github
-    math: katex #latex
-  html_document: default
-  word_document: default
-  pdf_document: 
-    latex_engine: lualatex
+output: github_document
 tags: [COVID-19, Nigeria, RStats, Visuals, Forecast, Model Selection]
 ---
 
