@@ -69,10 +69,10 @@ contact_links = [
   {icon = "twitter", icon_pack = "fab", name = "Twitter", link = "https://www.twitter.com/JobNmadu"},
   {icon = "linkedin", icon_pack = "fab", name = "LinkedIn", link = "https://www.linkedin.com/in/jobnmadu"},
   {icon = "github", icon_pack = "fab", name = "GitHud", link = "https://www.github.com/JobNmadu"},
-  {icon = "orcid", icon_pack = "fab", name = "fa-orcid", link = "https://www.orcid.org/0000-0002-1320-8957"},
+  {icon = "orcid", icon_pack = "ai", name = "ORCID", link = "https://www.orcid.org/0000-0002-1320-8957"},
   {icon = "telegram", icon_pack = "fab", name = "Telegram Me", link = "https://t.me/Job_Nmadu"},
   {icon = "blogger", icon_pack = "fab", name = "Blogger", link = "https://www.jobnmadu.blogspot.com/"},
-  {icon = "fa-google", icon_pack = "fab", name = "Google Scholar", link = "http://www.scholar.google.com/citations?user=C1_-HgIAAAAJ&hl=en"},
+  {icon = "google-scholar", icon_pack = "ai", name = "Google Scholar", link = "http://www.scholar.google.com/citations?user=C1_-HgIAAAAJ&hl=en"},
   ]
 
 # Display a map.
