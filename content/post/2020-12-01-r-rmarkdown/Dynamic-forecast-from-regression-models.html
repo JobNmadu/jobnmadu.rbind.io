@@ -1,0 +1,224 @@
+---
+title: "Dynamic forecast from regression models"
+description: |
+  The estimation of regressions models, their predicyion and essembles are used to forecast COVID-19 distribution in Nigeria
+author:
+  - name: Job Nmadu
+    url: https://jobnmadu.rbind.io/
+bibliography: data/bibliography.bib
+date: "2021-03-15T00:00:00Z"
+output: github_document
+tags: [COVID-19, Nigeria, RStats, Visuals, Forecast, Model Selection]
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
+<link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
+
+
+<div id="it-is-now-381-days-since-the-first-covid-19-case-was-reported-in-nigeria.-as-at-march-15-2021-the-confirmed-cases-are-163646-with-2016-1.25-fatalities-however-145752-90.59-have-recovered." class="section level3">
+<h3>It is now <strong>381</strong> days since the first COVID-19 case was reported in Nigeria. As at March 15, 2021 the confirmed cases are <strong>163,646</strong> with <strong>2,016</strong> (<strong>1.25%</strong>) fatalities, however, <strong>145,752</strong> (<strong>90.59%</strong>) have recovered.</h3>
+</div>
+<div id="based-on-equal-days-forecast-by-march-31-2022-nigerias-aggregate-confirmed-covid-19-cases-are-forecast-to-be" class="section level3">
+<h3>Based on <strong>equal days forecast</strong>, by March 31, 2022, Nigeria’s aggregate confirmed COVID-19 cases are forecast to be:</h3>
+<table class="table table-striped" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Model
+</th>
+<th style="text-align:left;">
+Confirmed cases
+</th>
+<th style="text-align:left;">
+Recoveries
+</th>
+<th style="text-align:left;">
+Fatalities
+</th>
+<th style="text-align:left;">
+RMSE
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Smooth Spline
+</td>
+<td style="text-align:left;">
+889,385
+</td>
+<td style="text-align:left;">
+805,694
+</td>
+<td style="text-align:left;">
+11,117
+</td>
+<td style="text-align:left;">
+371
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Upper ARIMA
+</td>
+<td style="text-align:left;">
+805,328
+</td>
+<td style="text-align:left;">
+729,547
+</td>
+<td style="text-align:left;">
+10,067
+</td>
+<td style="text-align:left;">
+209
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Quadratic Polynomial
+</td>
+<td style="text-align:left;">
+598,274
+</td>
+<td style="text-align:left;">
+541,977
+</td>
+<td style="text-align:left;">
+7,478
+</td>
+<td style="text-align:left;">
+374
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Essembled based on summed weight
+</td>
+<td style="text-align:left;">
+-70,387
+</td>
+<td style="text-align:left;">
+-63,763
+</td>
+<td style="text-align:left;">
+-880
+</td>
+<td style="text-align:left;">
+185
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Essembled based on weight of fit
+</td>
+<td style="text-align:left;">
+-94,320
+</td>
+<td style="text-align:left;">
+-85,444
+</td>
+<td style="text-align:left;">
+-1,179
+</td>
+<td style="text-align:left;">
+284
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Essembled based on weight
+</td>
+<td style="text-align:left;">
+-182,959
+</td>
+<td style="text-align:left;">
+-165,743
+</td>
+<td style="text-align:left;">
+-2,287
+</td>
+<td style="text-align:left;">
+180
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Essembled with equal weight
+</td>
+<td style="text-align:left;">
+-426,038
+</td>
+<td style="text-align:left;">
+-385,948
+</td>
+<td style="text-align:left;">
+-5,325
+</td>
+<td style="text-align:left;">
+232
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Lower ARIMA
+</td>
+<td style="text-align:left;">
+-626,365
+</td>
+<td style="text-align:left;">
+-567,424
+</td>
+<td style="text-align:left;">
+-7,830
+</td>
+<td style="text-align:left;">
+209
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Without knots
+</td>
+<td style="text-align:left;">
+-815,453
+</td>
+<td style="text-align:left;">
+-738,719
+</td>
+<td style="text-align:left;">
+-10,193
+</td>
+<td style="text-align:left;">
+200
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+With knots
+</td>
+<td style="text-align:left;">
+-1,114,856
+</td>
+<td style="text-align:left;">
+-1,009,948
+</td>
+<td style="text-align:left;">
+-13,936
+</td>
+<td style="text-align:left;">
+187
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="take-a-further-look-at-some-of-the-visuals" class="section level1">
+<h1>Take a further look at some of the visuals</h1>
+<p><img src="img/raw000.png" /></p>
+<p><img src="img/state05.png" /></p>
+<p><img src="img/state06.png" /></p>
+<p><img src="img/state10.png" /></p>
+</div>
