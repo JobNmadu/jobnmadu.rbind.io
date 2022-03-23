@@ -6,12 +6,12 @@ authors:
 - Yebosoko Nmadu
 date: "2021-01-28T00:00:00Z"
 doi: https://orcid.org/my-orcid?orcid=0000-0002-1320-8957
-featured: true
+featured: false
 image:
 #  caption: 'Image credit: [**Unsplash**](https://unsplash.com/photos/pLCdAaMFLTE)'
   focal_point: ""
   preview_only: false
-links: null
+links: https://digitalcommons.usf.edu/m3publishing/vol5/iss2021/78/
 projects: null
 # publication: In *Agricultural Development in Nigeria: Evidence can Chart the Path*
 # publication_short: In *STC*
@@ -26,7 +26,7 @@ tags:
 - Rstats
 - Holt Winters smoothing
 - Forecasting
-title: Nigerias Economic Management Reflections Through Monthly Interest Rate Movement From 1996 to 2020 and Beyond
+title: Nigerias Economic Management-Reflections Through Monthly Interest Rate Movement From 1996 to 2020 and Beyond
 ---
 
 {{% alert note %}}
