@@ -11,7 +11,7 @@ image:
 #  caption: 'Image credit: [**Unsplash**](https://unsplash.com/photos/pLCdAaMFLTE)'
   focal_point: ""
   preview_only: false
-links: https://digitalcommons.usf.edu/m3publishing/vol5/iss2021/78/
+links: null
 projects: null
 # publication: In *Agricultural Development in Nigeria: Evidence can Chart the Path*
 # publication_short: In *STC*
