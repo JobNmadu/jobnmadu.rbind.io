@@ -26,7 +26,7 @@ tags:
 - Rstats
 - Holt Winters smoothing
 - Forecasting
-title: Nigerias Economic Management Reflections Through Monthly Interest Rate Movement From 1996 to 2020 and Beyond
+title: Nigeria's Economic Management: Reflections Through Monthly Interest Rate Movement From 1996 to 2020 and Beyond
 ---
 
 {{% alert note %}}
