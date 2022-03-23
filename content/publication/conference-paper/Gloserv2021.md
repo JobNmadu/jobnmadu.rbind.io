@@ -5,7 +5,7 @@ authors:
 - Halima Sallawu
 - Yebosoko Nmadu
 date: "2021-01-28T00:00:00Z"
-doi: 10.5038/9781955833035
+doi: https://orcid.org/my-orcid?orcid=0000-0002-1320-8957
 featured: true
 image:
 #  caption: 'Image credit: [**Unsplash**](https://unsplash.com/photos/pLCdAaMFLTE)'
@@ -26,7 +26,7 @@ tags:
 - Rstats
 - Holt Winters smoothing
 - Forecasting
-title: Nigeria's Economic Management: Reflections Through Monthly Interest Rate Movement From 1996 to 2020 and Beyond
+title: Nigerias Economic Management Reflections Through Monthly Interest Rate Movement From 1996 to 2020 and Beyond
 ---
 
 {{% alert note %}}
