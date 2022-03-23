@@ -25,7 +25,7 @@ publishDate: "2021-05-10T00:00:00Z"
 # summary: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis posuere tellus.
 tags:
 - Agribusiness
-- AutoRegressive Distributed Lag (ARDL)
+- AutoRegressive Distributed Lag ARDL
 - Nigeria
 - Rstats
 - Holt Winters smoothing
