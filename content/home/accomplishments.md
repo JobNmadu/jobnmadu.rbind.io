@@ -58,4 +58,14 @@ date_format = "Jan 2006"
   date_end = "2019-05-29"
   description = ""
 
+[[item]]
+  organization = "The Embassy of Good Science"
+  organization_url = "https://embassy.science/wiki/Main_Page"
+  title = "Certified VIRT2UE Traine"
+  url = ""
+  certificate_url = "https://embassy.science/wiki/AboutCertifiedTrainers"
+  date_start = "2019-02-01"
+  date_end = "2019-04-29"
+  description = ""
+
 +++

@@ -29,6 +29,9 @@ organizations:
 - name: Federal University of Technology, Minna, Nigeria
   url: "https://www.futminna.edu.ng"
 role: Professor of Agricultural Economics and Dean, School of Agriculture and Agricultural Technology
+- name: Nigerian Association of Agricultural Economists
+  url: "https://www.naae.org.ng"
+role: Fellow and President
 social:
 - icon: envelope
   icon_pack: fas
