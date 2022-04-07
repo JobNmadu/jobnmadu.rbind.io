@@ -1,0 +1,394 @@
+---
+title: "Structural Parameters of World Happiness ladder"
+author: "Job Nmadu"
+date: '2022-03-13'
+output:
+  prettydoc::html_pretty:
+    theme: cayman #tactile, architect, leonids, hpstr
+    highlight: vignette #github
+    math: katex #latex
+  html_document: default
+  word_document: default
+  pdf_document: 
+    latex_engine: xelatex
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(tidy      = "styler",
+                      fig.align = "center",
+                      comment   = NA,
+                      warning   = FALSE,
+                      error     = FALSE,
+                      message   = FALSE,
+                      collapse  = FALSE,
+                      out.width = "100%",
+                      dev = "ragg_png", #<- prevent default Windows device to
+                      # render plots
+                      dpi       = 132,
+                      echo      = FALSE)
+
+
+options(tidyverse.quiet = TRUE)
+library(psych)
+library(tidyverse)
+library(lavaan)
+library(semPlot)
+
+Data <- happy <- read_csv("data/happy.csv")
+
+Data$Regional <- ifelse(Data$Region == "Australia and New Zealand", 1,
+                        Data$Region)
+Data$Regional <- ifelse(Data$Regional == "Central and Eastern Europe", 2,
+                        Data$Regional)
+Data$Regional <- ifelse(Data$Regional == "Commonwealth of Independent States",
+                        3, Data$Regional)
+Data$Regional <- ifelse(Data$Regional == "East Asia" | 
+                          Data$Regional == "Eastern Asia", 4, Data$Regional)
+Data$Regional <- ifelse(Data$Regional == "Latin America and Caribbean",
+                        5, Data$Regional)
+Data$Regional <- ifelse(Data$Regional == "Middle East and North Africa"|
+                          Data$Regional == "Middle East and Northern Africa",
+                        6, Data$Regional)
+Data$Regional <- ifelse(Data$Regional == "North America" | 
+                          Data$Regional == "North America and ANZ",
+                        7, Data$Regional)
+Data$Regional <- ifelse(Data$Regional == "South Asia" | 
+                          Data$Regional == "Southern Asia", 8, Data$Regional)
+Data$Regional <- ifelse(Data$Regional == "Southeast Asia" | 
+                          Data$Regional == "Southeastern Asia", 9,
+                        Data$Regional)
+Data$Regional <- ifelse(Data$Regional == "Sub-Saharan Africa", 10,
+                        Data$Regional)
+Data$Regional <- as.numeric(ifelse(Data$Regional == "Western Europe", 11,
+                        Data$Regional))
+
+happy1 <- select(happy, c(Country, Region, Happiness, Year))
+happy1$Region1 <- ifelse( happy1$Region == "East Asia" | 
+                            happy1$Region == "Eastern Asia", "EAsia",
+                          happy1$Region)
+happy1$Region1 <- ifelse(happy1$Region1 == "Middle East and North Africa"| happy1$Region1 == "Middle East and Northern Africa", "MENA", happy1$Region1)
+happy1$Region1 <- ifelse(happy1$Region1 == "North America"| happy1$Region1 == "North America and ANZ", "NAmerica", happy1$Region1)
+happy1$Region1 <- ifelse(happy1$Region1 == "South Asia" |
+                           happy1$Region1 == "Southern Asia", "SAsia",
+                          happy1$Region1)
+happy1$Region1 <- ifelse(happy1$Region1 == "Southeast Asia" | happy1$Region1 == "Southeastern Asia", "SEAsia", happy1$Region1)
+happy1$Region1 <- ifelse(happy1$Region1 == "Australia and New Zealand", "Australiasia", happy1$Region1)
+happy1$Region1 <- ifelse(happy1$Region1 == "Central and Eastern Europe",
+                         "CEEuro", happy1$Region1)
+happy1$Region1 <- 
+  ifelse(happy1$Region1 == "Commonwealth of Independent States", "CIStates",
+         happy1$Region1)
+happy1$Region1 <- ifelse(happy1$Region1 == "Latin America and Caribbean",
+                         "LAmerica", happy1$Region1)
+happy1$Region1 <- ifelse(happy1$Region1 == "Sub-Saharan Africa",
+                         "SSA", happy1$Region1)
+happy1$Region1 <- ifelse(happy1$Region1 == "Western Europe",
+                         "WEuro", happy1$Region1)
+happy1 <- select(happy1, c(Country, Region1, Year, Happiness))
+
+happy1$Region1 <- factor(happy1$Region1, levels = c("Australiasia", "CEEuro", "CIStates", "EAsia", "LAmerica", "MENA", "NAmerica", "SAsia", "SEAsia", "SSA", "WEuro"))
+
+Data$Region1 <- happy1$Region1
+
+happy1 <- happy1 %>%
+  group_by(Year, Region1) %>%
+  mutate(Rank = Happiness/cumsum(Happiness))
+
+ranked_data = happy1 %>%
+  group_by(Year) %>%
+  mutate(rank = min_rank(-Happiness), 
+         Value_lbl = paste0(" ", Country, ": ", format(Happiness, big.mark = ",", scientific = F)))%>%
+  ungroup()
+
+tt_caption <- "Source: World Happiness Report  |  Designed by: Job Nmadu (@JobNmadu)"
+
+library(car)       # Companion to applied regression 
+library(gplots)    # Various programing tools for plotting data
+library(tseries)   # For timeseries analysis
+library(lmtest)    # For hetoroskedasticity analysis
+library(plm)
+
+dataPanel <- pdata.frame(Data, index = c("Country","Year"))
+dataPanel1 <- pdata.frame(Data, index = c("Region1","Year"))
+
+table(index(dataPanel1), useNA = "ifany")
+```
+
+
+```{r}
+
+ggplot(ranked_data) +
+  aes(x = Year,
+    y = Happiness,
+    fill = Region1,
+    colour = Region1) +
+  #geom_area(size = 0.5) +
+  geom_smooth(aes(color = Region1), method = "loess", se = FALSE,
+              show.legend = FALSE) +
+  scale_fill_hue(direction = 1) +
+  scale_color_hue(direction = 1) +
+  theme_minimal() +
+  theme(legend.position = "none") +
+  facet_wrap(vars(Region1), scales = "free_y")+
+  labs(x = "Year",
+       y = "Happiness ladder",
+       title = "Happiness order: 2005 - 2022",
+       subtitle = " ",
+       caption = tt_caption)
+```
+
+
+```{r, echo = TRUE}
+source("docs/pca_summary.R")
+source("docs/printloadings.R")
+
+ll <- factoring(Data = Data[, -c(1,2,12)], exclude = 0)
+
+printLoadings(ll$Extrated_factors$loadings)
+
+fa.diagram(ll$Extrated_factors)
+
+kableExtra::kable_styling(knitr::kable(ll$Parameters_of_Extracted_factos, digits = 2), "striped", position = "center", font_size = 12)
+
+#load libraries
+library(lavaan)
+library(semPlot)
+library(semTools)
+library(nonnest2)
+library(htmlTable)
+
+#constructing the measurement model
+mea_model <- 'MR1 =~ Life_Exp + Corruption + Freedom + Generosity
++ Year
+              MR2 =~ Happiness + Support + GDP
+              MR4 =~ Regional'
+
+#fitting the measurement model
+mea_fit <- sem(mea_model,
+               data = Data)
+
+#summary statistics of the measurement model
+summary(mea_fit,
+        fit.measures = TRUE)
+
+# 2.3 Obtain goodness of fit indicators of the model
+
+kableExtra::kable_styling(knitr::kable(fitMeasures(mea_fit), rsqaure = TRUE), "striped", position = "center", font_size = 12)
+
+kableExtra::kable_styling(knitr::kable(reliability(mea_fit)), "striped", position = "center", font_size = 12)
+
+semPaths(mea_fit, "par", 
+         edge.label.cex = 1.2, 
+         fade = FALSE,
+         edge.label.postition = 1,
+         edge.label.font = 70,
+         edge.label.by = TRUE, 
+         layout = "tree",
+         sizeMan = 10)
+
+semPaths(mea_fit, what = "eq", whatLabels = "est", style = "lisrel",
+         layout="tree2", rotation=1, color = list(
+           lat = rgb(255, 200, 135, maxColorValue = 255), 
+           man = rgb(155, 240, 175, maxColorValue = 255)))
+```
+
+
+```{r}
+
+Happy <- as.formula(Happiness ~ Life_Exp + Corruption + Freedom + 
+                      Generosity + Support + GDP)
+zz <- plm(Happy, data = Data, index = c("Country","Year"))
+summary(zz)
+
+zz <- plm(Happy, data = Data, index = c("Country","Year"), model = "random",
+          random.method = "amemiya", effect = "time")
+summary(zz)
+
+wi <- plm(Happy, data = Data, index = c("Country","Year"), model = "within")
+re <- plm(Happy, data = Data, index = c("Country","Year"), model = "random")
+phtest(wi, re)
+phtest(Happy, data = Data, index = c("Country","Year"))
+phtest(Happy, data = Data, index = c("Country","Year"), effect = "time")
+
+# Regression-based Hausman test
+phtest(Happy, data = Data, index = c("Country","Year"), method = "aux")
+
+# robust Hausman test with vcov supplied as a function and 
+# with additional parameters
+phtest(Happy, data = Data, index = c("Country","Year"), method = "aux", vcov = vcovHC)
+phtest(Happy, data = Data, index = c("Country","Year"), method = "aux",
+  vcov = function(x) vcovHC(x, method="white2", type="HC3"))
+```
+
+
+```{r, echo = TRUE}
+
+coplot(Happiness ~ Year|Region1, type="b", data=dataPanel1) 
+
+scatterplot(Happiness ~ Year|Country, type="b", data=dataPanel)
+
+plotmeans(Happiness ~ Year, data=dataPanel)
+
+ols <-lm(Happy, data = dataPanel)
+summary(ols)
+
+fixed.dum <-lm(Happiness ~ Life_Exp + Corruption + Freedom + Generosity +
+                 Support + GDP + factor(Country) - 1, data = dataPanel)
+summary(fixed.dum)
+
+fixed <- plm(Happy, data=dataPanel, model="within")
+summary(fixed)
+
+# Display the fixed effects (constants for each country)
+fixef(fixed)
+
+# Testing for fixed effects, null: OLS better than fixed
+pFtest(fixed, ols)
+
+random <- plm(Happy, data=dataPanel, model="random")
+summary(random)
+
+phtest(fixed, random)
+
+fixed.time <- plm(Happiness ~ Life_Exp + Corruption + Freedom + Generosity +
+                 Support + GDP + factor(Year), data=dataPanel, model="within")
+summary(fixed.time)
+
+# Testing time-fixed effects. The null is that no time-fixed effects are needed
+pFtest(fixed.time, fixed)
+
+plmtest(fixed, c("time"), type=("bp"))
+
+pool <- plm(Happy, data=dataPanel, model="pooling")
+summary(pool)
+
+# Breusch-Pagan Lagrange Multiplier for random effects. Null is no panel effect (i.e. OLS better).
+plmtest(pool, type=c("bp"))
+
+fixed <- plm(Happy, data=dataPanel, model="within")
+pcdtest(fixed, test = c("lm"))
+
+pcdtest(fixed, test = c("cd"))
+
+pbgtest(fixed)
+
+adf.test(dataPanel$Happiness, k=2)
+
+bptest(Happiness ~ Life_Exp + Corruption + Freedom + Generosity + Support +
+         GDP + factor(Country), data = dataPanel, studentize=F)
+
+# Original coefficients
+coeftest(random)
+
+# Heteroskedasticity consistent coefficients
+coeftest(random, vcovHC) 
+
+# Heteroskedasticity consistent coefficients, type 3
+coeftest(random, vcovHC(random, type = "HC3"))
+
+# The following shows the HC standard errors of the coefficients
+t(sapply(c("HC0", "HC1", "HC2", "HC3", "HC4"), 
+         function(x) sqrt(diag(vcovHC(random, type = x)))))
+
+# Original coefficients
+coeftest(fixed)
+
+# Heteroskedasticity consistent coefficients
+coeftest(fixed, vcovHC)
+
+# Heteroskedasticity consistent coefficients (Arellano)
+coeftest(fixed, vcovHC(fixed, method = "arellano"))
+
+# Heteroskedasticity consistent coefficients, type 3
+coeftest(fixed, vcovHC(fixed, type = "HC3"))
+
+# The following shows the HC standard errors of the coefficients
+t(sapply(c("HC0", "HC1", "HC2", "HC3", "HC4"),
+         function(x) sqrt(diag(vcovHC(fixed, type = x)))))
+```
+
+
+```{r, echo = TRUE}
+
+scatterplot(Happiness ~ Year|Region1, type="b", data=dataPanel1)
+
+plotmeans(Happiness ~ Year, data=dataPanel1)
+
+ols1 <-lm(Happy, data = dataPanel1)
+summary(ols1)
+
+fixed.dum1 <- lm(Happiness ~ Life_Exp + Corruption + Freedom + Generosity +
+                 Support + GDP + factor(Region1) - 1, data = dataPanel1)
+summary(fixed.dum1)
+
+fixed1 <- plm(Happy, data = dataPanel, model="within")
+summary(fixed1)
+
+# Display the fixed effects (constants for each country)
+fixef(fixed1)
+
+# Testing for fixed effects, null: OLS better than fixed
+pFtest(fixed1, ols1)
+
+random1 <- plm(Happy, data=dataPanel, model="random")
+summary(random1)
+
+phtest(fixed1, random1)
+
+fixed.time1 <- plm(Happiness ~ Life_Exp + Corruption + Freedom + Generosity +
+                 Support + GDP + factor(Year), data=dataPanel,
+                 model="within")
+summary(fixed.time1)
+
+# Testing time-fixed effects. The null is that no time-fixed effects are needed
+pFtest(fixed.time1, fixed1)
+
+plmtest(fixed1, c("time"), type=("bp"))
+
+pool1 <- plm(Happy, data=dataPanel, model="pooling")
+summary(pool1)
+
+# Breusch-Pagan Lagrange Multiplier for random effects. Null is no panel effect (i.e. OLS better).
+plmtest(pool1, type=c("bp"))
+
+fixed1 <- plm(Happy, data=dataPanel, model="within")
+pcdtest(fixed1, test = c("lm"))
+
+pcdtest(fixed1, test = c("cd"))
+
+pbgtest(fixed1)
+
+adf.test(dataPanel1$Happiness, k=2)
+
+bptest(Happiness ~ Life_Exp + Corruption + Freedom + Generosity + Support +
+         GDP + factor(Region1), data = dataPanel1, studentize=F)
+
+# Original coefficients
+coeftest(random1)
+
+# Heteroskedasticity consistent coefficients
+coeftest(random1, vcovHC) 
+
+# Heteroskedasticity consistent coefficients, type 3
+coeftest(random1, vcovHC(random1, type = "HC3"))
+
+# The following shows the HC standard errors of the coefficients
+t(sapply(c("HC0", "HC1", "HC2", "HC3", "HC4"), 
+         function(x) sqrt(diag(vcovHC(random1, type = x)))))
+
+# Original coefficients
+coeftest(fixed1)
+
+# Heteroskedasticity consistent coefficients
+coeftest(fixed1, vcovHC)
+
+# Heteroskedasticity consistent coefficients (Arellano)
+coeftest(fixed1, vcovHC(fixed1, method = "arellano"))
+
+# Heteroskedasticity consistent coefficients, type 3
+coeftest(fixed1, vcovHC(fixed1, type = "HC3"))
+
+# The following shows the HC standard errors of the coefficients
+t(sapply(c("HC0", "HC1", "HC2", "HC3", "HC4"),
+         function(x) sqrt(diag(vcovHC(fixed1, type = x)))))
+```
