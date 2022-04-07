@@ -24,8 +24,8 @@ library(coronavirus)  # used for corona dataset
 library(lubridate)     # for date manipulation
 library(tidytext)      # for analyzing text data
 library(scales)
-source("docs/RegressionDiagnosis.R")
-source("docs/percent function.R")
+library(Dyn4cast)
+library(Metrics)
 theme_set(theme_minimal())  
 
 library(readxl)
@@ -400,11 +400,12 @@ FITS <- huxtable::huxreg("Spline with knots" = fit0 ,
                             `**` = 0.05, '*' = 0.1),
                   statistics = NULL)
 
-'Spline with knots' <- ModelSelection(Observed = niz[,2], Model = fit0, K =2, Name = "Nil", Form = "LM", kutuf = 0, TTy = "Number", Data = niz)
-'Spline without knots' <- ModelSelection(Observed = niz[,2], Model = fit, K =2,  Name = "Nil", Form = "LM", kutuf = 0, TTy = "Number", Data = niz)
-'Smooth spline' <- ModelSelection(Observed = niz[,2], Model = fit1, K =2,  Name = "SMOOTH", Form = "LM", kutuf = 0, TTy = "Number", Data = niz)
-ARIMA <- ModelSelection(Observed = niz[,2], Model = fita, K =2,  Name = "ARIMA", Form = "LM", kutuf = 0, TTy = "Number", Data = niz)
-'Quardratic polynomial' <- ModelSelection(Observed = niz[,2], Model = fitpi, K =2,  Name = "QUADRATIC", Form = "LM", kutuf = 0, TTy = "Number", Data = niz)
+DD <- niz[, c(1,2)]
+'Spline with knots' <- MachineLearningMetrics(Observed = DD, yvalue = DD[, 2], Model = fit0, K =2, Name = "Nil", Form = "LM", kutuf = 0, TTy = "Number")
+'Spline without knots' <- MachineLearningMetrics(Observed = DD, yvalue = DD[, 2], Model = fit, K =2,  Name = "Nil", Form = "LM", kutuf = 0, TTy = "Number")
+'Smooth spline' <- MachineLearningMetrics(Observed = DD, yvalue = DD[, 2], Model = fit1, K =2,  Name = "SMOOTH", Form = "LM", kutuf = 0, TTy = "Number")
+ARIMA <- MachineLearningMetrics(Observed = DD, yvalue = DD[, 2], Model = fita, K =2,  Name = "ARIMA", Form = "LM", kutuf = 0, TTy = "Number")
+'Quardratic polynomial' <- MachineLearningMetrics(Observed = DD, yvalue = DD[, 2], Model = fitpi, K =2,  Name = "QUADRATIC", Form = "LM", kutuf = 0, TTy = "Number")
 SelectionCriteria <- as.data.frame(cbind(`Spline with knots`, `Spline without knots`, `Smooth spline`, ARIMA, `Quardratic polynomial`))
 
 XYZ <- knitr::kable(SelectionCriteria, "html")
@@ -437,6 +438,7 @@ check_model(fitpi)
 
 
 ```{r echo = FALSE, message = FALSE, warning = FALSE}
+
 kk  <- forecast::forecast(fitted.values(fit), 
                            h = length(Dsf))
  kk0 <- forecast::forecast(fitted.values(fit0),
