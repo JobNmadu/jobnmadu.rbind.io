@@ -580,19 +580,106 @@ kableExtra::kable_styling(RMSE_fk, "striped")
 
 # Take a further look at some of the visuals 
 
+```{r echo=FALSE, message = FALSE, warning = FALSE}
 
-![](img/raw000.png)   
+plot(z.s[,1], z.s[,2], main = " ", col = "red", type = "l", lwd = 2, xlab = casesstarts, ylab = "COVID-19 confirmed cases")
+grid(10,20,lty=1,lwd=1)
+abline(v = BREAKS, lwd = 2, lty = 2, col = "black")
+#lines(density(z.s$Case), lwd = 2, type = "l", col = "blue", bw = 69.22)
+lines(fitted.values(smooth.spline(z.s[,1],z.s[,2])), type = "l", 
+      col = "blue", lwd = 2)
+DDf <- c("Observed", "Cut points", "Smooth spline") #, "Density")
+legend("topleft", 
+       inset = c(0, 0),  bty = "n", x.intersp = 0.5,
+       xjust = 0, yjust = 0,
+       legend = DDf, col = c("red", "black", "blue"),
+       lwd = 2, cex = 0.75, xpd = TRUE, horiz = FALSE)
+
+#![](img/raw000.png)
+```
 
 
+```{r echo=FALSE, message = FALSE, warning = FALSE}
 
-![](img/state05.png)   
+plot(cumper$Per, main = " ",
+     xlab = casesstarts, ylab = "Per Cent",
+     ylim = c(-50,100),
+     type = "l", lwd = 2, col="forestgreen")
+grid(10,20,lty=1,lwd=1)
+lines(cumper$Per, lty=1,lwd=2, col= "forestgreen")
+lines(cumper$PerCum, lty=1,lwd=2, col= "orangered")
+lines(log(cumper$DailyCase), lty=1,lwd=2, col= "magenta")
+lines(cumper$LPer, lty=1,lwd=2, col= "brown")
+lines(cumper$LPerCum, lty=1,lwd=2, col= "blue")
+legend("topright", 
+       inset = c(0, 0, 0, 0),  bty = "n", x.intersp = 0.5,
+       xjust = 0, yjust = 0,
+       "topright", col = c("forestgreen", "orangered", "magenta", "brown", "blue"),
+       c("Per cent of total cases","Percent of cummulative cases", 
+         "Daily cases, log transformed", 
+         "Difference from previsous rate",
+         "Difference from previous cummulative rate"),
+       lwd = 2, cex = 0.75, xpd = TRUE, horiz = FALSE)
+
+#![](img/state05.png)
+```
 
 
-![](img/state06.png)   
+```{r echo=FALSE, message = FALSE, warning = FALSE}
+
+ggplot(cumper1) +
+  aes(x = Date, y = Per_Cent, colour = Models, group = Models) +
+  geom_line(size = 1L) +
+  scale_color_hue() +
+  theme_bw() +
+  theme(legend.position = "none") +
+  labs(title = "\n  \n",
+       subtitle = " ",
+       caption = "Graphics: Job Nmadu | @JobNmadu  \n Source: https://covid19.ncdc.gov.ng/")
+
+#![](img/state06.png)
+```
+
+   
 
 
+```{r echo=FALSE, message = FALSE, warning = FALSE}
 
-![](img/state10.png)   
+fitp <- lm(Cum_case ~ Day + I(Day^2), data = niz)
+fitc<-lm(niz[,3] ~ bs(niz[,1], knots =NULL), data = niz)
+kkC <- forecast::forecast(fitted.values(fitc), h = length(Dsf))
+kkP <- forecast::forecast(fitted.values(fitp), h = length(Dsf))
+
+CCase <- as.data.frame(cbind("Day" = ss, "Spline forecast" = kkC[["mean"]], "Polynomial forecast" = kkP[["mean"]]))
+
+CCase1 <- as.data.frame(cbind("Day" = ss,"Cumulative case" = niz$Cum_case))
+
+KKz <- CCase %>%
+   pivot_longer(-c(Day), names_to = "Models",
+                values_to = "Forecast")
+KKZ <- ggplot(KKz) +
+   aes(x = Day, y = Forecast, colour = Models, group = Models) +
+   geom_line(size = 1L) +
+   scale_color_hue() +
+   theme_bw() +
+   labs(title = " ",
+        subtitle = " ",
+        caption = "Graphics: Job Nmadu | @JobNmadu  \n Source: https://covid19.ncdc.gov.ng/")
+
+KKZ1 <- ggplot(CCase1) +
+   aes(x = Day, y = `Cumulative case`) +
+   geom_line(size = 1L, colour = "#0c4c8a") +
+   scale_color_hue() +
+   theme_minimal() +
+   labs(title = " ",
+        subtitle = " ",
+        caption = "Graphics: Job Nmadu | @JobNmadu  \n Source: https://covid19.ncdc.gov.ng/")
+
+library(patchwork)
+KKZ + KKZ1
+#![](img/state10.png)  
+```
+
 
 
 
