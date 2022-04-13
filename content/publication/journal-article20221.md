@@ -25,7 +25,7 @@ tags:
 - adaptive capacity index
 - seemingly unrelated regression
 - North Central Nigeria
-title: Dynamic Relationship between Vulnerability to Climate Change, Livelihood Diversification, Perception on Climate Change and Income of the Farmers in North Central Nigeria
+title: Dynamic Relationship between Vulnerability to Climate Change Livelihood Diversification Perception on Climate Change and Income of the Farmers in North Central Nigeria
 ---
 {{% alert note %}}
 Click the *Cite* button above to demo the feature to enable visitors to import publication metadata into their reference management software.
