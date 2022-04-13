@@ -6,7 +6,7 @@ authors:
 - Alexander Coker
 - Usman Mohammed
 date: "2022-04-12T00:00:00Z"
-doi: 10.9734/ARJA/2022/v15i330156
+doi: "10.9734/ARJA/2022/v15i330156"
 featured: true
 image:
   #caption: 'Image credit: [**Unsplash**](https://unsplash.com/photos/jdD8gXaTZsc)'
@@ -18,7 +18,7 @@ publication_short: ""
 publication_types:
 - "2"
 publishDate: ""
-summary:
+summary: .
 tags:
 - Climate change
 - Vulnerability index
