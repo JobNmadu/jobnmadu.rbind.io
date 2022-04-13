@@ -11,7 +11,7 @@ authors:
 - admin
 date: "2020-10-01T00:00:00Z"
 doi: "10.22004/ag.econ.310899"
-featured: true
+featured: false
 image:
   #caption: 'Image credit: [**Unsplash**](https://unsplash.com/photos/jdD8gXaTZsc)'
   focal_point: ""
