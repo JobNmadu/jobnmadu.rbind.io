@@ -6,7 +6,7 @@ authors:
 - Alexander Coker
 - Usman Mohammed
 date: "2022-04-12T00:00:00Z"
-doi: ""
+doi: "10.9734/ARJA/2022/v15i330156"
 featured: true
 image:
   #caption: 'Image credit: [**Unsplash**](https://unsplash.com/photos/jdD8gXaTZsc)'
@@ -20,11 +20,11 @@ publication_types:
 publishDate: ""
 summary: .
 tags:
-- Climate change
-- vulnerability index
-- adaptive capacity index
-- seemingly unrelated regression
-- North Central Nigeria
+-Climate change
+-Vulnerability index
+-Adaptive capacity index
+-Seemingly unrelated regression
+-North Central Nigeria
 title: Dynamic Relationship between Vulnerability to Climate Change, Livelihood Diversification, Perception on Climate Change and Income of the Farmers in North Central Nigeria
 ---
 {{% alert note %}}
