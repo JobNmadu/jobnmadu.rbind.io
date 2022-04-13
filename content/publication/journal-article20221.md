@@ -18,7 +18,7 @@ publication_short: ""
 publication_types:
 - "2"
 publishDate: ""
-summary: .
+summary:
 tags:
 -Climate change
 -Vulnerability index
