@@ -6,14 +6,14 @@ authors:
 - Alexander Coker
 - Usman Mohammed
 date: "2022-04-12T00:00:00Z"
-doi: "10.9734/ARJA/2022/v15i330156"
+doi: ""
 featured: true
 image:
   #caption: 'Image credit: [**Unsplash**](https://unsplash.com/photos/jdD8gXaTZsc)'
   focal_point: ""
   preview_only: false
 projects: []
-publication: '*Asian Research Journal of Agriculture , 15*(3):1-8'
+publication: '*Asian Research Journal of Agriculture, 15*(3):1-8'
 publication_short: ""
 publication_types:
 - "2"
