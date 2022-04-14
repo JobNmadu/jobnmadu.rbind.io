@@ -7,7 +7,7 @@ authors:
 - Usman Mohammed
 date: "2020-02-01T00:00:00Z"
 doi: "10.9734/ijecc/2020/v10i230178"
-featured: false
+featured: true
 image:
   #caption: 'Image credit: [**Unsplash**](https://unsplash.com/photos/jdD8gXaTZsc)'
   focal_point: ""
