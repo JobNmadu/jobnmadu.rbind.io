@@ -13,12 +13,12 @@ image:
   preview_only: false
 links: null
 projects: null
-# publication: In *Agricultural Development in Nigeria: Evidence can Chart the Path*
-# publication_short: In *STC*
+#publication: In *Agricultural Development in Nigeria: Evidence can Chart the Path*
+#publication_short: In *STC*
 publication_types:
 - "1"
 publishDate: "2021-05-10T00:00:00Z"
-# summary: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis posuere tellus.
+#summary: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis posuere tellus.
 tags:
 - Agribusiness
 - AutoRegressive Distributed Lag ARDL
