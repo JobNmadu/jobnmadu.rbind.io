@@ -5,7 +5,7 @@ authors:
 - Halima Sallawu
 - Yebosoko Nmadu
 date: "2021-01-28T00:00:00Z"
-doi: https://www.doi.org/10.5038/9781955833035
+doi: https://digitalcommons.usf.edu/m3publishing/vol5/iss2021/78/
 featured: false
 image:
 #  caption: 'Image credit: [**Unsplash**](https://unsplash.com/photos/pLCdAaMFLTE)'
@@ -13,12 +13,12 @@ image:
   preview_only: false
 links: null
 projects: null
-# publication: In *Agricultural Development in Nigeria: Evidence can Chart the Path*
-# publication_short: In *STC*
+#publication: In *Agricultural Development in Nigeria: Evidence can Chart the Path*
+#publication_short: In *STC*
 publication_types:
 - "1"
 publishDate: "2021-05-10T00:00:00Z"
-# summary: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis posuere tellus.
+#summary: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis posuere tellus.
 tags:
 - Agribusiness
 - AutoRegressive Distributed Lag ARDL
@@ -36,5 +36,3 @@ Click the *Cite* button above to demo the feature to enable visitors to import p
 {{% alert note %}}
 Click the *Slides* button above to demo academia's Markdown slides feature.
 {{% /alert %}}
-
-Supplementary notes can be added here, including [code and math](https://sourcethemes.com/academic/docs/writing-markdown-latex/).

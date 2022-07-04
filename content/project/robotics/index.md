@@ -1,11 +1,11 @@
 ---
-date: "2016-04-27T00:00:00Z"
+date: ""
 external_link: null
 image:
-  caption: Photo by Toa Heftiba on Unsplash
+ #caption: Photo by Toa Heftiba on Unsplash
   focal_point: Smart
-summary: Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam, eius.
+summary: .
 tags:
-- Robotics
-title: Robotics
+- 
+title: 
 ---
