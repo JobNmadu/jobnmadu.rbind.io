@@ -51,6 +51,12 @@
 # Link to a PDF of your resume/CV from the menu.
 # To enable, copy your resume/CV to `static/files/cv.pdf` and uncomment the lines below.
  [[main]]
-    name = "CV"
+    name = "Resume"
     url = "files/CV.pdf"
     weight = 70
+# Link to a PDF of your resume/CV from the menu.
+# To enable, copy your resume/CV to `static/files/JobNmadu.html` and uncomment the lines below.
+ [[main]]
+    name = "View CV online"
+    url = "files/JobNmadu.html"
+    weight = 80
