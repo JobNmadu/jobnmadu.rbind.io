@@ -76,5 +76,5 @@
 [[main]]
     parent = "CV"
     name = "View Biographical notes"
-    url = "files/biograpgy.pdf"
+    url = "files/biography.pdf"
     weight = 70
