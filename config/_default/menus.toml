@@ -51,12 +51,30 @@
 # Link to a PDF of your resume/CV from the menu.
 # To enable, copy your resume/CV to `static/files/cv.pdf` and uncomment the lines below.
  [[main]]
-    name = "Resume"
+    name = "CV"
+    url = "#"
+    hasChildren = true
+
+[[main]]
+    parent = "CV"
+    name = "Resume in brief"
     url = "files/CV.pdf"
     weight = 70
-# Link to a PDF of your resume/CV from the menu.
-# To enable, copy your resume/CV to `static/files/JobNmadu.html` and uncomment the lines below.
+
  [[main]]
-    name = "View CV online"
+    parent = "CV"
+    name = "View upadted publications list"
     url = "files/JobNmadu.html"
-    weight = 80
+    weight = 70
+
+[[main]]
+    parent = "CV"
+    name = "View Experience on timeline"
+    url = "files/timelineCV.pdf"
+    weight = 70
+
+[[main]]
+    parent = "CV"
+    name = "View Biographical notes"
+    url = "files/biograpgy.pdf"
+    weight = 70
