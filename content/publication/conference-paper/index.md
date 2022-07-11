@@ -13,7 +13,7 @@ authors:
 - Mohammed Ndanitsa
 - Taiwo Amos
 - Kpotun Baba
-date: "2021-01-28T00:00:00Z"
+date: "2021-01-28T01:00:00Z"
 doi: ""
 featured: true
 image:
@@ -22,11 +22,11 @@ image:
   preview_only: false
 links: null
 projects: null
-# publication: In *Agricultural Development in Nigeria: Evidence can Chart the Path*
+ publication: '*Agricultural Development in Nigeria: Evidence can Chart the Path*'
 # publication_short: In *STC*
 publication_types:
 - "1"
-publishDate: "2017-01-01T00:00:00Z"
+# publishDate: "2021-01-28T01:00:00Z"
 # summary: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis posuere tellus.
 tags:
 - Computable General Equilibrium (CGE)
@@ -34,7 +34,7 @@ tags:
 - Social Accounting Matrix (SAM)
 - RStats
 - Nigeria
-title: African Continental Free Trade Area (AfCFTA)-Potential Welfare Effects and Impacts on Nigerian Farmers
+title: 'African Continental Free Trade Area (AfCFTA):Potential Welfare Effects and Impacts on Nigerian Farmers'
 ---
 
 {{% alert note %}}

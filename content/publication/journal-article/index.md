@@ -5,7 +5,7 @@ authors:
 - admin
 - Alexander Coker
 - Usman Mohammed
-date: "2020-02-01T00:00:00Z"
+date: "2020-02-01T01:00:00Z"
 doi: "10.9734/ijecc/2020/v10i230178"
 featured: true
 image:
