@@ -22,7 +22,7 @@ image:
   preview_only: false
 links: null
 projects: null
- publication: '*Agricultural Development in Nigeria: Evidence can Chart the Path*'
+ publication: *Agricultural Development in Nigeria: Evidence can Chart the Path*
 # publication_short: In *STC*
 publication_types:
 - "1"
@@ -34,7 +34,7 @@ tags:
 - Social Accounting Matrix (SAM)
 - RStats
 - Nigeria
-title: African Continental Free Trade Area (AfCFTA)-Potential Welfare Effects and Impacts on Nigerian Farmers
+title: 'African Continental Free Trade Area (AfCFTA):Potential Welfare Effects and Impacts on Nigerian Farmers'
 ---
 
 {{% alert note %}}
