@@ -14,7 +14,7 @@ image:
   focal_point: ""
   preview_only: false
 projects: []
-publication: '*Kasetsart Journal of Social Sciences. 40*:434–439'
+publication: '*Kasetsart Journal of Social Sciences. 40*:434â€“439'
 publication_short: ""
 publication_types:
 - "2"
@@ -24,7 +24,7 @@ tags:
 - Drivers of participation
 - Ordered Logit regression
 - Women farmers
-title: Analysis of food crops farmers’ choice of climate change adaptation strategies in Kwara State, Nigeria
+title: Analysis of food crops farmers' choice of climate change adaptation strategies in Kwara State, Nigeria
 ---
 {{% alert note %}}
 Click the *Cite* button above to demo the feature to enable visitors to import publication metadata into their reference management software.
