@@ -21,9 +21,11 @@ publication_types:
 publishDate: ""
 summary: .
 tags:
-- Drivers of participation
-- Ordered Logit regression
-- Women farmers
+- adaptation strategies
+- cassava farmers
+- climate change
+- logit regression
+- yam farmers
 title: Analysis of food crops farmers' choice of climate change adaptation strategies in Kwara State, Nigeria
 ---
 {{% alert note %}}
