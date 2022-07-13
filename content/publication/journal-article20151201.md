@@ -4,7 +4,7 @@ abstract:
 authors:
 - admin
 - Abigail Tsado Jacob
-- Kpotun Baba
+- Kpotun Mohammed Baba
 date: "2015-12-01T01:00:00Z"
 doi: "10.18551/rjoas.2015-12.07"
 featured: false
