@@ -15,8 +15,7 @@ image:
   focal_point: ""
   preview_only: false
 projects: []
-publication: '*
- International Journal of Development and Sustainability 3(7)*:1538-1548'
+publication: '*International Journal of Development and Sustainability 3(7)*:1538-1548'
 publication_short: " "
 publication_types:
 - "2"
