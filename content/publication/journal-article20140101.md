@@ -26,7 +26,7 @@ tags:
 - Data envelopment analysis
 - Metafrontier
 - Metatechnology ratio 
-title: 'Technical Efficiency of Millet/Cowpea Farmers in Kebbi State Nigeria: A Double Bootstrapping Approach'
+title: 'Estimating technical efficiency and the metatechnology ratio using the metafrontier approach for cropping systems in Kebbi State,Nigeria'
 ---
 {{% alert note %}}
 Click the *Cite* button above to demo the feature to enable visitors to import publication metadata into their reference management software.
