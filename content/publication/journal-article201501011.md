@@ -25,7 +25,7 @@ tags:
 - homogenous income group
 - international poverty line
 - national poverty line
-title: Poverty Reduction in Nigeria: Lessons from Small Scale Farmers of Niger and Kogi States
+title: 'Poverty Reduction in Nigeria: Lessons from Small Scale Farmers of Niger and Kogi States'
 ---
 {{% alert note %}}
 Click the *Cite* button above to demo the feature to enable visitors to import publication metadata into their reference management software.
