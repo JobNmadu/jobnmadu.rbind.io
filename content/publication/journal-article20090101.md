@@ -23,7 +23,7 @@ tags:
 - joint points
 - ex-post
 - ex-ante
-title: Spline Functions: Assessing their Forecasting Consistency with Changes in the Type of Model and Choice of Joint Points
+title: 'Spline Functions: Assessing their Forecasting Consistency with Changes in the Type of Model and Choice of Joint Points'
 ---
 {{% alert note %}}
 Click the *Cite* button above to demo the feature to enable visitors to import publication metadata into their reference management software.
