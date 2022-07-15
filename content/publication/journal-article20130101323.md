@@ -16,7 +16,7 @@ publication: '*Journal of Applied Agricultural Research 6(2)*:95-105'
 publication_short: " "
 publication_types:
 - "2"
-publishDate: " "
+publishDate: ""
 summary: .
 tags:
 - Small-scale yam farms
