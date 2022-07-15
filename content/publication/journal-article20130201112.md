@@ -13,7 +13,7 @@ image:
   focal_point: ""
   preview_only: false
 projects: []
-publication: '*Russian Journal of Agricultural and Socio-Economics 14(2)*:15-25'
+publication: '*Russian Journal of Agricultural and Socio-Economics 2(14)*:15-25'
 publication_short: " "
 publication_types:
 - "2"
