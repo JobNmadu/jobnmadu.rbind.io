@@ -21,10 +21,7 @@ publication_types:
 publishDate: " "
 summary: .
 tags:
-- Cropping systems
-- Data envelopment analysis
-- Metafrontier
-- Metatechnology ratio 
+
 title: 'Multinomial logit analysis of choice of enterprise among maize/sorghum based cropping systems in Niger State, Nigeria'
 ---
 {{% alert note %}}
