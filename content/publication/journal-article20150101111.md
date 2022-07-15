@@ -21,7 +21,8 @@ publication_types:
 publishDate: " "
 summary: .
 tags:
-
+- cropping systems
+- Niger State
 title: 'Multinomial logit analysis of choice of enterprise among maize/sorghum based cropping systems in Niger State, Nigeria'
 ---
 {{% alert note %}}
