@@ -6,7 +6,7 @@ authors:
 - Williams  O. Inalegwu
 - Halima Sallawu
 date: "2013-12-27T01:00:00Z"
-doi: " 10.9734/AJAEES/2014/7707"
+doi: "10.9734/AJAEES/2014/7707"
 featured: false
 image:
   #caption: 'Image credit: [**Unsplash**](https://unsplash.com/photos/jdD8gXaTZsc)'
