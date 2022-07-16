@@ -1,5 +1,5 @@
 ---
-title: "The rapid transformation of the fish value chain in Nigeria: evidence from Niger State / Policy Research Paper 112"
+title: "The rapid transformation of the fish value chain in Nigeria: evidence from Niger State"
 authors:
 -  Godwin Ebiloma
 -  Rachel Olatunji
@@ -24,7 +24,7 @@ publishDate: "2018-09-09T00:00:00Z"
 publication_types: ["3"]
 
 # Publication name and optional abbreviated publication name.
-publication: ""
+publication: "Policy Research Paper 112"
 publication_short: ""
 
 abstract: This study presents the results from a meso-inventory with a recall over 10 years of numbers of actors of different size strata in the fish value chain segments in Niger State, Northern Nigeria. It was conducted between March and July 2018. We explore the growth and changing structure of the fish value chain in the state. The 9 segments studied include hatcheries and feed mills (as inputs to the farmed fish segment), fish production (fish farmers and fishers), urban and rural wholesalers and retailers, and fish processors.
