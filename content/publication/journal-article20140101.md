@@ -4,7 +4,7 @@ abstract:
 authors:
 - Abigail John Jirgi
 - Bennie Gróve
-- Henry Jordan 
+- Henry Jordaan 
 - Machiel Fredrick Viljoen
 - admin
 date: "2014-09-01T01:00:00Z"
