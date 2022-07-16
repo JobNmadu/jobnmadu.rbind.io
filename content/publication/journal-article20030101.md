@@ -1,6 +1,6 @@
 ---
 abstract:
- Ex-ante estimates of sorghum yield, hectarage and output obtained using Fuller’s grafted polynomials were compared with computed values using the grafted estimates. Findings indicate that the grafted estimates and the computed values are significantly different (p<0.5). The finding also show that if the difference continues as it is, than policy action remains the only tool left to ensure that food security is sustained through increased sorghum production.
+ Ex-ante estimates of sorghum yield, hectarage and output obtained using Fuller's grafted polynomials were compared with computed values using the grafted estimates. Findings indicate that the grafted estimates and the computed values are significantly different (p<0.5). The finding also show that if the difference continues as it is, than policy action remains the only tool left to ensure that food security is sustained through increased sorghum production.
 authors:
 - admin
 - Taye T. Amos
