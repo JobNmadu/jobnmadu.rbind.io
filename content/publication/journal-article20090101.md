@@ -3,6 +3,8 @@ abstract:
  The possibility of the type of spline function and joint points selected affecting the consistency of the ex-post and ex-ante forecasts were tested using cereal production (1961-2006) and percent contribution of agriculture to GDP (1961-2004) in Nigeria. Three types of model, that is, Linear-Quadratic-Linear, Quadratic-Quadratic-Linear and Linear-Quadratic-Quadratic, were used. The result indicated that there is no universality as to which model is appropriate, rather all possible models should be tried and the one that gives most consistent result when compared to observed data and other factors should be used.
 authors:
 - admin
+- Ezekiel S. Yisa
+- Usman S. Mohammed
 date: "2009-01-01T01:00:00Z"
 doi: "10.3923/tae.2009.17.27"
 featured: false

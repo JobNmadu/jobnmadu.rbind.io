@@ -5,7 +5,7 @@ authors:
 - Sylvester Ekemhonye
 - admin
 - Alexander Coker
-- Mohammed Ndanitsa
+- Attahiru M. Ndanitsa
 date: "2020-07-01T01:00:00Z"
 doi: "10.38124/IJISRT20JUL004"
 featured: false

@@ -5,7 +5,7 @@ authors:
 - Halima Sallawu
 - Likita Tanko
 - admin
-- Attahiru Ndanitsa
+- Attahiru M. Ndanitsa
 date: "2016-02-01T01:00:00Z"
 doi: "10.18551/rjoas.2016-02.07"
 featured: false

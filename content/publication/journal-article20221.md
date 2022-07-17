@@ -13,7 +13,7 @@ image:
   focal_point: ""
   preview_only: false
 projects: []
-publication: '*Asian Research Journal of Agriculture , 15*(3):1-8'
+publication: '*Asian Research Journal of Agriculture 15(3)*:1-8'
 publication_short: ""
 publication_types:
 - "2"

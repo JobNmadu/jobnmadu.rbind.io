@@ -3,7 +3,7 @@ abstract:
  This paper indicates that economic time series data does not always relate to trend linearly during the entire sample space.  Hence, grafting technique was used to capture quadratic changes of sorghum acreage in Nigeria during the period 1961 to 1997.  The parameters of the resulting model were then estimated using the OLS technique.  The results indicated that sorghum acreage in Nigeria might have been overestimated in the past.  Also, changing from one policy regime to the other exerted a considerable back-pull effect on acreage.  Finally, the grafted models anticipate a cumulative and greater growth in sorghum technology.
 authors:
 - admin
-- James O. olukosi
+- James O. Olukosi
 - Taye T. Amos
 - Rabi S. Musa
 date: "2004-11-01T01:00:00Z"

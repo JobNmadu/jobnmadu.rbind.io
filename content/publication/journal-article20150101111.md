@@ -1,6 +1,6 @@
 ---
 abstract:
- Abstracts is on the way.
+ 
 authors:
 - Ezekiel Yisa
 - admin
@@ -22,7 +22,7 @@ publishDate: " "
 summary: .
 tags:
 
-title: 'Multinomial logit analysis of choice of enterprise among maize/sorghum based cropping systems in Niger State, Nigeria'
+title: 'Multinomial logit analysis of choice of enterprise among maize/sorghum based cropping systems in Niger State'
 ---
 {{% alert note %}}
 Click the *Cite* button above to demo the feature to enable visitors to import publication metadata into their reference management software.

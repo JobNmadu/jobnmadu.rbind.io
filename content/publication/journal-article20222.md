@@ -2,7 +2,7 @@
 abstract: 
  The study examined the drivers of women participation in agricultural activities in Nigeria. A total of 636 women farmers were used for the study and data were collected through interview and questionnaire process. Descriptive statistics, Participation index and Ordered Logit regression were used to analyze the data. The results revealed that the mean age, household size, farming experience and farm size were 44 years, 8 members, 18 years and 3.1 ha respectively. The result also revealed that women farmers in Nigeria engaged themselves in agricultural activities such as crop farming, livestock farming, agricultural trading, poultry farming, horticultural farming and aquaculture farming. Result of the participation index revealed that women farmers were actively involved in agriculture with 49.06 % of the women with high level of participation. The regression analysis revealed that the positive drivers of women participation in agricultural activities were household size, marital status, level of education, farming experience, disposable income, extension service and membership of association. In the contrary, distance to farm is a negative driver of women participation in agricultural activities in the study area. In addition, inadequate financial opportunities and inadequate access to extension services were among the serious constraints that hindered women participation in agricultural activities.
 authors:
-- Halima Sallawwu
+- Halima Sallawu
 - Fatima Adebisi Olabiyi
 - Deborah Alabi
 - Patrick Joshua

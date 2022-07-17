@@ -11,7 +11,7 @@ image:
   focal_point: ""
   preview_only: false
 projects: []
-publication: '*The Land 2(3)8:173-180'
+publication: '*The Land 2(3)*:173-180'
 publication_short: " "
 publication_types:
 - "2"
