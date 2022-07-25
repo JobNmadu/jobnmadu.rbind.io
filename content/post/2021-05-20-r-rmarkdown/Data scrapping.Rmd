@@ -6,7 +6,9 @@ author:
   - name: Job Nmadu
     url: https://jobnmadu.rbind.io/
 date: "2021-01-31T00:00:00Z"
-output: github_document
+output:
+  distill::distill_article:
+    self_contained: false
 tags: [COVID-19, NCDC, RStats]
 ---
 
