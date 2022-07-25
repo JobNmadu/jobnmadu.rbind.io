@@ -5,7 +5,7 @@ description: |
 author:
   - name: Job Nmadu
     url: https://jobnmadu.rbind.io/
-date: "2021-01-31T00:00:00Z"
+date: "2021-01-31"
 output: github_document
 tags: [COVID-19, NCDC, RStats]
 ---
