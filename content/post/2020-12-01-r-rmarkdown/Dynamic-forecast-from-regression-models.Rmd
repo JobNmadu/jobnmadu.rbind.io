@@ -1,0 +1,331 @@
+---
+title: "Modelling of COVID-19 distribution in Nigeria"
+description: |
+  The estimation of regressions models, their prediction and essembles are used to forecast COVID-19 distribution in Nigeria
+author:
+  - name: Job Nmadu
+    url: https://jobnmadu.rbind.io/
+bibliography: data/bibliography.bib
+date: "2021-03-15T00:00:00Z"
+output: github_document
+tags: [COVID-19, Nigeria, RStats, Visuals, Forecast]
+---
+
+
+```{r setup, include=FALSE, message = FALSE, warning = FALSE, echo = TRUE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Load library and the data
+
+The data is scrapped from the website of the Nigerian Centre for Disease Control (NCDC) i.e [@NCDC2020]. The scrapping was done with some bits of tricks. Please see my post on that. The BREAKS were established from the visual inspection of the data (see [@Nmadu2009])
+
+```{r message = FALSE, warning = FALSE, echo = TRUE}
+library(tidyverse)
+library(splines)
+library(Metrics)
+library(scales)
+library(readxl)
+library(patchwork)
+library(Dyn4cast)
+
+BREAKS <- c(70, 131, 173, 228, 274, 326)
+
+z.s           <- readRDS("data/zs.RDS")
+cumper        <- readRDS("data/cumper.RDS")
+niz           <- readRDS("data/niz.RDS")
+States_county <- read_excel("data/States.xlsx")
+
+```
+
+Like mentioned earlier, some tricks were used to obtain the daily data from the website of NCDC. The NCDC uploads the cumulative data on daily basis, so each day, the data were scrapped and then the daily incidemnce were recorded. For examble, below is the data scrapped from the website on March 15, 2021.
+
+```{r message = FALSE, warning = FALSE, echo = TRUE}
+Deaths <- readr::read_csv("data/today.csv")
+names(Deaths) <- c("Region", "Confirmed", "Active", "Recovered", "Deaths")
+DDmap <- Deaths
+Deaths
+```
+
+
+# Creating date items
+
+The dates are created starting with the day `COVID-19` was first recorded in Nigeria, which is February 29, 2020. The sequence of dates were created fron the day to the last day the dataset was uploaded, which is March 15, 2021. In addition, sequence of dates were created from March 16, 2021 to march the number of days the virus have been recorded in Nigeria.
+
+```{r message = FALSE, warning = FALSE, echo = TRUE}
+ss <- seq(1:length(cumper$DailyCase))
+Dss <- seq(as.Date("2020-02-29"), by = "day", length.out = length(cumper$DailyCase))
+Dsf <- seq(as.Date(Dss[length(Dss)] + lubridate::days(1)),
+           by = "day", length.out = length(cumper$DailyCase))
+day01 <- format(Dss[1], format = "%B %d, %Y")
+daylast <- format(Dss[length(Dss)], format = "%B %d, %Y")
+casesstarts <- paste("Starting from", day01, "to", daylast,
+                     collapse=" ")
+lastdayfo <- format(Dsf[length(Dsf)], format = "%B %d, %Y")
+```
+
+# Modelling and forecasting of COVID-19 caes
+
+The incidence of the virus was model using five machine learning algorithms which are:
+
+```{}
+Splines model without Knots
+
+Smooth spline
+
+Splines model with Knots (or breaks)
+
+Quadratic Polynomial
+
+ARIMA
+```
+
+Then using the ensemble technology, another set of four machine learning models were estimated as follows:
+
+```{}
+Essembled based on summed weight
+
+Essembled based on weight of fit
+
+Essembled based on weight
+
+Essembled with equal weight
+```
+
+The esemble technology is an attempt to combine models into one especially were the individual models are weak [@mm2021].
+
+```{r message = FALSE, warning = FALSE, echo = TRUE}
+fit0  <- lm(Case ~ bs(Day, knots = NULL), data = niz)
+fit   <- lm(Case ~ bs(Day, knots = BREAKS), data = niz)
+fit1  <- smooth.spline(niz$Day, niz$Case)
+fita  <- forecast::auto.arima(niz$Case)
+fitpi <- lm(Case ~ Day + I(Day^2), data = niz)
+
+kk  <- forecast::forecast(fitted.values(fit), 
+                           h = length(Dsf))
+ kk0 <- forecast::forecast(fitted.values(fit0),
+                           h = length(Dsf))
+ kk1 <- forecast::forecast(fitted.values(fit1),
+                           h = length(Dsf))
+ kk10 <- forecast::forecast(fitted.values(fitpi),
+                            h = length(Dsf))
+ kk2 <- forecast::forecast(forecast::auto.arima(z.s$Case), h = length(Dsf))
+ 
+ kk30 <- (fitted.values(fit) + fitted.values(fit0) +
+              fitted.values(fit1) + fitted.values(fitpi) +
+            fita[["fitted"]])/5
+ kk31 <- forecast::forecast(kk30, h = length(Dsf))
+ 
+ kk40 <- lm(niz[,2]~fitted.values(fit)*fitted.values(fit0)*
+              fitted.values(fit1)*fitted.values(fitpi)*
+              fita[["fitted"]])
+ kk41 <- forecast::forecast(fitted.values(kk40),
+                            h = length(Dsf))
+ kk60 <- lm(niz[,2]~fitted.values(fit)+fitted.values(fit0)+
+              fitted.values(fit1)+fitted.values(fitpi)+
+              fita[["fitted"]])
+ kk61 <- forecast::forecast(fitted.values(kk60),
+                            h = length(Dsf))
+ 
+ KK <- as.data.frame(cbind("Date" = Dsf,"Day" = ss, "Without Knots" = kk[["mean"]], "Smooth spline" = kk0[["mean"]],  "With Knots" = kk1[["mean"]], "Polynomial" = kk10[["mean"]], "Lower ARIMA" = kk2[["lower"]], "Upper ARIMA" = 
+                             kk2[["upper"]]))
+
+ KK <- KK[,-c(7,9)]
+names(KK) <- c("Date", "Day", "Without Knots", "Smooth spline", "With Knots", "Polynomial", "Lower ARIMA", "Upper ARIMA") 
+
+WK   <- sum(KK$`Without Knots`)
+WKs  <- sum(KK$`With Knots`)   
+SMsp <- sum(KK$`Smooth spline`)
+LA   <- sum(KK$`Lower ARIMA`)  
+UA   <- sum(KK$`Upper ARIMA`)  
+POL  <- sum(KK$Polynomial)
+
+RMSE <- c("Without knots" = rmse(niz[,2],
+                                 fitted.values(fit)),
+"Smooth Spline" = rmse(niz[,2], fitted.values(fit0)),
+"With knots" = rmse(niz[,2], fitted.values(fit1)),
+"Polynomial" = rmse(niz[,2], fitted.values(fitpi)),
+"Lower ARIMA" = rmse(niz[,2], fita[["fitted"]]),
+"Upper ARIMA" = rmse(niz[,2], fita[["fitted"]]))
+
+#RMSE <- 1/RMSE
+RMSE_weight <- as.list(RMSE / sum(RMSE))
+
+KK$Date <- as.Date(KK$Date, origin = as.Date("1970-01-01"))
+
+DDf <- c("Without knots", "Smooth Spline", 
+          "With knots", "Quadratic Polynomial",
+         "Lower ARIMA", "Upper ARIMA",
+         "Essembled with equal weight",
+         "Essembled based on weight",
+         "Essembled based on summed weight",
+         "Essembled based on weight of fit" )
+
+KK$`Essembled with equal weight` <- kk31[["mean"]]
+KK$`Essembled based on weight` <- kk41[["mean"]]
+KK$`Essembled based on summed weight` <- kk61[["mean"]]
+ESS  <- sum(KK$`Essembled with equal weight`)
+ESM  <- sum(KK$`Essembled based on weight`)
+ESMS  <- sum(KK$`Essembled based on summed weight`)
+P_weight <-
+  (fitted.values(fit) * RMSE_weight$`Without knots`) + (fitted.values(fit0) *
+                                                          RMSE_weight$`Smooth Spline`) +
+  (fitted.values(fit1) * RMSE_weight$`With knots`) + (fitted.values(fitpi) *
+                                                        RMSE_weight$Polynomial) + (fita[["fitted"]] * RMSE_weight$`Lower ARIMA`)
+kk51 <- forecast::forecast(P_weight, h = length(Dsf))
+KK$`Essembled based on weight of fit` <-
+  kk51[["mean"]]
+ESF  <- sum(KK$`Essembled based on weight of fit`)
+RMSE$`Essembled with equal weight` <- rmse(niz[,2], kk30)
+RMSE$`Essembled based on weight` <- rmse(niz[,2], fitted.values(kk40))
+RMSE$`Essembled based on summed weight` <- rmse(niz[,2], fitted.values(kk60))
+RMSE$`Essembled based on weight of fit` <- rmse(niz[,2], P_weight)
+Forcasts <- colSums(KK[,-c(1,2)])
+
+RMSE_f <- as.data.frame(cbind("Model" = DDf,
+                              "Confirmed cases" =
+                                comma(round(Forcasts, 0))))
+
+Deaths$County <- States_county$County
+Deaths <- Deaths[order(-Deaths$Deaths),]
+Deaths$Region <- factor(Deaths$Region, levels = Deaths$Region)
+Deaths$Ratio <- Deaths$Deaths/Deaths$Confirmed*100
+Deaths <- Deaths[order(-Deaths$Ratio),]
+Deaths$Region <- factor(Deaths$Region, levels = Deaths$Region)
+
+Deaths$RecRatio <- Deaths$Recovered/Deaths$Confirmed*100
+Deaths <- Deaths[order(-Deaths$RecRatio),]
+Deaths$Region <- factor(Deaths$Region, levels = Deaths$Region)
+PerDeath <- round(sum((Deaths$Deaths)/
+                     sum(Deaths$Confirmed)*100), 2)
+PerRec <- round(sum((Deaths$Recovered)/
+                     sum(Deaths$Confirmed)*100), 2)
+
+RMSE_f$Recoveries <- comma(round(Forcasts * PerRec/100, 0))
+RMSE_f$Fatalities <- round(Forcasts * PerDeath/100, 0)
+RMSE_f$RMSE <- RMSE
+RMSE_f <- RMSE_f[order(-RMSE_f$Fatalities),]
+RMSE_f$Model <- factor(RMSE_f$Model, levels = RMSE_f$Model)
+RMSE_f$Fatalities <- comma(RMSE_f$Fatalities)
+RMSE_fk <- knitr::kable(RMSE_f, row.names = FALSE, "html")
+
+```
+
+# The report
+
+### It is now **`r length(cumper$DailyCase)`** days since the first COVID-19 case was reported in Nigeria. As at `r daylast` the confirmed cases are **`r comma(sum(niz$Case))`** with **`r comma(sum(Deaths$Deaths))`** (**`r Percent(Data = PerDeath, Type = "Value")`**) fatalities, however, **`r comma(sum(Deaths$Recovered))`** (**`r Percent(Data = PerRec, Type = "Value")`**) have recovered.   
+
+
+### Based on **equal days forecast**, by `r lastdayfo`, Nigeria's aggregate confirmed COVID-19 cases are forecast to be:
+
+```{r echo = TRUE, message = FALSE, warning = FALSE}
+
+
+kableExtra::kable_styling(RMSE_fk, "striped")
+
+```
+
+# Take a further look at some of the visuals 
+
+```{r echo = TRUE, message = FALSE, warning = FALSE}
+
+plot(z.s[,1], z.s[,2], main = " ", col = "red", type = "l", lwd = 2, xlab = casesstarts, ylab = "COVID-19 confirmed cases")
+grid(10,20,lty=1,lwd=1)
+abline(v = BREAKS, lwd = 2, lty = 2, col = "black")
+#lines(density(z.s$Case), lwd = 2, type = "l", col = "blue", bw = 69.22)
+lines(fitted.values(smooth.spline(z.s[,1],z.s[,2])), type = "l", 
+      col = "blue", lwd = 2)
+DDf <- c("Observed", "Cut points", "Smooth spline") #, "Density")
+legend("topleft", 
+       inset = c(0, 0),  bty = "n", x.intersp = 0.5,
+       xjust = 0, yjust = 0,
+       legend = DDf, col = c("red", "black", "blue"),
+       lwd = 2, cex = 0.75, xpd = TRUE, horiz = FALSE)
+```
+
+The above plot shows that as at March 15, 2021; Nigeria has gone through two waves and there were more cases of COVID-19 in the second wave.
+
+```{r echo = TRUE, message = FALSE, warning = FALSE}
+
+plot(cumper$Per, main = " ",
+     xlab = casesstarts, ylab = "Per Cent",
+     ylim = c(-50,100),
+     type = "l", lwd = 2, col="forestgreen")
+grid(10,20,lty=1,lwd=1)
+lines(cumper$Per, lty=1,lwd=2, col= "forestgreen")
+lines(cumper$PerCum, lty=1,lwd=2, col= "orangered")
+lines(log(cumper$DailyCase), lty=1,lwd=2, col= "magenta")
+lines(cumper$LPer, lty=1,lwd=2, col= "brown")
+lines(cumper$LPerCum, lty=1,lwd=2, col= "blue")
+legend("topright", 
+       inset = c(0, 0, 0, 0),  bty = "n", x.intersp = 0.5,
+       xjust = 0, yjust = 0,
+       "topright", col = c("forestgreen", "orangered", "magenta", "brown", "blue"),
+       c("Per cent of total cases","Percent of cummulative cases", 
+         "Daily cases, log transformed", 
+         "Difference from previsous rate",
+         "Difference from previous cummulative rate"),
+       lwd = 2, cex = 0.75, xpd = TRUE, horiz = FALSE)
+```
+
+
+
+```{r echo=FALSE, message = FALSE, warning = FALSE}
+
+cumper1 <- cumper %>%
+  pivot_longer(-c(Date, cum_Cases, DailyCase), names_to =
+                 "Models", values_to = "Per_Cent")
+ggplot(cumper1) +
+  aes(x = Date, y = Per_Cent, colour = Models, group = Models) +
+  geom_line(size = 1L) +
+  scale_color_hue() +
+  theme_bw() +
+  theme(legend.position = "none") +
+  labs(title = "\n  \n",
+       subtitle = " ",
+       caption = "Graphics: Job Nmadu | @JobNmadu  \n Source: https://covid19.ncdc.gov.ng/")
+```
+
+The above two visuals show the log transformation of the distribution  and the difference from previous day. The plots were mage with `plot` and `ggplot` functions respectively. 
+
+```{r echo=FALSE, message = FALSE, warning = FALSE}
+
+fitp <- lm(Cum_case ~ Day + I(Day^2), data = niz)
+fitc<-lm(niz[,3] ~ bs(niz[,1], knots =NULL), data = niz)
+kkC <- forecast::forecast(fitted.values(fitc), h = length(Dsf))
+kkP <- forecast::forecast(fitted.values(fitp), h = length(Dsf))
+
+CCase <- as.data.frame(cbind("Day" = ss, "Spline forecast" = kkC[["mean"]], "Polynomial forecast" = kkP[["mean"]]))
+
+CCase1 <- as.data.frame(cbind("Day" = ss,"Cumulative case" = niz$Cum_case))
+
+KKz <- CCase %>%
+   pivot_longer(-c(Day), names_to = "Models",
+                values_to = "Forecast")
+KKZ <- ggplot(KKz) +
+   aes(x = Day, y = Forecast, colour = Models, group = Models) +
+   geom_line(size = 1L) +
+   scale_color_hue() +
+   theme_bw() +
+   labs(title = " ",
+        subtitle = " ",
+        caption = "Graphics: Job Nmadu | @JobNmadu  \n Source: https://covid19.ncdc.gov.ng/")
+
+KKZ1 <- ggplot(CCase1) +
+   aes(x = Day, y = `Cumulative case`) +
+   geom_line(size = 1L, colour = "#0c4c8a") +
+   scale_color_hue() +
+   theme_minimal() +
+   labs(title = " ",
+        subtitle = " ",
+        caption = "Graphics: Job Nmadu | @JobNmadu  \n Source: https://covid19.ncdc.gov.ng/")
+
+KKZ + KKZ1
+```
+
+The plot on the right is the cumulative cases of COVID-19 recorded in Nigeria while on the left is the forecast using `spline` and `polynomial` models. The forecast is based on `equal duation` of the lenght of the data.
+
+# References
+
+
+
