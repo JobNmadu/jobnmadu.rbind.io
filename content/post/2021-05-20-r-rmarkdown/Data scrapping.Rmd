@@ -1,10 +1,6 @@
 ---
 title: "COVID19 data sceapping from Nigerian Centre for Disease Control (NCDC)"
-output:
-  prettydoc::html_pretty:
-    theme: cayman #tactile, architect, leonids, hpstr
-    highlight: vignette #github
-    math: katex #latex
+output: github_document
 date: "2021-03-15T00:00:00Z"
 tags: [COVID-19, NCDC, RStats]
 ---
