@@ -1,25 +1,218 @@
 ---
-title: "Dynamic forecast from regression models"
+title: "Modelling of COVID-19 distribution in Nigeria"
 description: |
-  The estimation of regressions models, their predicyion and essembles are used to forecast COVID-19 distribution in Nigeria
+  The estimation of regressions models, their prediction and essembles are used to forecast COVID-19 distribution in Nigeria
 author:
   - name: Job Nmadu
     url: https://jobnmadu.rbind.io/
 bibliography: data/bibliography.bib
 date: "2021-03-15T00:00:00Z"
-output: github_document
-tags: [COVID-19, Nigeria, RStats, Visuals, Forecast, Model Selection]
+output:
+  prettydoc::html_pretty:
+    theme: cayman #tactile, architect, leonids, hpstr
+    highlight: vignette #github
+    math: katex #latex
+tags: [COVID-19, Nigeria, RStats, Visuals, Forecast]
 ---
 
 <script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
 <link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
 
 
-<div id="it-is-now-381-days-since-the-first-covid-19-case-was-reported-in-nigeria.-as-at-march-15-2021-the-confirmed-cases-are-163646-with-2016-1.25-fatalities-however-145752-90.59-have-recovered." class="section level3">
-<h3>It is now <strong>381</strong> days since the first COVID-19 case was reported in Nigeria. As at March 15, 2021 the confirmed cases are <strong>163,646</strong> with <strong>2,016</strong> (<strong>1.25%</strong>) fatalities, however, <strong>145,752</strong> (<strong>90.59%</strong>) have recovered.</h3>
+<div id="load-library-and-the-data" class="section level1">
+<h1>Load library and the data</h1>
+<p>The data is scrapped from the website of the Nigerian Centre for Disease Control (NCDC) i.e <span class="citation">(<a href="#ref-NCDC2020" role="doc-biblioref">NCDC 2020</a>)</span>. The scrapping was done with some bits of tricks. Please see my post on that. The BREAKS were established from the visual inspection of the data (see <span class="citation">(<a href="#ref-Nmadu2009" role="doc-biblioref">Nmadu, Yisa, and Mohammed 2009</a>)</span>)</p>
+<pre class="r"><code>library(tidyverse)
+library(splines)
+library(Metrics)
+library(scales)
+library(readxl)
+library(patchwork)
+library(Dyn4cast)
+
+BREAKS &lt;- c(70, 131, 173, 228, 274, 326)
+
+z.s           &lt;- readRDS(&quot;data/zs.RDS&quot;)
+cumper        &lt;- readRDS(&quot;data/cumper.RDS&quot;)
+niz           &lt;- readRDS(&quot;data/niz.RDS&quot;)
+States_county &lt;- read_excel(&quot;data/States.xlsx&quot;)</code></pre>
+<p>Like mentioned earlier, some tricks were used to obtain the daily data from the website of NCDC. The NCDC uploads the cumulative data on daily basis, so each day, the data were scrapped and then the daily incidemnce were recorded. For examble, below is the data scrapped from the website on March 15, 2021.</p>
+<pre class="r"><code>Deaths &lt;- readr::read_csv(&quot;data/today.csv&quot;)
+names(Deaths) &lt;- c(&quot;Region&quot;, &quot;Confirmed&quot;, &quot;Active&quot;, &quot;Recovered&quot;, &quot;Deaths&quot;)
+DDmap &lt;- Deaths
+Deaths</code></pre>
+<pre><code>## # A tibble: 37 x 5
+##    Region      Confirmed Active Recovered Deaths
+##    &lt;chr&gt;           &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;  &lt;dbl&gt;
+##  1 Abia             1629     44      1564     21
+##  2 Adamawa           942    641       270     31
+##  3 Akwa Ibom        1707    483      1210     14
+##  4 Anambra          1909     64      1826     19
+##  5 Bauchi           1482    198      1267     17
+##  6 Bayelsa           828     37       765     26
+##  7 Benue            1188    575       591     22
+##  8 Borno            1321     83      1200     38
+##  9 Cross River       344     14       313     17
+## 10 Delta            2593    780      1744     69
+## # ... with 27 more rows
+## # i Use `print(n = ...)` to see more rows</code></pre>
+</div>
+<div id="creating-date-items" class="section level1">
+<h1>Creating date items</h1>
+<p>The dates are created starting with the day <code>COVID-19</code> was first recorded in Nigeria, which is February 29, 2020. The sequence of dates were created fron the day to the last day the dataset was uploaded, which is March 15, 2021. In addition, sequence of dates were created from March 16, 2021 to march the number of days the virus have been recorded in Nigeria.</p>
+<pre class="r"><code>ss &lt;- seq(1:length(cumper$DailyCase))
+Dss &lt;- seq(as.Date(&quot;2020-02-29&quot;), by = &quot;day&quot;, length.out = length(cumper$DailyCase))
+Dsf &lt;- seq(as.Date(Dss[length(Dss)] + lubridate::days(1)),
+           by = &quot;day&quot;, length.out = length(cumper$DailyCase))
+day01 &lt;- format(Dss[1], format = &quot;%B %d, %Y&quot;)
+daylast &lt;- format(Dss[length(Dss)], format = &quot;%B %d, %Y&quot;)
+casesstarts &lt;- paste(&quot;Starting from&quot;, day01, &quot;to&quot;, daylast,
+                     collapse=&quot; &quot;)
+lastdayfo &lt;- format(Dsf[length(Dsf)], format = &quot;%B %d, %Y&quot;)</code></pre>
+</div>
+<div id="modelling-and-forecasting-of-covid-19-caes" class="section level1">
+<h1>Modelling and forecasting of COVID-19 caes</h1>
+<p>The incidence of the virus was model using five machine learning algorithms which are:</p>
+<pre><code>Splines model without Knots
+
+Smooth spline
+
+Splines model with Knots (or breaks)
+
+Quadratic Polynomial
+
+ARIMA</code></pre>
+<p>Then using the ensemble technology, another set of four machine learning models were estimated as follows:</p>
+<pre><code>Essembled based on summed weight
+
+Essembled based on weight of fit
+
+Essembled based on weight
+
+Essembled with equal weight</code></pre>
+<p>The esemble technology is an attempt to combine models into one especially were the individual models are weak <span class="citation">(<a href="#ref-mm2021" role="doc-biblioref">Mahoney 2021</a>)</span>.</p>
+<pre class="r"><code>fit0  &lt;- lm(Case ~ bs(Day, knots = NULL), data = niz)
+fit   &lt;- lm(Case ~ bs(Day, knots = BREAKS), data = niz)
+fit1  &lt;- smooth.spline(niz$Day, niz$Case)
+fita  &lt;- forecast::auto.arima(niz$Case)
+fitpi &lt;- lm(Case ~ Day + I(Day^2), data = niz)
+
+kk  &lt;- forecast::forecast(fitted.values(fit), 
+                           h = length(Dsf))
+ kk0 &lt;- forecast::forecast(fitted.values(fit0),
+                           h = length(Dsf))
+ kk1 &lt;- forecast::forecast(fitted.values(fit1),
+                           h = length(Dsf))
+ kk10 &lt;- forecast::forecast(fitted.values(fitpi),
+                            h = length(Dsf))
+ kk2 &lt;- forecast::forecast(forecast::auto.arima(z.s$Case), h = length(Dsf))
+ 
+ kk30 &lt;- (fitted.values(fit) + fitted.values(fit0) +
+              fitted.values(fit1) + fitted.values(fitpi) +
+            fita[[&quot;fitted&quot;]])/5
+ kk31 &lt;- forecast::forecast(kk30, h = length(Dsf))
+ 
+ kk40 &lt;- lm(niz[,2]~fitted.values(fit)*fitted.values(fit0)*
+              fitted.values(fit1)*fitted.values(fitpi)*
+              fita[[&quot;fitted&quot;]])
+ kk41 &lt;- forecast::forecast(fitted.values(kk40),
+                            h = length(Dsf))
+ kk60 &lt;- lm(niz[,2]~fitted.values(fit)+fitted.values(fit0)+
+              fitted.values(fit1)+fitted.values(fitpi)+
+              fita[[&quot;fitted&quot;]])
+ kk61 &lt;- forecast::forecast(fitted.values(kk60),
+                            h = length(Dsf))
+ 
+ KK &lt;- as.data.frame(cbind(&quot;Date&quot; = Dsf,&quot;Day&quot; = ss, &quot;Without Knots&quot; = kk[[&quot;mean&quot;]], &quot;Smooth spline&quot; = kk0[[&quot;mean&quot;]],  &quot;With Knots&quot; = kk1[[&quot;mean&quot;]], &quot;Polynomial&quot; = kk10[[&quot;mean&quot;]], &quot;Lower ARIMA&quot; = kk2[[&quot;lower&quot;]], &quot;Upper ARIMA&quot; = 
+                             kk2[[&quot;upper&quot;]]))
+
+ KK &lt;- KK[,-c(7,9)]
+names(KK) &lt;- c(&quot;Date&quot;, &quot;Day&quot;, &quot;Without Knots&quot;, &quot;Smooth spline&quot;, &quot;With Knots&quot;, &quot;Polynomial&quot;, &quot;Lower ARIMA&quot;, &quot;Upper ARIMA&quot;) 
+
+WK   &lt;- sum(KK$`Without Knots`)
+WKs  &lt;- sum(KK$`With Knots`)   
+SMsp &lt;- sum(KK$`Smooth spline`)
+LA   &lt;- sum(KK$`Lower ARIMA`)  
+UA   &lt;- sum(KK$`Upper ARIMA`)  
+POL  &lt;- sum(KK$Polynomial)
+
+RMSE &lt;- c(&quot;Without knots&quot; = rmse(niz[,2],
+                                 fitted.values(fit)),
+&quot;Smooth Spline&quot; = rmse(niz[,2], fitted.values(fit0)),
+&quot;With knots&quot; = rmse(niz[,2], fitted.values(fit1)),
+&quot;Polynomial&quot; = rmse(niz[,2], fitted.values(fitpi)),
+&quot;Lower ARIMA&quot; = rmse(niz[,2], fita[[&quot;fitted&quot;]]),
+&quot;Upper ARIMA&quot; = rmse(niz[,2], fita[[&quot;fitted&quot;]]))
+
+#RMSE &lt;- 1/RMSE
+RMSE_weight &lt;- as.list(RMSE / sum(RMSE))
+
+KK$Date &lt;- as.Date(KK$Date, origin = as.Date(&quot;1970-01-01&quot;))
+
+DDf &lt;- c(&quot;Without knots&quot;, &quot;Smooth Spline&quot;, 
+          &quot;With knots&quot;, &quot;Quadratic Polynomial&quot;,
+         &quot;Lower ARIMA&quot;, &quot;Upper ARIMA&quot;,
+         &quot;Essembled with equal weight&quot;,
+         &quot;Essembled based on weight&quot;,
+         &quot;Essembled based on summed weight&quot;,
+         &quot;Essembled based on weight of fit&quot; )
+
+KK$`Essembled with equal weight` &lt;- kk31[[&quot;mean&quot;]]
+KK$`Essembled based on weight` &lt;- kk41[[&quot;mean&quot;]]
+KK$`Essembled based on summed weight` &lt;- kk61[[&quot;mean&quot;]]
+ESS  &lt;- sum(KK$`Essembled with equal weight`)
+ESM  &lt;- sum(KK$`Essembled based on weight`)
+ESMS  &lt;- sum(KK$`Essembled based on summed weight`)
+P_weight &lt;-
+  (fitted.values(fit) * RMSE_weight$`Without knots`) + (fitted.values(fit0) *
+                                                          RMSE_weight$`Smooth Spline`) +
+  (fitted.values(fit1) * RMSE_weight$`With knots`) + (fitted.values(fitpi) *
+                                                        RMSE_weight$Polynomial) + (fita[[&quot;fitted&quot;]] * RMSE_weight$`Lower ARIMA`)
+kk51 &lt;- forecast::forecast(P_weight, h = length(Dsf))
+KK$`Essembled based on weight of fit` &lt;-
+  kk51[[&quot;mean&quot;]]
+ESF  &lt;- sum(KK$`Essembled based on weight of fit`)
+RMSE$`Essembled with equal weight` &lt;- rmse(niz[,2], kk30)
+RMSE$`Essembled based on weight` &lt;- rmse(niz[,2], fitted.values(kk40))
+RMSE$`Essembled based on summed weight` &lt;- rmse(niz[,2], fitted.values(kk60))
+RMSE$`Essembled based on weight of fit` &lt;- rmse(niz[,2], P_weight)
+Forcasts &lt;- colSums(KK[,-c(1,2)])
+
+RMSE_f &lt;- as.data.frame(cbind(&quot;Model&quot; = DDf,
+                              &quot;Confirmed cases&quot; =
+                                comma(round(Forcasts, 0))))
+
+Deaths$County &lt;- States_county$County
+Deaths &lt;- Deaths[order(-Deaths$Deaths),]
+Deaths$Region &lt;- factor(Deaths$Region, levels = Deaths$Region)
+Deaths$Ratio &lt;- Deaths$Deaths/Deaths$Confirmed*100
+Deaths &lt;- Deaths[order(-Deaths$Ratio),]
+Deaths$Region &lt;- factor(Deaths$Region, levels = Deaths$Region)
+
+Deaths$RecRatio &lt;- Deaths$Recovered/Deaths$Confirmed*100
+Deaths &lt;- Deaths[order(-Deaths$RecRatio),]
+Deaths$Region &lt;- factor(Deaths$Region, levels = Deaths$Region)
+PerDeath &lt;- round(sum((Deaths$Deaths)/
+                     sum(Deaths$Confirmed)*100), 2)
+PerRec &lt;- round(sum((Deaths$Recovered)/
+                     sum(Deaths$Confirmed)*100), 2)
+
+RMSE_f$Recoveries &lt;- comma(round(Forcasts * PerRec/100, 0))
+RMSE_f$Fatalities &lt;- round(Forcasts * PerDeath/100, 0)
+RMSE_f$RMSE &lt;- RMSE
+RMSE_f &lt;- RMSE_f[order(-RMSE_f$Fatalities),]
+RMSE_f$Model &lt;- factor(RMSE_f$Model, levels = RMSE_f$Model)
+RMSE_f$Fatalities &lt;- comma(RMSE_f$Fatalities)
+RMSE_fk &lt;- knitr::kable(RMSE_f, row.names = FALSE, &quot;html&quot;)</code></pre>
+</div>
+<div id="the-report" class="section level1">
+<h1>The report</h1>
+<div id="it-is-now-381-days-since-the-first-covid-19-case-was-reported-in-nigeria.-as-at-march-15-2021-the-confirmed-cases-are-163646-with-2016-1.25-100-fatalities-however-145752-90.59-100-have-recovered." class="section level3">
+<h3>It is now <strong>381</strong> days since the first COVID-19 case was reported in Nigeria. As at March 15, 2021 the confirmed cases are <strong>163,646</strong> with <strong>2,016</strong> (<strong>1.25%, 100</strong>) fatalities, however, <strong>145,752</strong> (<strong>90.59%, 100</strong>) have recovered.</h3>
 </div>
 <div id="based-on-equal-days-forecast-by-march-31-2022-nigerias-aggregate-confirmed-covid-19-cases-are-forecast-to-be" class="section level3">
 <h3>Based on <strong>equal days forecast</strong>, by March 31, 2022, Nigeria’s aggregate confirmed COVID-19 cases are forecast to be:</h3>
+<pre class="r"><code>kableExtra::kable_styling(RMSE_fk, &quot;striped&quot;)</code></pre>
 <table class="table table-striped" style="margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -55,7 +248,7 @@ Smooth Spline
 11,117
 </td>
 <td style="text-align:left;">
-371
+371.3422
 </td>
 </tr>
 <tr>
@@ -72,7 +265,7 @@ Upper ARIMA
 10,067
 </td>
 <td style="text-align:left;">
-209
+209.3347
 </td>
 </tr>
 <tr>
@@ -89,7 +282,7 @@ Quadratic Polynomial
 7,478
 </td>
 <td style="text-align:left;">
-374
+373.6787
 </td>
 </tr>
 <tr>
@@ -106,7 +299,7 @@ Essembled based on summed weight
 -880
 </td>
 <td style="text-align:left;">
-185
+185.4474
 </td>
 </tr>
 <tr>
@@ -123,7 +316,7 @@ Essembled based on weight of fit
 -1,179
 </td>
 <td style="text-align:left;">
-284
+283.632
 </td>
 </tr>
 <tr>
@@ -140,7 +333,7 @@ Essembled based on weight
 -2,287
 </td>
 <td style="text-align:left;">
-180
+179.7495
 </td>
 </tr>
 <tr>
@@ -157,7 +350,7 @@ Essembled with equal weight
 -5,325
 </td>
 <td style="text-align:left;">
-232
+232.0987
 </td>
 </tr>
 <tr>
@@ -174,7 +367,7 @@ Lower ARIMA
 -7,830
 </td>
 <td style="text-align:left;">
-209
+209.3347
 </td>
 </tr>
 <tr>
@@ -191,7 +384,7 @@ Without knots
 -10,193
 </td>
 <td style="text-align:left;">
-200
+199.6519
 </td>
 </tr>
 <tr>
@@ -208,16 +401,65 @@ With knots
 -13,936
 </td>
 <td style="text-align:left;">
-187
+187.3864
 </td>
 </tr>
 </tbody>
 </table>
 </div>
+</div>
 <div id="take-a-further-look-at-some-of-the-visuals" class="section level1">
 <h1>Take a further look at some of the visuals</h1>
-<p><img src="/post/2020-12-01-r-rmarkdown/Dynamic-forecast-from-regression-models_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
-<p><img src="/post/2020-12-01-r-rmarkdown/Dynamic-forecast-from-regression-models_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
-<p><img src="/post/2020-12-01-r-rmarkdown/Dynamic-forecast-from-regression-models_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
-<p><img src="/post/2020-12-01-r-rmarkdown/Dynamic-forecast-from-regression-models_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<pre class="r"><code>plot(z.s[,1], z.s[,2], main = &quot; &quot;, col = &quot;red&quot;, type = &quot;l&quot;, lwd = 2, xlab = casesstarts, ylab = &quot;COVID-19 confirmed cases&quot;)
+grid(10,20,lty=1,lwd=1)
+abline(v = BREAKS, lwd = 2, lty = 2, col = &quot;black&quot;)
+#lines(density(z.s$Case), lwd = 2, type = &quot;l&quot;, col = &quot;blue&quot;, bw = 69.22)
+lines(fitted.values(smooth.spline(z.s[,1],z.s[,2])), type = &quot;l&quot;, 
+      col = &quot;blue&quot;, lwd = 2)
+DDf &lt;- c(&quot;Observed&quot;, &quot;Cut points&quot;, &quot;Smooth spline&quot;) #, &quot;Density&quot;)
+legend(&quot;topleft&quot;, 
+       inset = c(0, 0),  bty = &quot;n&quot;, x.intersp = 0.5,
+       xjust = 0, yjust = 0,
+       legend = DDf, col = c(&quot;red&quot;, &quot;black&quot;, &quot;blue&quot;),
+       lwd = 2, cex = 0.75, xpd = TRUE, horiz = FALSE)</code></pre>
+<p><img src="/post/2020-12-01-r-rmarkdown/Dynamic-forecast-from-regression-models_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>The above plot shows that as at March 15, 2021; Nigeria has gone through two waves and there were more cases of COVID-19 in the second wave.</p>
+<pre class="r"><code>plot(cumper$Per, main = &quot; &quot;,
+     xlab = casesstarts, ylab = &quot;Per Cent&quot;,
+     ylim = c(-50,100),
+     type = &quot;l&quot;, lwd = 2, col=&quot;forestgreen&quot;)
+grid(10,20,lty=1,lwd=1)
+lines(cumper$Per, lty=1,lwd=2, col= &quot;forestgreen&quot;)
+lines(cumper$PerCum, lty=1,lwd=2, col= &quot;orangered&quot;)
+lines(log(cumper$DailyCase), lty=1,lwd=2, col= &quot;magenta&quot;)
+lines(cumper$LPer, lty=1,lwd=2, col= &quot;brown&quot;)
+lines(cumper$LPerCum, lty=1,lwd=2, col= &quot;blue&quot;)
+legend(&quot;topright&quot;, 
+       inset = c(0, 0, 0, 0),  bty = &quot;n&quot;, x.intersp = 0.5,
+       xjust = 0, yjust = 0,
+       &quot;topright&quot;, col = c(&quot;forestgreen&quot;, &quot;orangered&quot;, &quot;magenta&quot;, &quot;brown&quot;, &quot;blue&quot;),
+       c(&quot;Per cent of total cases&quot;,&quot;Percent of cummulative cases&quot;, 
+         &quot;Daily cases, log transformed&quot;, 
+         &quot;Difference from previsous rate&quot;,
+         &quot;Difference from previous cummulative rate&quot;),
+       lwd = 2, cex = 0.75, xpd = TRUE, horiz = FALSE)</code></pre>
+<p><img src="/post/2020-12-01-r-rmarkdown/Dynamic-forecast-from-regression-models_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p><img src="/post/2020-12-01-r-rmarkdown/Dynamic-forecast-from-regression-models_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>The above two visuals show the log transformation of the distribution and the difference from previous day. The plots were mage with <code>plot</code> and <code>ggplot</code> functions respectively.</p>
+<p><img src="/post/2020-12-01-r-rmarkdown/Dynamic-forecast-from-regression-models_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p>The plot on the right is the cumulative cases of COVID-19 recorded in Nigeria while on the left is the forecast using <code>spline</code> and <code>polynomial</code> models. The forecast is based on <code>equal duation</code> of the lenght of the data.</p>
+</div>
+<div id="references" class="section level1 unnumbered">
+<h1>References</h1>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-mm2021" class="csl-entry">
+Mahoney, Mike. 2021. <span>“Model Averaging Methods: How and Why to Build Ensemble Models.”</span> 2021. <a href="https://www.mm218.dev/posts/2021/01/model-averaging/">https://www.mm218.dev/posts/2021/01/model-averaging/</a>.
+</div>
+<div id="ref-NCDC2020" class="csl-entry">
+NCDC. 2020. <span>“NCDC Coronavirus COVID-19 Microsite.”</span> Abuja, Nigeria: The Nigerian Centre for Disease Control. 2020. <a href="https://covid19.ncdc.gov.ng/">https://covid19.ncdc.gov.ng/</a>.
+</div>
+<div id="ref-Nmadu2009" class="csl-entry">
+Nmadu, Job, Ezekiel Yisa, and Usman Mohammed. 2009. <span>“Spline Functions: Assessing Their Forecasting Consistency with Changes in the Type of Model and Choice of Joint Points.”</span> <em>Trends in Agricultural Economics</em> 2 (1): 17–27. <a href="https://doi.org/10.3923/tae.2009.17.27">https://doi.org/10.3923/tae.2009.17.27</a>.
+</div>
+</div>
 </div>
