@@ -30,7 +30,7 @@ tags:
 - 2, 4-d, picloram
 - shea tree
 - Regeneration
-title: Effect of different concentrations of plant growth hormones on callus induction and regeneration of Shea tree (*Vitellaria paradoxa*)
+title: Effect of different concentrations of plant growth hormones on callus induction and regeneration of Shea tree (Vitellaria paradoxa)
 ---
 {{% alert note %}}
 Click the *Cite* button above to demo the feature to enable visitors to import publication metadata into their reference management software.
