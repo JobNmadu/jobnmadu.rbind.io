@@ -40,4 +40,4 @@ taxonomies:
   author: authors
   category: categories
   publication_type: publication_types
-  tag: no
+  tag: tags
