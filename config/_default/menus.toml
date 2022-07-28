@@ -59,23 +59,19 @@
 [[main]]
     parent = "CV"
     name = "Resume in brief"
-    url = "files/CV.pdf"
-    weight = 70
+    url = "#files/CV.pdf"
 
  [[main]]
     parent = "CV"
     name = "View upadted publications list"
-    url = "files/JobNmadu.html"
-    weight = 70
+    url = "#files/JobNmadu.html"
 
 [[main]]
     parent = "CV"
     name = "View Experience on timeline"
-    url = "files/timelineCV.pdf"
-    weight = 70
+    url = "#files/timelineCV.pdf"
 
 [[main]]
     parent = "CV"
     name = "View Biographical notes"
-    url = "files/biography.pdf"
-    weight = 70
+    url = "#files/biography.pdf"
