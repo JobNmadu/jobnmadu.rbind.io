@@ -78,5 +78,5 @@
 
 [[main]]
     parent = "CV"
-    name = "Full CV"
+    name = "View Full CV"
     url = "files/CV2022_1.pdf"
