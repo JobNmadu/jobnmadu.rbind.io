@@ -8,7 +8,7 @@ authors:
 - Bennie Gróve
 - Machiel Fredrick Viljoen
 date: "2018-10-01T01:00:00Z"
-doi: ""
+doi: "10.22004/ag.econ.280325"
 featured: false
 image:
   #caption: 'Image credit: [**Unsplash**](https://unsplash.com/photos/jdD8gXaTZsc)'

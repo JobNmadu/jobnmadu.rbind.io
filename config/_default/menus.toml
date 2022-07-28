@@ -11,17 +11,17 @@
 [[main]]
   name = "Posts"
   url = "#posts"
-  weight = 20
+  weight = 40
 
 [[main]]
    name = "Projects"
    url = "#projects"
-   weight = 30
+   weight = 50
 
 [[main]]
   name = "Publications"
   url = "#publications"
-  weight = 40
+  weight = 30
 
 #[[main]]
 #  name = "Courses"
@@ -52,29 +52,26 @@
 # To enable, copy your resume/CV to `static/files/cv.pdf` and uncomment the lines below.
  [[main]]
     name = "CV"
-    url = "#"
+    url = "#CV"
     hasChildren = true
+    weight = 20
 
 [[main]]
     parent = "CV"
     name = "Resume in brief"
     url = "files/CV.pdf"
-    weight = 70
 
  [[main]]
     parent = "CV"
     name = "View upadted publications list"
     url = "files/JobNmadu.html"
-    weight = 70
 
 [[main]]
     parent = "CV"
     name = "View Experience on timeline"
     url = "files/timelineCV.pdf"
-    weight = 70
 
 [[main]]
     parent = "CV"
     name = "View Biographical notes"
     url = "files/biography.pdf"
-    weight = 70

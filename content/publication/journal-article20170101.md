@@ -7,7 +7,7 @@ authors:
 - Emmanuel Oha
 - Halima Sallawu
 date: "2017-01-01T01:00:00Z"
-doi: ""
+doi: "10.22004/ag.econ.313847"
 featured: false
 image:
   #caption: 'Image credit: [**Unsplash**](https://unsplash.com/photos/jdD8gXaTZsc)'
