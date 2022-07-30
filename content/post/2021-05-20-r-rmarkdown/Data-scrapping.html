@@ -1,0 +1,89 @@
+---
+title: "COVID19 data sceapping from Nigerian Centre for Disease Control (NCDC)"
+description: |
+  The post is about how the data deposited daily on the website of the Nigerian Centre for Disease Control (NCDC) can be scrapped with R and other software.
+author:
+  - name: Job Nmadu
+    url: https://jobnmadu.rbind.io/
+date: "2021-01-31"
+output: github_document
+tags: [COVID-19, NCDC, RStats]
+---
+
+
+
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>On the advent of COVID-19 globally and since February 29, 2020 in Nigeria, motivations to provide visuals of the trends and to provide guide to Nigerians on how to conduct themselves responsibly was boosted by the publication of the first coronavirus package and the awesome animation of the province level by Krispin and Byrnes 2020. That immediately sent me working on how to animate the cases for Nigeria. However, this desire was met with short comings because the data publish at the Johns Hopkins University Center for Systems Science and Engineering (JHU-CCSE) by the Nigerian Centre for Disease Control is agrregated nationally, whereas the animations that motivated me were regional for Australia. In addition, the daily updates only provide the regional details of the confirmed cases. The casualties, recoveries and active cases are provided in a single Table which aggregates all the previous cases as well as the current data, rather than provide the daily as they occur daily. So daily casualties, recoveries, deaths abd active cases were not reported separately.</p>
+<p>Faced wiith this challenges, immediately sustainable solutions had to be found, which is scrapping data from the Table published in PDF. At the end of the day, four methods of scrapping the data were explored until I had to settle for one.</p>
+</div>
+<div id="scrapping-data-from-pdf-table" class="section level1">
+<h1>Scrapping data from PDF Table</h1>
+<p>The first method was to scrap the data from the PDF Table. The codes for that is provided below.</p>
+<pre class="r"><code>library(pdftools)
+library(tidyverse)
+text &lt;- 
+  pdf_text(&quot;data/Nigeria_300820_36.pdf&quot;) %&gt;%
+  readr::read_lines()
+# text    displaying the text, save the relevant lines where the data appears
+Data &lt;- text[64:101] # the lines containing the data
+write_delim(as.data.frame(Data), &quot;data/300820.csv&quot;, delim = &quot; &quot;) # saved to CSV
+
+KK &lt;- read_csv(&quot;data/300820.csv&quot;, 
+                            skip = 1, skip_empty_rows = TRUE,
+                            trim_ws = TRUE, col_names = FALSE) # loaded to memory for further use
+head(KK)</code></pre>
+<pre><code>## # A tibble: 6 x 1
+##   X1                                                                            
+##   &lt;chr&gt;                                                                         
+## 1 Lagos                 18,119              15        15,228              0    ~
+## 2 FCT                    5,156               7         1,531              7    ~
+## 3 Oyo                    3,118              11         1,952              0    ~
+## 4 Edo                    2,578               1         2,300             0     ~
+## 5 Plateau                2,498              55         1,374            46     ~
+## 6 Rivers                 2,141               7         1,969             9     ~</code></pre>
+<p>However, it was not efficient as the scrapped Table could not be separated into columns for further analysis.</p>
+</div>
+<div id="srapping-data-from-the-website" class="section level1">
+<h1>Srapping data from the website</h1>
+<p>The second is to scrap the data from the website as shown in the codes.</p>
+<pre class="r"><code>library(rvest)
+
+url &lt;- &quot;https://covid19.ncdc.gov.ng/report/&quot;
+
+COVID19 &lt;- url %&gt;%
+  read_html() %&gt;%
+  html_nodes(xpath=&#39;//*[@id=&quot;custom1&quot;]&#39;) %&gt;%
+  html_table()
+
+COVID19 &lt;- COVID19[[1]] # the Table is item 1 in the scrapped data
+
+xlsx::write.xlsx2(COVID19, file = &quot;data/daily160920.xlsx&quot;, 
+                  col.names = TRUE, row.names = FALSE) # the scrapped data is saved to Excel file</code></pre>
+<pre><code>## # A tibble: 6 x 5
+##   `States Affected` `No. of Cases (Lab Confirmed)` No. of Case~1 No. D~2 No. o~3
+##   &lt;chr&gt;                                      &lt;dbl&gt;         &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+## 1 Lagos                                      25436          1507   23697     232
+## 2 FCT                                         8908          2356    6464      88
+## 3 Plateau                                     4099           148    3917      34
+## 4 Kaduna                                      4098           603    3448      47
+## 5 Oyo                                         3773           355    3372      46
+## 6 Rivers                                      3217           228    2929      60
+## # ... with abbreviated variable names 1: `No. of Cases (on admission)`,
+## #   2: `No. Discharged`, 3: `No. of Deaths`</code></pre>
+<p>The outcome of this method is better than that of the PDF but the thousand values were comma-separated, so, to use the data further, the commas had to be removed by formatting manually.</p>
+</div>
+<div id="srapping-data-from-excel" class="section level1">
+<h1>Srapping data from Excel</h1>
+<p>The third method is to use Excel to scrap the data. For this, open <code>MS-Excel</code>, Select <code>Data</code> from the <em>Menu</em> as shown in the graphics below</p>
+<p><img src="img/page1.png" width="100%" /></p>
+<p><img src="img/page2.png" width="100%" /></p>
+<p>This proved more helpful that the first two and is easier to use as it does not require any coding as shown in the pictures.</p>
+</div>
+<div id="scraping-data-by-copy-paste-to-from-website-to-excel" class="section level1">
+<h1>Scraping data by copy-paste to from website to Excel</h1>
+<p>The fourth method is to scrap the data directly by selecting and copying the data from the website.</p>
+<p><img src="img/page4.png" width="100%" /></p>
+<p>This is the easiest and most efficient as no codes are needed and the copied data is saved directly in Excel for further formatting.</p>
+<p>After scrapping the data with any of the methods mentioned above, then, they are formatted for preparing visuals. To study the trend of spread and how recoveries and/or deaths occur from time to time, the daily records were obtained from the aggregated data.</p>
+</div>
