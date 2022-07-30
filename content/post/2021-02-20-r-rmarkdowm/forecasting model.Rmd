@@ -7,15 +7,7 @@ description: |
 author:
   - name: Job Nmadu
     url: https://jobnmadu.rbind.io/
-output:
-  prettydoc::html_pretty:
-    theme: cayman #tactile, architect, leonids, hpstr
-    highlight: vignette #github
-    math: katex #latex
-  html_document: default
-  word_document: default
-  pdf_document: 
-    latex_engine: xelatex
+output: github_document
 tags: [constrained forecast, COVID-19, Nigeria]
 ---
 
