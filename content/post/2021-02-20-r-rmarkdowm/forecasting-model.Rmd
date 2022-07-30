@@ -164,9 +164,9 @@ Days_1$`Constrained forecast Plot`
 
 # Comparing the constrained forecast plots for the four-time periods
 
-```{r eval = TRUE, warning = FALSE, echo=FALSE}
+```{r eval = TRUE, warning = FALSE, echo=FALSE, dev='png', dev="png", dev.args=list(type="cairo"), fig.width = 5.5, fig.height = 7.5}
 
-png("numstatesFFf.png", width=1200, height=800)
+
 library(patchwork)
 Days_28$`Constrained forecast Plot` + Days_14$`Constrained forecast Plot` + Days_1$`Constrained forecast Plot` + Days_full$`Constrained forecast Plot` +  plot_annotation() +
 plot_annotation(title = " ",
@@ -180,12 +180,9 @@ plot_annotation(title = " ",
         legend.position = "bottom",
         legend.title = element_blank(),
         legend.text = element_text(size = 10))
-invisible(dev.off())
-
 
 ```
 
-![](numstatesFFf.png)
 
 # References
 
