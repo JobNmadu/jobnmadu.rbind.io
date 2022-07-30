@@ -7,7 +7,15 @@ description: |
 author:
   - name: Job Nmadu
     url: https://jobnmadu.rbind.io/
-output: github_document
+output:
+  prettydoc::html_pretty:
+    theme: cayman #tactile, architect, leonids, hpstr
+    highlight: vignette #github
+    math: katex #latex
+  html_document: default
+  word_document: default
+  pdf_document: 
+    latex_engine: xelatex
 tags: [constrained forecast, COVID-19, Nigeria]
 ---
 
@@ -156,9 +164,9 @@ Days_1$`Constrained forecast Plot`
 
 # Comparing the constrained forecast plots for the four-time periods
 
-```{r eval = TRUE, warning = FALSE, echo=FALSE, dev='png'}
+```{r eval = TRUE, warning = FALSE, echo=FALSE}
 
-#png("numstatesFFf.png", width=1200, height=800)
+png("numstatesFFf.png", width=1200, height=800)
 library(patchwork)
 Days_28$`Constrained forecast Plot` + Days_14$`Constrained forecast Plot` + Days_1$`Constrained forecast Plot` + Days_full$`Constrained forecast Plot` +  plot_annotation() +
 plot_annotation(title = " ",
