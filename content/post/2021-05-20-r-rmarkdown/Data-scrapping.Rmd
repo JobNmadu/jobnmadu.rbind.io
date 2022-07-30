@@ -95,17 +95,23 @@ knitr::include_graphics("img/page1.png")
 
 ```
 
+![](img/page1.png)
+
 ```{r echo=FALSE, out.width='100%'}
 
 knitr::include_graphics("img/page2.png")
 
 ```
 
+![](img/page2.png)
+
 ```{r echo=FALSE, out.width='100%', eval=FALSE}
 
 knitr::include_graphics("img/page3.png")
 
 ```
+
+
 This proved more helpful that the first two and is easier to use as it does not require any coding as shown in the pictures.
 
 # Scraping data by copy-paste to from website to Excel
@@ -117,6 +123,8 @@ The fourth method is to scrap the data directly by selecting and copying the dat
 knitr::include_graphics("img/page4.png")
 
 ```
+
+![](img/page4.png)
 
 This is the easiest and most efficient as no codes are needed and the copied data is saved directly in Excel for further formatting.
 
