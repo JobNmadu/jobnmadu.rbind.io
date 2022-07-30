@@ -75,3 +75,8 @@
     parent = "CV"
     name = "View Biographical notes"
     url = "files/biography.pdf"
+
+[[main]]
+    parent = "CV"
+    name = "View Full CV"
+    url = "files/CV2022_1.pdf"
