@@ -7,11 +7,11 @@ author:
     url: https://jobnmadu.rbind.io/
 date: "2021-01-31"
 output:
+  html_document: default
   prettydoc::html_pretty:
     theme: cayman #tactile, architect, leonids, hpstr
     highlight: vignette #github
     math: katex #latex
-  html_document: default
   word_document: default
   pdf_document: 
     latex_engine: xelatex
@@ -91,7 +91,7 @@ xlsx::write.xlsx2(COVID19, file = &quot;data/daily160920.xlsx&quot;,
 <div id="scraping-data-by-copy-paste-to-from-website-to-excel" class="section level1">
 <h1>Scraping data by copy-paste to from website to Excel</h1>
 <p>The fourth method is to scrap the data directly by selecting and copying the data from the website.</p>
-<pre><code>## rastergrob[GRID.rastergrob.1]</code></pre>
+<p><img src="img/page4.png" width="100%" /></p>
 <p>This is the easiest and most efficient as no codes are needed and the copied data is saved directly in Excel for further formatting.</p>
 <p>After scrapping the data with any of the methods mentioned above, then, they are formatted for preparing visuals. To study the trend of spread and how recoveries and/or deaths occur from time to time, the daily records were obtained from the aggregated data.</p>
 </div>

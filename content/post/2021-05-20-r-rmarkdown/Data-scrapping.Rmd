@@ -7,11 +7,11 @@ author:
     url: https://jobnmadu.rbind.io/
 date: "2021-01-31"
 output:
+  html_document: default
   prettydoc::html_pretty:
     theme: cayman #tactile, architect, leonids, hpstr
     highlight: vignette #github
     math: katex #latex
-  html_document: default
   word_document: default
   pdf_document: 
     latex_engine: xelatex
@@ -114,8 +114,7 @@ The fourth method is to scrap the data directly by selecting and copying the dat
 
 ```{r echo=FALSE, out.width='100%'}
 
-img <- png::readPNG("img/page4.png")
-grid::rasterGrob(img, interpolate=TRUE)
+knitr::include_graphics("img/page4.png")
 
 ```
 
