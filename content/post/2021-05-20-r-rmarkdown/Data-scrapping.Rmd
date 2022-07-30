@@ -7,9 +7,9 @@ author:
     url: https://jobnmadu.rbind.io/
 date: "2021-01-31"
 output:
+  html_document: default
   pdf_document: 
     latex_engine: xelatex
-  html_document: default
   word_document: default
   prettydoc::html_pretty:
     theme: cayman #tactile, architect, leonids, hpstr
@@ -95,7 +95,7 @@ knitr::include_graphics("img/page1.png")
 
 ```
 
-![](img/page1.png)
+
 
 ```{r echo=FALSE, out.width='100%'}
 
@@ -103,7 +103,7 @@ knitr::include_graphics("img/page2.png")
 
 ```
 
-![](img/page2.png)
+
 
 ```{r echo=FALSE, out.width='100%', eval=FALSE}
 
@@ -124,7 +124,7 @@ knitr::include_graphics("img/page4.png")
 
 ```
 
-![](img/page4.png)
+
 
 This is the easiest and most efficient as no codes are needed and the copied data is saved directly in Excel for further formatting.
 
