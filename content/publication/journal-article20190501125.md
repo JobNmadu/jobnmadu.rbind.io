@@ -7,7 +7,7 @@ authors:
 - Alexande  A. Coker
 - Usman S. Mohammed
 date: "2019-05-01T01:00:00Z"
-doi: ""
+doi: "10.22004/ag.econ.314129"
 featured: false
 image:
   #caption: 'Image credit: [**Unsplash**](https://unsplash.com/photos/jdD8gXaTZsc)'
