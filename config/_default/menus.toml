@@ -59,7 +59,7 @@
 [[main]]
     parent = "CV"
     name = "Resume in brief"
-    url = "files/CV.pdf"
+    url = "files/Nmadu_brief_CV.pdf"
 
  [[main]]
     parent = "CV"
@@ -69,14 +69,14 @@
 [[main]]
     parent = "CV"
     name = "View Experience on timeline"
-    url = "files/timelineCV.pdf"
+    url = "files/Nmadu_timelineCV.pdf"
 
 [[main]]
     parent = "CV"
     name = "View Biographical notes"
-    url = "files/biography.pdf"
+    url = "files/Nmadu_biography.pdf"
 
 [[main]]
     parent = "CV"
     name = "View Full CV"
-    url = "files/CV2022_1.pdf"
+    url = "files/Nmadu_full_CV2022_1.pdf"
