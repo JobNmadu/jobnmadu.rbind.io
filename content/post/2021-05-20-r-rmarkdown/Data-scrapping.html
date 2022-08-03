@@ -1,327 +1,97 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
-<meta charset="utf-8">
-<meta name="generator" content="quarto-0.9.312">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-<meta name="author" content="Job Nmadu">
-<meta name="dcterms.date" content="2021-01-31">
-<meta name="description" content="The post is about how the data deposited daily on the website of the Nigerian Centre for Disease Control (NCDC) can be scrapped with R and other software.">
-
-<title>COVID19 data sceapping from Nigerian Centre for Disease Control (NCDC)</title>
-<style>
-code{white-space: pre-wrap;}
-span.smallcaps{font-variant: small-caps;}
-span.underline{text-decoration: underline;}
-div.column{display: inline-block; vertical-align: top; width: 50%;}
-div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-ul.task-list{list-style: none;}
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-</style>
-
-<script src="Data-scrapping_files/libs/clipboard/clipboard.min.js"></script>
-<script src="Data-scrapping_files/libs/quarto-html/quarto.js"></script>
-<script src="Data-scrapping_files/libs/quarto-html/popper.min.js"></script>
-<script src="Data-scrapping_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="Data-scrapping_files/libs/quarto-html/anchor.min.js"></script>
-<link href="Data-scrapping_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link id="quarto-text-highlighting-styles" href="Data-scrapping_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
-<script src="Data-scrapping_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="Data-scrapping_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="Data-scrapping_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet">
-
-
-</head>
-
-<body class="fullcontent">
-
-<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">COVID19 data sceapping from Nigerian Centre for Disease Control (NCDC)</h1>
-</div>
-
-<div>
-  <div class="description">
-    <p>The post is about how the data deposited daily on the website of the Nigerian Centre for Disease Control (NCDC) can be scrapped with R and other software.</p>
-  </div>
-</div>
+---
+title: "COVID19 data sceapping from Nigerian Centre for Disease Control (NCDC)"
+description: |
+  The post is about how the data deposited daily on the website of the Nigerian Centre for Disease Control (NCDC) can be scrapped with R and other software.
+author:
+  - name: Job Nmadu
+    url: https://jobnmadu.rbind.io/
+date: "2021-01-31"
+output:
+  html_document: default
+  pdf_document: 
+    latex_engine: xelatex
+  word_document: default
+  prettydoc::html_pretty:
+    theme: cayman #tactile, architect, leonids, hpstr
+    highlight: vignette #github
+    math: katex #latex
+tags: [COVID-19, NCDC, RStats]
+---
 
 
 
-
-<div class="quarto-title-meta">
-
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Job Nmadu </p>
-          </div>
-  </div>
-    
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">January 31, 2021</p>
-    </div>
-  </div>
-    
-  </div>
-  
-
-</header>
-
-<section id="introduction" class="level1">
+<div id="introduction" class="section level1">
 <h1>Introduction</h1>
 <p>On the advent of COVID-19 globally and since February 29, 2020 in Nigeria, motivations to provide visuals of the trends and to provide guide to Nigerians on how to conduct themselves responsibly was boosted by the publication of the first coronavirus package and the awesome animation of the province level by Krispin and Byrnes 2020. That immediately sent me working on how to animate the cases for Nigeria. However, this desire was met with short comings because the data publish at the Johns Hopkins University Center for Systems Science and Engineering (JHU-CCSE) by the Nigerian Centre for Disease Control is agrregated nationally, whereas the animations that motivated me were regional for Australia. In addition, the daily updates only provide the regional details of the confirmed cases. The casualties, recoveries and active cases are provided in a single Table which aggregates all the previous cases as well as the current data, rather than provide the daily as they occur daily. So daily casualties, recoveries, deaths abd active cases were not reported separately.</p>
 <p>Faced wiith this challenges, immediately sustainable solutions had to be found, which is scrapping data from the Table published in PDF. At the end of the day, four methods of scrapping the data were explored until I had to settle for one.</p>
-</section>
-<section id="scrapping-data-from-pdf-table" class="level1">
+</div>
+<div id="scrapping-data-from-pdf-table" class="section level1">
 <h1>Scrapping data from PDF Table</h1>
 <p>The first method was to scrap the data from the PDF Table. The codes for that is provided below.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pdftools)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>text <span class="ot">&lt;-</span> </span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pdf_text</span>(<span class="st">"data/Nigeria_300820_36.pdf"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  readr<span class="sc">::</span><span class="fu">read_lines</span>()</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># text    displaying the text, save the relevant lines where the data appears</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>Data <span class="ot">&lt;-</span> text[<span class="dv">64</span><span class="sc">:</span><span class="dv">101</span>] <span class="co"># the lines containing the data</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">write_delim</span>(<span class="fu">as.data.frame</span>(Data), <span class="st">"data/300820.csv"</span>, <span class="at">delim =</span> <span class="st">" "</span>) <span class="co"># saved to CSV</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>KK <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/300820.csv"</span>, </span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>                            <span class="at">skip =</span> <span class="dv">1</span>, <span class="at">skip_empty_rows =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>                            <span class="at">trim_ws =</span> <span class="cn">TRUE</span>, <span class="at">col_names =</span> <span class="cn">FALSE</span>) <span class="co"># loaded to memory for further use</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(KK)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 x 1
-  X1                                                                            
-  &lt;chr&gt;                                                                         
-1 Lagos                 18,119              15        15,228              0    ~
-2 FCT                    5,156               7         1,531              7    ~
-3 Oyo                    3,118              11         1,952              0    ~
-4 Edo                    2,578               1         2,300             0     ~
-5 Plateau                2,498              55         1,374            46     ~
-6 Rivers                 2,141               7         1,969             9     ~</code></pre>
-</div>
-</div>
+<pre class="r"><code>library(pdftools)
+library(tidyverse)
+text &lt;- 
+  pdf_text(&quot;data/Nigeria_300820_36.pdf&quot;) %&gt;%
+  readr::read_lines()
+# text    displaying the text, save the relevant lines where the data appears
+Data &lt;- text[64:101] # the lines containing the data
+write_delim(as.data.frame(Data), &quot;data/300820.csv&quot;, delim = &quot; &quot;) # saved to CSV
+
+KK &lt;- read_csv(&quot;data/300820.csv&quot;, 
+                            skip = 1, skip_empty_rows = TRUE,
+                            trim_ws = TRUE, col_names = FALSE) # loaded to memory for further use
+head(KK)</code></pre>
+<pre><code>## # A tibble: 6 x 1
+##   X1                                                                            
+##   &lt;chr&gt;                                                                         
+## 1 Lagos                 18,119              15        15,228              0    ~
+## 2 FCT                    5,156               7         1,531              7    ~
+## 3 Oyo                    3,118              11         1,952              0    ~
+## 4 Edo                    2,578               1         2,300             0     ~
+## 5 Plateau                2,498              55         1,374            46     ~
+## 6 Rivers                 2,141               7         1,969             9     ~</code></pre>
 <p>However, it was not efficient as the scrapped Table could not be separated into columns for further analysis.</p>
-</section>
-<section id="srapping-data-from-the-website" class="level1">
+</div>
+<div id="srapping-data-from-the-website" class="section level1">
 <h1>Srapping data from the website</h1>
 <p>The second is to scrap the data from the website as shown in the codes.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rvest)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">"https://covid19.ncdc.gov.ng/report/"</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>COVID19 <span class="ot">&lt;-</span> url <span class="sc">%&gt;%</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_html</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_nodes</span>(<span class="at">xpath=</span><span class="st">'//*[@id="custom1"]'</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_table</span>()</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>COVID19 <span class="ot">&lt;-</span> COVID19[[<span class="dv">1</span>]] <span class="co"># the Table is item 1 in the scrapped data</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>xlsx<span class="sc">::</span><span class="fu">write.xlsx2</span>(COVID19, <span class="at">file =</span> <span class="st">"data/daily160920.xlsx"</span>, </span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>                  <span class="at">col.names =</span> <span class="cn">TRUE</span>, <span class="at">row.names =</span> <span class="cn">FALSE</span>) <span class="co"># the scrapped data is saved to Excel file</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 x 5
-  `States Affected` `No. of Cases (Lab Confirmed)` No. of Case~1 No. D~2 No. o~3
-  &lt;chr&gt;                                      &lt;dbl&gt;         &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
-1 Lagos                                      25436          1507   23697     232
-2 FCT                                         8908          2356    6464      88
-3 Plateau                                     4099           148    3917      34
-4 Kaduna                                      4098           603    3448      47
-5 Oyo                                         3773           355    3372      46
-6 Rivers                                      3217           228    2929      60
-# ... with abbreviated variable names 1: `No. of Cases (on admission)`,
-#   2: `No. Discharged`, 3: `No. of Deaths`</code></pre>
-</div>
-</div>
+<pre class="r"><code>library(rvest)
+
+url &lt;- &quot;https://covid19.ncdc.gov.ng/report/&quot;
+
+COVID19 &lt;- url %&gt;%
+  read_html() %&gt;%
+  html_nodes(xpath=&#39;//*[@id=&quot;custom1&quot;]&#39;) %&gt;%
+  html_table()
+
+COVID19 &lt;- COVID19[[1]] # the Table is item 1 in the scrapped data
+
+xlsx::write.xlsx2(COVID19, file = &quot;data/daily160920.xlsx&quot;, 
+                  col.names = TRUE, row.names = FALSE) # the scrapped data is saved to Excel file</code></pre>
+<pre><code>## # A tibble: 6 x 5
+##   `States Affected` `No. of Cases (Lab Confirmed)` No. of Case~1 No. D~2 No. o~3
+##   &lt;chr&gt;                                      &lt;dbl&gt;         &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+## 1 Lagos                                      25436          1507   23697     232
+## 2 FCT                                         8908          2356    6464      88
+## 3 Plateau                                     4099           148    3917      34
+## 4 Kaduna                                      4098           603    3448      47
+## 5 Oyo                                         3773           355    3372      46
+## 6 Rivers                                      3217           228    2929      60
+## # ... with abbreviated variable names 1: `No. of Cases (on admission)`,
+## #   2: `No. Discharged`, 3: `No. of Deaths`</code></pre>
 <p>The outcome of this method is better than that of the PDF but the thousand values were comma-separated, so, to use the data further, the commas had to be removed by formatting manually.</p>
-</section>
-<section id="srapping-data-from-excel" class="level1">
+</div>
+<div id="srapping-data-from-excel" class="section level1">
 <h1>Srapping data from Excel</h1>
 <p>The third method is to use Excel to scrap the data. For this, open <code>MS-Excel</code>, Select <code>Data</code> from the <em>Menu</em> as shown in the graphics below</p>
-<div class="cell">
-<div class="cell-output-display">
-<p><img src="img/page1.png" class="img-fluid" style="width:100.0%"></p>
-</div>
-</div>
-<div class="cell">
-<div class="cell-output-display">
-<p><img src="img/page2.png" class="img-fluid" style="width:100.0%"></p>
-</div>
-</div>
-<div class="cell">
-
-</div>
+<p><img src="img/page1.png" width="100%" /></p>
+<p><img src="img/page2.png" width="100%" /></p>
 <p>This proved more helpful that the first two and is easier to use as it does not require any coding as shown in the pictures.</p>
-</section>
-<section id="scraping-data-by-copy-paste-to-from-website-to-excel" class="level1">
+</div>
+<div id="scraping-data-by-copy-paste-to-from-website-to-excel" class="section level1">
 <h1>Scraping data by copy-paste to from website to Excel</h1>
 <p>The fourth method is to scrap the data directly by selecting and copying the data from the website.</p>
-<div class="cell">
-<div class="cell-output-display">
-<p><img src="img/page4.png" class="img-fluid" style="width:100.0%"></p>
-</div>
-</div>
+<p><img src="img/page4.png" width="100%" /></p>
 <p>This is the easiest and most efficient as no codes are needed and the copied data is saved directly in Excel for further formatting.</p>
 <p>After scrapping the data with any of the methods mentioned above, then, they are formatted for preparing visuals. To study the trend of spread and how recoveries and/or deaths occur from time to time, the daily records were obtained from the aggregated data.</p>
-</section>
-
-</main>
-<!-- /main column -->
-<script type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
-    }
-  });
-  clipboard.on('success', function(e) {
-    // button target
-    const button = e.trigger;
-    // don't keep focus
-    button.blur();
-    // flash "checked"
-    button.classList.add('code-copy-button-checked');
-    var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
-    setTimeout(function() {
-      button.setAttribute("title", currentTitle);
-      button.classList.remove('code-copy-button-checked');
-    }, 1000);
-    // clear code selection
-    e.clearSelection();
-  });
-  function tippyHover(el, contentFn) {
-    const config = {
-      allowHTML: true,
-      content: contentFn,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'quarto',
-      placement: 'bottom-start'
-    };
-    window.tippy(el, config); 
-  }
-  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-  for (var i=0; i<noterefs.length; i++) {
-    const ref = noterefs[i];
-    tippyHover(ref, function() {
-      let href = ref.getAttribute('href');
-      try { href = new URL(href).hash; } catch {}
-      const id = href.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      return note.innerHTML;
-    });
-  }
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-    tippyHover(ref, function() {
-      var popup = window.document.createElement('div');
-      cites.forEach(function(cite) {
-        var citeDiv = window.document.createElement('div');
-        citeDiv.classList.add('hanging-indent');
-        citeDiv.classList.add('csl-entry');
-        var biblioDiv = window.document.getElementById('ref-' + cite);
-        if (biblioDiv) {
-          citeDiv.innerHTML = biblioDiv.innerHTML;
-        }
-        popup.appendChild(citeDiv);
-      });
-      return popup.innerHTML;
-    });
-  }
-});
-</script>
-</div> <!-- /content -->
-
-
-
-</body></html>
+</div>
