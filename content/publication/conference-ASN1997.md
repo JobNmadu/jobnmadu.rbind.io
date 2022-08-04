@@ -1,6 +1,6 @@
 ---
 abstract:
-  This BASIC program is capable of analysing any project as well as performing sensitivity analysis on cost overrun, benefit short­fall and delay in implementation.  The analyses involves deter­mining benefit-cost ratio, net present worth, net benefit-invest­ment ratio, internal rate of return and switching values. The program is currently running on a microsystems and can run on all IBM machines or compatible with enhanced graphic adapter on which any of the dialect of BASIC is installed.  The main program and sample runs are provided.
+  This BASIC program is capable of analysing any project as well as performing sensitivity analysis on cost overrun, benefit shortfall and delay in implementation.  The analyses involves determining benefit-cost ratio, net present worth, net benefit-investment ratio, internal rate of return and switching values. The program is currently running on a microsystems and can run on all IBM machines or compatible with enhanced graphic adapter on which any of the dialect of BASIC is installed.  The main program and sample runs are provided.
 authors:
 - admin
 date: "1997-05-04T01:00:00Z"
