@@ -14,7 +14,7 @@ image:
   preview_only: false
 links: null
 projects: null
-#publication: *Agricultural Development in Nigeria: Evidence can Chart the Path*
+publication: 'Global Conference on Services and Retail Management (GLOSERV 2021) May 11-13'
 #publication_short: In *STC*
 publication_types:
 - "1"
