@@ -12,7 +12,7 @@ image:
   preview_only: false
 links: null
 projects: null
-#publication: '*Catalyzing Post COVID-19 Economic Recoveries through Agripreneurship Development: The Agribusiness Incubation Centre (AICs) Model*'
+publication: '28th Annual Conference of the Agricultural Society of Nigeria held at the University of Agriculture Abeokuta, Nigeria, 1st to 5th'
 #publication_short: In *STC*
 publication_types:
 - "1"
