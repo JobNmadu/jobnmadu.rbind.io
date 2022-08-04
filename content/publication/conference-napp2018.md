@@ -27,7 +27,7 @@ tags:
 - Structural breaks
 - Nigeria
 - RStats
-title: 'Agriculture's share in Nigerian GDP: short and long-term effects of climate change and arable land availability'
+title: Agriculture's share in Nigerian GDP: short and long-term effects of climate change and arable land availability
 ---
 
 {{% alert note %}}
