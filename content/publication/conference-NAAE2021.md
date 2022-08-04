@@ -15,7 +15,7 @@ image:
   preview_only: false
 links: null
 projects: null
-#publication: '*COVID-19 and National Economic Crises: Challenges to Food Security and Sustainable Livelihoods*'
+publication: '21st National Conference of the Nigerian Association of Agricultural Economists held at The Federal University of Lafia, between 18th and 20th October'
 #publication_short: In *STC*
 publication_types:
 - "1"
