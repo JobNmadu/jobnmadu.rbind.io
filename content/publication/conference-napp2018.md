@@ -15,7 +15,7 @@ image:
   preview_only: false
 links: null
 projects: null
-publication: 'Second Conference of the Feed the Future Nigeria Agricultural Policy Project, Transcorp Hilton Hotel, Abuja, Nigeria 13-16 August'
+publication: '2nd Conference of the Feed the Future Nigeria Agricultural Policy Project held at Transcorp Hilton Hotel, Abuja, Nigeria 13-16 August'
 #publication_short: In *STC*
 publication_types:
 - "1"
