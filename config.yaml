@@ -4,7 +4,7 @@ copyright: JNNmadu &copy; {year}
 googleAnalytics: 'G-V53DTDYQF5'
 disqusShortname: ''
 theme: academia-hugo
-enableGitInfo: no
+enableGitInfo: yes
 defaultContentLanguage: en
 hasCJKLanguage: no
 defaultContentLanguageInSubdir: no
