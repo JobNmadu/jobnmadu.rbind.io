@@ -164,7 +164,7 @@ Days_1$`Constrained forecast Plot`
 
 # Comparing the constrained forecast plots for the four-time periods
 
-```{r eval = TRUE, warning = FALSE, echo=FALSE, dev='png', dev="png", dev.args=list(type="cairo"), fig.width = 11.0, fig.height = 10.0}
+```{r eval = TRUE, warning = FALSE, echo=FALSE, dev="png", dev.args=list(type="cairo"), fig.width = 11.0, fig.height = 10.0}
 
 
 library(patchwork)
