@@ -22,7 +22,6 @@ publishDate: " "
 #summary: 
 tags:
 - Procurement procedures
-Awareness
 - Agricultural activities
 - mobile units
 - farm income
