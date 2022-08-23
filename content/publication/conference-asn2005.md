@@ -4,7 +4,7 @@ abstract:
 authors:
 - admin
 - T. T. Amos
-date: "2005-09-018T01:00:00Z"
+date: "2005-09-18T01:00:00Z"
 doi: ""
 featured: false
 image:
