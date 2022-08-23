@@ -25,7 +25,7 @@ tags:
 - continuing education system
 - decision-maker
 - commercialisation 
-title: 'Small scale farmers' willingness to take agricultural insurance in Paikoro Local Government Area of Niger State in Nmadu'
+title: Small scale farmers' willingness to take agricultural insurance in Paikoro Local Government Area of Niger State in Nmadu
 ---
 
 {{% alert note %}}
