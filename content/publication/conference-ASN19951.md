@@ -1,6 +1,6 @@
 ---
 abstract:
-  
+  This paper reports on a simple software developed in BASIC language to aid Farm Managers in diagonosis of farm problems with aid of a computer. The program can be run on all IBM machines or compactibles. Although written in BASIC, it can be translated into FORTRAN if and when needed. The main program, the flowchart and sample run are provided.
 authors:
 - admin
 date: "1995-11-05T01:00:00Z"
