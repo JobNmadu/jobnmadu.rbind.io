@@ -14,7 +14,7 @@ image:
   preview_only: false
 links: null
 projects: null
-publication: '10th Annual Conference of the Nigerian Association of  Agricultural Economists, 750 Seater Lecture Theatre, University of Abuja Permanent Site (Opposite Nmandi Azikiwe International Airport), Abuja.  October 7th–10th'
+publication: '10th Annual Conference of the Nigerian Association of  Agricultural Economists, 750 Seater Lecture Theatre, University of Abuja Permanent Site (Opposite Nmandi Azikiwe International Airport), Abuja, October 7thâ€“10th'
 #publication_short: In *STC*
 publication_types:
 - "1"
