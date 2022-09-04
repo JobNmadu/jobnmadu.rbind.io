@@ -50,7 +50,7 @@ defaultContentLanguageInSubdir = false\par
 paginate = 10  # Number of items per page in paginated lists.\par
 enableEmoji = true\par
 footnotereturnlinkcontents = "<sup>^</sup>"\par
-ignoreFiles = ["{{\field{\*\fldinst{HYPERLINK "\\\\\\\\.Rmd$"}}{\fldrslt{\\\\.Rmd$\ul0\cf0}}}}\f0\fs22 ", "{{\field{\*\fldinst{HYPERLINK "\\\\\\\\.Rmarkdown$"}}{\fldrslt{\\\\.Rmarkdown$\ul0\cf0}}}}\f0\fs22 ", "_cache$", "{{\field{\*\fldinst{HYPERLINK "\\\\\\\\.knit\\\\\\\\.md$"}}{\fldrslt{\\\\.knit\\\\.md$\ul0\cf0}}}}\f0\fs22 ", "{{\field{\*\fldinst{HYPERLINK "\\\\\\\\.utf8\\\\\\\\.md$"}}{\fldrslt{\\\\.utf8\\\\.md$\ul0\cf0}}}}\f0\fs22 ", "{{\field{\*\fldinst{HYPERLINK "\\\\\\\\.ipynb$"}}{\fldrslt{\\\\.ipynb$\ul0\cf0}}}}\f0\fs22 ", ".ipynb_checkpoints$", "_files$"]\par
+ignoreFiles = ["\\.Rmd$","\\.Rmarkdown$","_cache$","\\.knit\\.md$","\\.utf8\\.md$", "\\.ipynb$",".ipynb_checkpoints$","_files$"]\par
 \par
 [outputs]\par
   home = [ "HTML", "RSS", "JSON", "WebAppManifest" ]\par
