@@ -1,11 +1,8 @@
-{\rtf1\ansi\ansicpg1252\deff0\nouicompat\deflang1033{\fonttbl{\f0\fmodern\fprq1\fcharset0 Courier New;}{\f1\fnil\fcharset0 Courier New;}{\f2\fnil\fcharset0 Calibri;}}
-{\colortbl ;\red0\green0\blue255;}
-{\*\generator Riched20 10.0.19041}\viewkind4\uc1 
-\pard\widctlpar\f0\fs22 # Configuration of Academic\par
-# Documentation: {{\field{\*\fldinst{HYPERLINK https://sourcethemes.com/academic/ }}{\fldrslt{https://sourcethemes.com/academic/\ul0\cf0}}}}\f0\fs22\par
-#\par
-# This file is formatted using TOML syntax - learn more at {{\field{\*\fldinst{HYPERLINK https://learnxinyminutes.com/docs/toml/ }}{\fldrslt{https://learnxinyminutes.com/docs/toml/\ul0\cf0}}}}\f0\fs22\par
-# Each configuration section is defined by a name in square brackets (e.g. `[outputs]`).\par
+# Configuration of Academia
+# Documentation: https://sourcethemes.com/academic/
+# This file is formatted using TOML syntax - learn more at https://learnxinyminutes.com/docs/toml/
+# Each configuration section is defined by a name in square brackets (e.g. `[outputs]`).
+# Title of your site
 name= "Job Nmadu"\par
 # Title of your site\par
 title = "Data modelling to develop ..."\par
@@ -43,14 +40,13 @@ defaultContentLanguage = "en"\par
 hasCJKLanguage = false  # Set `true` for Chinese/Japanese/Korean languages.\par
 defaultContentLanguageInSubdir = false\par
 \par
-
-\pard\f1 removePathAccents = true  # Workaround for {{\field{\*\fldinst{HYPERLINK https://github.com/gohugoio/hugo/issues/5687 }}{\fldrslt{https://github.com/gohugoio/hugo/issues/5687\ul0\cf0}}}}\f1\fs22\par
+\pard\f1 removePathAccents = true  # Workaround for https://github.com/gohugoio/hugo/issues/5687\par
 
 \pard\widctlpar\f0\par
 paginate = 10  # Number of items per page in paginated lists.\par
 enableEmoji = true\par
 footnotereturnlinkcontents = "<sup>^</sup>"\par
-ignoreFiles = ["\\.Rmd$","\\.Rmarkdown$","_cache$","\\.knit\\.md$","\\.utf8\\.md$", "\\.ipynb$",".ipynb_checkpoints$","_files$"]\par
+ignoreFiles = ["\\.ipynb$",".ipynb_checkpoints$","\\.Rmd$","\\.Rmarkdown$","_files$","_cache$","\\.knit\\.md$","\\.utf8\\.md$"]\par
 \par
 [outputs]\par
   home = [ "HTML", "RSS", "JSON", "WebAppManifest" ]\par
@@ -63,8 +59,8 @@ ignoreFiles = ["\\.Rmd$","\\.Rmarkdown$","_cache$","\\.knit\\.md$","\\.utf8\\.md
   mediaType = "application/manifest+json"\par
   rel = "manifest"\par
 \par
-# Configure BlackFriday Markdown rendering.\par
-#   See: {{\field{\*\fldinst{HYPERLINK https://gohugo.io/getting-started/configuration/#configure-blackfriday }}{\fldrslt{https://gohugo.io/getting-started/configuration/#configure-blackfriday\ul0\cf0}}}}\f0\fs22\par
+# Configure BlackFriday Markdown rendering.
+# See: https://gohugo.io/getting-started/configuration/#configure-blackfriday\par
 [markup]\par
   defaultMarkdownHandler = "goldmark"\par
   [markup.goldmark]\par
