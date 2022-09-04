@@ -45,7 +45,7 @@ removePathAccents = true  # Workaround for https://github.com/gohugoio/hugo/issu
 paginate = 10  # Number of items per page in paginated lists.
 enableEmoji = true
 footnotereturnlinkcontents = "<sup>^</sup>"
-ignoreFiles = ["\\.ipynb$", "\\.ipynb_checkpoints$", "\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$", "\\.knit\\.md$", "\\.utf8\\.md$"]
+ignoreFiles = ["\\.ipynb$", "\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$", "\\.knit\\.md$", "\\.utf8\\.md$"]
 
 [outputs]
   home = [ "HTML", "RSS", "JSON", "WebAppManifest" ]
@@ -82,3 +82,16 @@ ignoreFiles = ["\\.ipynb$", "\\.ipynb_checkpoints$", "\\.Rmd$", "\\.Rmarkdown$",
   category = "categories"
   publication_type = "publication_types"
   authors = "authors"
+
+[module]
+  [[module.imports]]
+    path = "github.com/wowchemy/wowchemy-hugo-modules/wowchemy"
+  [[module.imports]]
+    path = "github.com/wowchemy/wowchemy-hugo-modules/netlify-cms-academic"
+    
+# Workaround Hugo publishing taxonomy URLs as plurals - consistently use singular across Wowchemy.
+[permalinks]
+  authors = "/author/:slug/"
+  tags = "/tag/:slug/"
+  categories = "/category/:slug/"
+  publication_types = "/publication-type/:slug/"
