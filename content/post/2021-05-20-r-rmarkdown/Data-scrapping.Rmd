@@ -85,7 +85,7 @@ head(readxl::read_xlsx("data/daily161220.xlsx"))
 
 The outcome of this method is better than that of the PDF but the thousand values were comma-separated, so, to use the data further, the commas had to be removed by formatting manually.
 
-# Srapping data from Excel
+# Scrapping data from Excel
 
 The third method is to use Excel to scrap the data. For this, open `MS-Excel`, Select `Data` from the _Menu_ as shown in the graphics below
 
@@ -114,7 +114,7 @@ knitr::include_graphics("img/page3.png")
 
 This proved more helpful that the first two and is easier to use as it does not require any coding as shown in the pictures.
 
-# Scraping data by copy-paste to from website to Excel
+# Scrapping data by copy-paste to from website to Excel
 
 The fourth method is to scrap the data directly by selecting and copying the data from the website.
 

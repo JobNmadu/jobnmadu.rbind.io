@@ -41,15 +41,15 @@ KK &lt;- read_csv(&quot;data/300820.csv&quot;,
                             skip = 1, skip_empty_rows = TRUE,
                             trim_ws = TRUE, col_names = FALSE) # loaded to memory for further use
 head(KK)</code></pre>
-<pre><code>## # A tibble: 6 x 1
+<pre><code>## # A tibble: 6 × 1
 ##   X1                                                                            
 ##   &lt;chr&gt;                                                                         
-## 1 Lagos                 18,119              15        15,228              0    ~
-## 2 FCT                    5,156               7         1,531              7    ~
-## 3 Oyo                    3,118              11         1,952              0    ~
-## 4 Edo                    2,578               1         2,300             0     ~
-## 5 Plateau                2,498              55         1,374            46     ~
-## 6 Rivers                 2,141               7         1,969             9     ~</code></pre>
+## 1 Lagos                 18,119              15        15,228              0    …
+## 2 FCT                    5,156               7         1,531              7    …
+## 3 Oyo                    3,118              11         1,952              0    …
+## 4 Edo                    2,578               1         2,300             0     …
+## 5 Plateau                2,498              55         1,374            46     …
+## 6 Rivers                 2,141               7         1,969             9     …</code></pre>
 <p>However, it was not efficient as the scrapped Table could not be separated into columns for further analysis.</p>
 </div>
 <div id="srapping-data-from-the-website" class="section level1">
@@ -68,8 +68,8 @@ COVID19 &lt;- COVID19[[1]] # the Table is item 1 in the scrapped data
 
 xlsx::write.xlsx2(COVID19, file = &quot;data/daily160920.xlsx&quot;, 
                   col.names = TRUE, row.names = FALSE) # the scrapped data is saved to Excel file</code></pre>
-<pre><code>## # A tibble: 6 x 5
-##   `States Affected` `No. of Cases (Lab Confirmed)` No. of Case~1 No. D~2 No. o~3
+<pre><code>## # A tibble: 6 × 5
+##   `States Affected` `No. of Cases (Lab Confirmed)` No. of Case…¹ No. D…² No. o…³
 ##   &lt;chr&gt;                                      &lt;dbl&gt;         &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
 ## 1 Lagos                                      25436          1507   23697     232
 ## 2 FCT                                         8908          2356    6464      88
@@ -77,19 +77,19 @@ xlsx::write.xlsx2(COVID19, file = &quot;data/daily160920.xlsx&quot;,
 ## 4 Kaduna                                      4098           603    3448      47
 ## 5 Oyo                                         3773           355    3372      46
 ## 6 Rivers                                      3217           228    2929      60
-## # ... with abbreviated variable names 1: `No. of Cases (on admission)`,
-## #   2: `No. Discharged`, 3: `No. of Deaths`</code></pre>
+## # … with abbreviated variable names ¹​`No. of Cases (on admission)`,
+## #   ²​`No. Discharged`, ³​`No. of Deaths`</code></pre>
 <p>The outcome of this method is better than that of the PDF but the thousand values were comma-separated, so, to use the data further, the commas had to be removed by formatting manually.</p>
 </div>
-<div id="srapping-data-from-excel" class="section level1">
-<h1>Srapping data from Excel</h1>
+<div id="scrapping-data-from-excel" class="section level1">
+<h1>Scrapping data from Excel</h1>
 <p>The third method is to use Excel to scrap the data. For this, open <code>MS-Excel</code>, Select <code>Data</code> from the <em>Menu</em> as shown in the graphics below</p>
 <p><img src="img/page1.png" width="100%" /></p>
 <p><img src="img/page2.png" width="100%" /></p>
 <p>This proved more helpful that the first two and is easier to use as it does not require any coding as shown in the pictures.</p>
 </div>
-<div id="scraping-data-by-copy-paste-to-from-website-to-excel" class="section level1">
-<h1>Scraping data by copy-paste to from website to Excel</h1>
+<div id="scrapping-data-by-copy-paste-to-from-website-to-excel" class="section level1">
+<h1>Scrapping data by copy-paste to from website to Excel</h1>
 <p>The fourth method is to scrap the data directly by selecting and copying the data from the website.</p>
 <p><img src="img/page4.png" width="100%" /></p>
 <p>This is the easiest and most efficient as no codes are needed and the copied data is saved directly in Excel for further formatting.</p>
