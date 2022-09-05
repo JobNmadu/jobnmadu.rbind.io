@@ -52,7 +52,7 @@ head(KK)
 
 However, it was not efficient as the scrapped Table could not be separated into columns for further analysis.
 
-# Srapping data from the website
+# Scrapping data from the website
 
 The second is to scrap the data from the website as shown in the codes. 
 
