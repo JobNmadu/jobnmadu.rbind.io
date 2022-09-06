@@ -87,3 +87,16 @@ taxonomyTerm = [ "HTML", "RSS" ]
   category = "categories"
   publication_type = "publication_types"
   author = "authors"
+
+[module]
+  [[module.imports]]
+    path = "github.com/wowchemy/wowchemy-hugo-modules/wowchemy"
+  [[module.imports]]
+    path = "github.com/wowchemy/wowchemy-hugo-modules/netlify-cms-academic"
+    
+# Workaround Hugo publishing taxonomy URLs as plurals - consistently use singular across Wowchemy.
+[permalinks]
+  authors = "/author/:slug/"
+  tags = "/tag/:slug/"
+  categories = "/category/:slug/"
+  publication_types = "/publication-type/:slug/"
