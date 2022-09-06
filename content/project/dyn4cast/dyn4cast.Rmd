@@ -1,11 +1,23 @@
 ---
 title: "**Dyn4cast**: An R-package for Dynamic Modelling and Machine Learning Environment"
-author: "Job Nmadu"
+description: |
+  The estimation of regressions models, their prediction and essembles are used to forecast COVID-19 distribution in Nigeria
+author:
+  - name: Job Nmadu
+    url: https://jobnmadu.rbind.io/
 date: "2022-09-01T01:00:00Z"
-tags: 
-  - ["machine learnng", "time series", "regression models", "time variant forecasting", "Mallows Cp"]
-  
+output: github_document
+categories:
+  - R
+  - Dynamic Forecastng
+slug: Dyn4cast
+summary: Time-varying dynamic forecast,  machine learning metrics, linear systems transformation, Mallow's Cp of economic data for national development.
+tags: [machine learnng, time series, regression model", time variant forecasting, Mallows Cp]
 ---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
 
 # Dyn4cast  <img src="https://github.com/JobNmadu/Dyn4cast/blob/master/man/figures/logo.png" align="center" alt="" width="150" height="150" /> 
 
