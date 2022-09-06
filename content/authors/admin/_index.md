@@ -22,7 +22,7 @@ email: ""
 interests:
 - Economics and Efficiencies of Small Scale farming
 - Econometric (Regressions) Modelling
-- Data Science and Machine Learning
+- Data Science and Machine Learning with R
 - Computable General Equilibrium (CGE) Modelling
 name: Job Nmadu
 organizations:
