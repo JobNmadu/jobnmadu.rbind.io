@@ -90,10 +90,9 @@ taxonomyTerm = [ "HTML", "RSS" ]
 
 #[module]
 #  [[module.imports]]
-#    path = "github.com/themefisher/academia-hugo-modules/academia"
-# https://github.com/themefisher/academia-hugo
+#    path = "github.com/themefisher/"
 #  [[module.imports]]
-#    path = "gohugo.io/wowchemy/wowchemy-hugo-modules/netlify-cms-academic"
+#    path = "gohugo.io/themefisher/"
     
 # Workaround Hugo publishing taxonomy URLs as plurals - consistently use singular across Wowchemy.
 [permalinks]
