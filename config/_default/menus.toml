@@ -11,6 +11,11 @@
 [[main]]
   name = "Posts"
   url = "#posts"
+  weight = 70
+
+[[main]]
+  name = "R-Blog"
+  url = "#r-blog"
   weight = 40
 
 #[[main]]
