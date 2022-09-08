@@ -4,7 +4,9 @@ description: |
   The estimation of regressions models, their prediction and essembles are used to forecast COVID-19 distribution in Nigeria
 author:
   - name: Job Nmadu
-    url: https://jobnmadu.rbind.io/
+    url: https://jobnmadu.com/
+categories:
+  - R
 bibliography: data/bibliography.bib
 date: "2021-03-15T00:00:00Z"
 output: github_document
@@ -32,12 +34,12 @@ z.s           &lt;- readRDS(&quot;data/zs.RDS&quot;)
 cumper        &lt;- readRDS(&quot;data/cumper.RDS&quot;)
 niz           &lt;- readRDS(&quot;data/niz.RDS&quot;)
 States_county &lt;- read_excel(&quot;data/States.xlsx&quot;)</code></pre>
-<p>Like mentioned earlier, some tricks were used to obtain the daily data from the website of NCDC. The NCDC uploads the cumulative data on daily basis, so each day, the data were scrapped and then the daily incidemnce were recorded. For examble, below is the data scrapped from the website on March 15, 2021.</p>
+<p>Like mentioned earlier, some tricks were used to obtain the daily data from the website of NCDC. The NCDC uploads the cumulative data on daily basis, so each day, the data were scrapped and then the daily incidence were recorded. For example, below is the data scrapped from the website on March 15, 2021.</p>
 <pre class="r"><code>Deaths &lt;- readr::read_csv(&quot;data/today.csv&quot;)
 names(Deaths) &lt;- c(&quot;Region&quot;, &quot;Confirmed&quot;, &quot;Active&quot;, &quot;Recovered&quot;, &quot;Deaths&quot;)
 DDmap &lt;- Deaths
 Deaths</code></pre>
-<pre><code>## # A tibble: 37 x 5
+<pre><code>## # A tibble: 37 × 5
 ##    Region      Confirmed Active Recovered Deaths
 ##    &lt;chr&gt;           &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;  &lt;dbl&gt;
 ##  1 Abia             1629     44      1564     21
@@ -50,8 +52,7 @@ Deaths</code></pre>
 ##  8 Borno            1321     83      1200     38
 ##  9 Cross River       344     14       313     17
 ## 10 Delta            2593    780      1744     69
-## # ... with 27 more rows
-## # i Use `print(n = ...)` to see more rows</code></pre>
+## # … with 27 more rows</code></pre>
 </div>
 <div id="creating-date-items" class="section level1">
 <h1>Creating date items</h1>

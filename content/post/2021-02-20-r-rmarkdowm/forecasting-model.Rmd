@@ -6,7 +6,9 @@ description: |
   The post is about Dyn4cast package and its basic use.
 author:
   - name: Job Nmadu
-    url: https://jobnmadu.rbind.io/
+    url: https://jobnmadu.com/
+categories:
+  - R
 output:
   html_document: default
   prettydoc::html_pretty:

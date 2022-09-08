@@ -4,7 +4,9 @@ description: |
   The estimation of regressions models, their prediction and essembles are used to forecast COVID-19 distribution in Nigeria
 author:
   - name: Job Nmadu
-    url: https://jobnmadu.rbind.io/
+    url: https://jobnmadu.com/
+categories:
+  - R
 bibliography: data/bibliography.bib
 date: "2021-03-15T00:00:00Z"
 output: github_document
@@ -38,7 +40,7 @@ States_county <- read_excel("data/States.xlsx")
 
 ```
 
-Like mentioned earlier, some tricks were used to obtain the daily data from the website of NCDC. The NCDC uploads the cumulative data on daily basis, so each day, the data were scrapped and then the daily incidemnce were recorded. For examble, below is the data scrapped from the website on March 15, 2021.
+Like mentioned earlier, some tricks were used to obtain the daily data from the website of NCDC. The NCDC uploads the cumulative data on daily basis, so each day, the data were scrapped and then the daily incidence were recorded. For example, below is the data scrapped from the website on March 15, 2021.
 
 ```{r message = FALSE, warning = FALSE, echo = TRUE}
 Deaths <- readr::read_csv("data/today.csv")

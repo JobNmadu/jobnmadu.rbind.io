@@ -4,7 +4,9 @@ description: |
   The post is about how the data deposited daily on the website of the Nigerian Centre for Disease Control (NCDC) can be scrapped with R and other software.
 author:
   - name: Job Nmadu
-    url: https://jobnmadu.rbind.io/
+    url: https://jobnmadu.com/
+categories:
+  - R
 date: "2021-01-31"
 output:
   html_document: default
