@@ -2,6 +2,6 @@
 header:
   caption: ""
   image: ""
-title: Posts
+title: R-Blogs
 view: 3
 ---

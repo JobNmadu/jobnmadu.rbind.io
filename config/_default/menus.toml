@@ -11,7 +11,7 @@
 [[main]]
   name = "Posts"
   url = "#posts"
-  weight = 70
+  weight = 60
 
 [[main]]
   name = "R-Blog"
@@ -41,7 +41,7 @@
 [[main]]
   name = "Contact"
   url = "#contact"
-  weight = 60
+  weight = 70
 
 [[main]]
  # name = "dropdown"
