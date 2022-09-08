@@ -16,14 +16,14 @@ output:
   word_document: default
   pdf_document: 
     latex_engine: xelatex
-tags: [constrained forecast, COVID-19, Nigeria]
+tags: [time variant forecasting, constrained forecast, COVID-19, Nigeria]
 ---
 
 
 
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
-<p>The advent of the COVID-19 pandemic really put everyone in confusion and as the days, weeks went-by, everyone was trying to understand the trend and the direction of the incidence. While the medicals were in their labs trying to understand the anatomy of the virus, various statisticians and data scientists were trying to model the trend so as to guide future actions and preparations. One of the early models was done for Australia by <span class="citation">(<a href="#ref-Rami2020" role="doc-biblioref">Krispin and Byrnes 2020</a>)</span>. After observing the beatifuly animations of the incidence of the virus in the various regions of Australia, the motivation to do so was kindled. However, the first setback was the format the Nigerian Centre for Disease Control (NCDC) <span class="citation">(<a href="#ref-NCDC2020" role="doc-biblioref">NCDC 2020</a>)</span> was publishing the incidence in Nigeria was not very #RStats <span class="citation">(<a href="#ref-rstat2020" role="doc-biblioref">R Core Team 2020</a>)</span> friendly. There were two main issues:</p>
+<p>The advent of the COVID-19 pandemic really put everyone in confusion and as the days, weeks went-by, everyone was trying to understand the trend and the direction of the incidence. While the medicals were in their labs trying to understand the anatomy of the various, various statisticians and data scientists were trying to model the trend so as to guide future actions and preparations. One of the early models was done for Australia by <span class="citation">(<a href="#ref-Rami2020" role="doc-biblioref">Krispin and Byrnes 2020</a>)</span>. After observing the beatifuly animations of the incidence of the virus in the various regions of Australia, the motivation to do so was kindled. However, the first setback was the format the Nigerian Centre for Disease Control (NCDC) <span class="citation">(<a href="#ref-NCDC2020" role="doc-biblioref">NCDC 2020</a>)</span> was publishing the incidence in Nigeria was not very #RStats <span class="citation">(<a href="#ref-rstat2020" role="doc-biblioref">R Core Team 2020</a>)</span> friendly. There were two main issues:</p>
 <ol style="list-style-type: decimal">
 <li><p>The data was and has been hard-formatted using the comma thousand separator which was and has remain difficult to easily analysed so alternative means of removing the format had to be worked out.</p></li>
 <li><p>The data supplied by NCDC to the main collation centre of the COVID-19 at the Johns Hopkins University Center for Systems Science and Engineering (JHU-CCSE) <span class="citation">(<a href="#ref-ccse2020" role="doc-biblioref">CCSE 2020</a>)</span> was not disaggregated by regions as in the case of Australia, therefore, the data had to be manualy compiled from the website (<a href="https://covid19.ncdc.gov.ng/" class="uri">https://covid19.ncdc.gov.ng/</a>) of the agency.</p></li>

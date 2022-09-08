@@ -16,7 +16,7 @@ output:
   word_document: default
   pdf_document: 
     latex_engine: xelatex
-tags: [constrained forecast, COVID-19, Nigeria]
+tags: [time variant forecasting, constrained forecast, COVID-19, Nigeria]
 ---
 
 ```{r setup, include=FALSE}
