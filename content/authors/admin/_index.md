@@ -4,8 +4,8 @@ authors:
 avatar_image: GitHub2.jpg
 bio: Research interests are economic efficiencies of small scale farming and welfare effects of agricultural interventions.
 btn:
-- label: Download Resume
-  url: https://sourcethemes.com/academic/docs/install/
+#- label: Download Resume
+  url: https://www.r-bloggers.com/
 display_education: true
 education:
   courses:
