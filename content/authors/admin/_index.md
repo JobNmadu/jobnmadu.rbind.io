@@ -9,8 +9,8 @@ authors:
 
 # resume download button
 btn:
-- url : "https://sourcethemes.com/academic/docs/install/"
-  label : "Download Resume"
+#- url : "https://sourcethemes.com/academic/docs/install/"
+#  label : "Download Resume"
 
 # Is this the primary user of the site?
 superuser: true
