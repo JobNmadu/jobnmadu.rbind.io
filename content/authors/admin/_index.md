@@ -1,16 +1,24 @@
 ---
-authors:
-- admin
+# Display name
+name: Job Nmadu
 avatar_image: GitHub2.jpg
-bio: Research interests are economic efficiencies of small scale farming and welfare effects of agricultural interventions.
+
 # Username (this should match the folder name)
 authors:
 - admin
+
 # resume download button
 btn:
-- url : "https://sourcethemes.com/academic/docs/install/"
-  label : "Download Resume"
+#- url : "https://sourcethemes.com/academic/docs/install/"
+#  label : "Download Resume"
+
+# Is this the primary user of the site?
+superuser: true
+
+bio: Research interests are economic efficiencies of small scale farming and welfare effects of agricultural interventions.
+
 display_education: true
+
 education:
   courses:
   - course: PhD in Agricultural Economics
@@ -26,16 +34,18 @@ education:
     institution: Ahmadu Bello University, Zaria
     year: 1987
 email: ""
+
 interests:
 - Economics and Efficiencies of Small Scale farming
 - Econometric (Regressions) Modelling
 - Data Science and Machine Learning with R
 - Computable General Equilibrium (CGE) Modelling with GAMS
-name: Job Nmadu
+
 organizations:
 - name: Federal University of Technology, Minna, Nigeria
   url: "https://www.futminna.edu.ng"
 role: Professor of Agricultural Economics and Dean, School of Agriculture and Agricultural Technology
+
 social:
 - icon: envelope
   icon_pack: fas
