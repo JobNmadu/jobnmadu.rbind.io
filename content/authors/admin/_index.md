@@ -9,7 +9,7 @@ authors:
 # resume download button
 btn:
 - url : "https://sourcethemes.com/academic/docs/install/"
-  label : "Download Resume"
+  label : "Know more"
 display_education: true
 education:
   courses:
