@@ -1,5 +1,5 @@
 ---
-title: "COVID19 data sceapping from Nigerian Centre for Disease Control (NCDC)"
+title: "COVID19 data scrapping from Nigerian Centre for Disease Control (NCDC)"
 description: |
   The post is about how the data deposited daily on the website of the Nigerian Centre for Disease Control (NCDC) can be scrapped with R and other software.
 author:
