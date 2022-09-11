@@ -3,9 +3,13 @@ authors:
 - admin
 avatar_image: GitHub2.jpg
 bio: Research interests are economic efficiencies of small scale farming and welfare effects of agricultural interventions.
+# Username (this should match the folder name)
+authors:
+- admin
+# resume download button
 btn:
-#- label: Download Resume
-#  url: https://www.r-bloggers.com/
+- url : "https://sourcethemes.com/academic/docs/install/"
+  label : "Download Resume"
 display_education: true
 education:
   courses:
@@ -71,3 +75,5 @@ Research interests are economic efficiencies of small scale farming and welfare 
 ![reviews](../../img/certifacates.jpg)
 
 Three decades of industry experience in teaching research and community development as Head of Department, Industrial Liaison Officer, Dean, Director, Consultant, Church and Community leader.
+
+The content of this blog is proudly re-syndicated by http://r-bloggers.com/
