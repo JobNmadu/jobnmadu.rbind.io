@@ -105,4 +105,4 @@ Research interests are economic efficiencies of small scale farming and welfare 
 
 Three decades of industry experience in teaching research and community development as Head of Department, Industrial Liaison Officer, Dean, Director, Consultant, Church and Community leader.
 
-The content of this blog is proudly re-syndicated by http://r-bloggers.com/
+Proudly re-syndicated by [R-bloggers](http://r-bloggers.com/)
