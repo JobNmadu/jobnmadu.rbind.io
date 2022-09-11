@@ -95,8 +95,8 @@ taxonomyTerm = [ "HTML", "RSS" ]
 #    path = "gohugo.io/themefisher/"
     
 # Workaround Hugo publishing taxonomy URLs as plurals - consistently use singular across Wowchemy.
-[permalinks]
-  author = "/author/:slug/"
-  tags = "/tag/:slug/"
-  categories = "/category/:slug/"
-  publication_types = "/publication-type/:slug/"
+#[permalinks]
+#  authors = "/author/:slug/"
+#  tags = "/tag/:slug/"
+#  categories = "/category/:slug/"
+#  publication_types = "/publication-type/:slug/"
