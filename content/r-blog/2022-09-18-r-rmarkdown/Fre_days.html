@@ -1,0 +1,62 @@
+---
+title: "Frequency of occurence of COVID-19 cases accross Nigeria"
+output:
+  prettydoc::html_pretty:
+    theme: cayman #tactile, architect, leonids, hpstr
+    highlight: vignette #github
+    math: katex #latex
+  html_document: default
+  word_document: default
+  pdf_document: 
+    latex_engine: xelatex
+description: |
+  The since February 2020 when COVID-19 was reported in Nigeria, it has spread to all the 36 states and Abuja. This post shows how frequent cases were reported in each state.
+author:
+  - name: Job Nmadu
+    url: https://jobnmadu.com/
+categories:
+  - R
+date: "2022-09-18T01:00:00Z"
+tags: [COVID-19, Nigeria, RStats, Frequency of occurence]
+---
+
+
+
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>In the 933 days since the first <em>COVID-19</em> case was reported on <em>February 29, 2020</em> in Nigeria, about <em>267,511</em> cases have been recorded with <em>1.18%</em> fatalities. Except for <em>Kogi State</em> which Government refused monitoring laboratories to be setup in her health facilities for confirming and managing <em>COVID-19</em>, cases have been recorded on regular basis in the other 35 states and Abuja, the Federal Capital. However, the frequency of cases vary from state to state. Now that the world is consolidating on the management and final defeat of the spread of the virus, it is good to have knowledge of states that still frequently report cases so that efforts can be geared towards effective confinement.</p>
+<p>The data for this visuals which were scrapped from <a href="https://covid19.ncdc.gov.ng/">Ngerian Centre for Disease Control</a>, have undergone some cleaning and wrangling.</p>
+</div>
+<div id="load-library-and-data" class="section level1">
+<h1>Load library and data</h1>
+<pre class="r"><code>library(tidyverse)
+Fre_days &lt;- readRDS(&quot;data/Fre_days.RDS&quot;)</code></pre>
+</div>
+<div id="frequency-of-recorded-cases-in-states" class="section level1">
+<h1>Frequency of recorded cases in states</h1>
+<pre class="r"><code>ggplot(Fre_days) +
+  aes(x = date, y = N_days, colour = Province.State) +
+  geom_line(size = 0.5) +
+  scale_color_hue(direction = 1) +
+  labs(x = &quot;Date&quot;, y = &quot;Number of days&quot;) +
+  theme_minimal() +
+  theme(legend.position = &quot;none&quot;) +
+  facet_wrap(vars(Province.State), ncol = 4, scales = &quot;free_y&quot;) +
+  labs(caption = &quot;Graphics: Job Nmadu | @JobNmadu  \n Source: https://covid19.ncdc.gov.ng/&quot;)</code></pre>
+<p><img src="/r-blog/2022-09-18-r-rmarkdown/Fre_days_files/figure-html/unnamed-chunk-2-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>As can be observed, there were only six days in 933 days when no case was reported in Lagos State. Similarly, 10 days in Abuja, the Federal capital and Rivers State; 15 days in Ondo State; 25 days in Oyo, Kaduna and Kano States respectively and 30 days in Ogun, Plateau and Delta States respectively. Lagos, Ogun, Oyo, Ondo, Delta and Rivers States share boundaries. Also, Abuja, Kaduna, Kano and Plateau states share boundaries. So it can be seen that the virus is moving within among contiguous states. Therefore in terms of attention, these states still pose some risks to the spread of the virus and should be well-policed.</p>
+</div>
+<div id="frequency-of-occurence-of-cases-in-the-zones" class="section level1">
+<h1>Frequency of occurence of cases in the zones</h1>
+<pre class="r"><code>ggplot(Fre_days) +
+  aes(x = date, y = N_days, colour = County) +
+  geom_line(size = 0.5) +
+  scale_color_hue(direction = 1) +
+  labs(x = &quot;Date&quot;, y = &quot;Number of days&quot;) +
+  theme_minimal() +
+  theme(legend.position = &quot;none&quot;) +
+  facet_wrap(vars(County), ncol = 2, scales = &quot;free_y&quot;) +
+  labs(caption = &quot;Graphics: Job Nmadu | @JobNmadu  \n Source: https://covid19.ncdc.gov.ng/&quot;)</code></pre>
+<p><img src="/r-blog/2022-09-18-r-rmarkdown/Fre_days_files/figure-html/unnamed-chunk-3-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>Just as in the case of States, South West, South South, Federal Capital, North Central and North West zones are of interest in the final defeat of COVID-19.</p>
+</div>

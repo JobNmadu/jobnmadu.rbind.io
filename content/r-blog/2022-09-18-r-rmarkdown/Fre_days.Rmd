@@ -1,0 +1,89 @@
+---
+title: "Frequency of occurence of COVID-19 cases accross Nigeria"
+output:
+  prettydoc::html_pretty:
+    theme: cayman #tactile, architect, leonids, hpstr
+    highlight: vignette #github
+    math: katex #latex
+  html_document: default
+  word_document: default
+  pdf_document: 
+    latex_engine: xelatex
+description: |
+  The since February 2020 when COVID-19 was reported in Nigeria, it has spread to all the 36 states and Abuja. This post shows how frequent cases were reported in each state.
+author:
+  - name: Job Nmadu
+    url: https://jobnmadu.com/
+categories:
+  - R
+date: "2022-09-18T01:00:00Z"
+tags: [COVID-19, Nigeria, RStats, Frequency of occurence]
+---
+
+# Introduction
+
+In the 933 days since the first *COVID-19* case was reported on *February 29, 2020* in Nigeria, about *267,511* cases have been recorded with *1.18%* fatalities. Except for _Kogi State_ which Government refused monitoring laboratories to be setup in her health facilities for confirming and managing *COVID-19*, cases have been recorded on regular basis in the other 35 states and Abuja, the Federal Capital. However, the frequency of cases vary from state to state. Now that the world is consolidating on the management and final defeat of the spread of the virus, it is good to have knowledge of states that still frequently report cases so that efforts can be geared towards effective confinement.
+
+The data for this visuals which were scrapped from [Ngerian Centre for Disease Control](https://covid19.ncdc.gov.ng/), have undergone some cleaning and wrangling.
+
+# Load library and data
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(tidy      = "styler",
+                      fig.align = "center",
+                      comment   = NA,
+                      warning   = FALSE,
+                      error     = FALSE,
+                      message   = FALSE,
+                      collapse  = FALSE,
+                      out.width = "100%",
+                      dev = "ragg_png", #<- prevent default Windows device to
+                      # render plots
+                      dpi       = 132,
+                      echo      = TRUE)
+```
+
+
+
+```{r, fig.width = 14, fig.height = 8, echo = TRUE}
+
+library(tidyverse)
+Fre_days <- readRDS("data/Fre_days.RDS")
+```
+
+# Frequency of recorded cases in states 
+
+```{r, fig.width = 14, fig.height = 8, echo = TRUE}
+ggplot(Fre_days) +
+  aes(x = date, y = N_days, colour = Province.State) +
+  geom_line(size = 0.5) +
+  scale_color_hue(direction = 1) +
+  labs(x = "Date", y = "Number of days") +
+  theme_minimal() +
+  theme(legend.position = "none") +
+  facet_wrap(vars(Province.State), ncol = 4, scales = "free_y")+
+  labs(caption = "Graphics: Job Nmadu | @JobNmadu  \n Source: https://covid19.ncdc.gov.ng/")
+```
+
+As can be observed, there were only six days in 933 days when no case was reported in Lagos State. Similarly, 10 days in Abuja, the Federal capital and Rivers State; 15 days in Ondo State; 25 days in Oyo, Kaduna and Kano States respectively and 30 days in Ogun, Plateau and Delta States respectively. Lagos, Ogun, Oyo, Ondo, Delta and Rivers States share boundaries. Also, Abuja, Kaduna, Kano and Plateau states share boundaries. So it can be seen that the virus is moving within among contiguous states. Therefore in terms of attention, these states still pose some risks to the spread of the virus and should be well-policed.
+
+# Frequency of occurence of cases in the zones
+
+```{r, fig.width = 14, fig.height = 8, echo = TRUE}
+
+ggplot(Fre_days) +
+  aes(x = date, y = N_days, colour = County) +
+  geom_line(size = 0.5) +
+  scale_color_hue(direction = 1) +
+  labs(x = "Date", y = "Number of days") +
+  theme_minimal() +
+  theme(legend.position = "none") +
+  facet_wrap(vars(County), ncol = 2, scales = "free_y")+
+  labs(caption = "Graphics: Job Nmadu | @JobNmadu  \n Source: https://covid19.ncdc.gov.ng/")
+
+
+```
+
+Just as in the case of States, South West, South South, Federal Capital, North Central and North West zones are of interest in the final defeat of COVID-19.
+
