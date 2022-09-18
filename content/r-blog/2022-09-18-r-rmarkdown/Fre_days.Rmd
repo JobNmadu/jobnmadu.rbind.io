@@ -1,5 +1,5 @@
 ---
-title: "Frequency of occurence of COVID-19 cases accross Nigeria"
+title: "Frequency of occurence of COVID-19 cases across Nigeria"
 output:
   prettydoc::html_pretty:
     theme: cayman #tactile, architect, leonids, hpstr
@@ -22,7 +22,7 @@ tags: [COVID-19, Nigeria, RStats, Frequency of occurence]
 
 # Introduction
 
-In the 933 days since the first *COVID-19* case was reported on *February 29, 2020* in Nigeria, about *267,511* cases have been recorded with *1.18%* fatalities. Except for _Kogi State_ which Government refused monitoring laboratories to be setup in her health facilities for confirming and managing *COVID-19*, cases have been recorded on regular basis in the other 35 states and Abuja, the Federal Capital. However, the frequency of cases vary from state to state. Now that the world is consolidating on the management and final defeat of the spread of the virus, it is good to have knowledge of states that still frequently report cases so that efforts can be geared towards effective confinement.
+In the 933 days since the first **COVID-19** case was reported on **February 29, 2020** in Nigeria, about **267,511** cases have been recorded with **1.18%** fatalities. Except for _Kogi State_ which Government refused monitoring laboratories to be setup in her health facilities for confirming and managing **COVID-19**, cases have been recorded on regular basis in the other 35 states and Abuja, the Federal Capital. However, the frequency of cases vary from state to state. Now that the world is consolidating on the management and final defeat of the spread of the virus, it is good to have knowledge of states that still frequently report cases so that efforts can be geared towards effective confinement.
 
 The data for this visuals which were scrapped from [Ngerian Centre for Disease Control](https://covid19.ncdc.gov.ng/), have undergone some cleaning and wrangling.
 
