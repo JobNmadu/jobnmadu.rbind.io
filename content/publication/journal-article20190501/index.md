@@ -28,10 +28,10 @@ tags:
 - yam farmers
 title: Analysis of food crops farmers' choice of climate change adaptation strategies in Kwara State, Nigeria
 ---
-{{% alert note %}}
-Click the *Cite* button above to demo the feature to enable visitors to import publication metadata into their reference management software.
-{{% /alert %}}
+#{{% alert note %}}
+#Click the *Cite* button above to demo the feature to enable visitors to import #publication metadata into their reference management software.
+#{{% /alert %}}
 
-{{% alert note %}}
-Click the *Slides* button above to demo academia's Markdown slides feature.
-{{% /alert %}}
+#{{% alert note %}}
+#Click the *Slides* button above to demo academia's Markdown slides feature.
+#{{% /alert %}}
