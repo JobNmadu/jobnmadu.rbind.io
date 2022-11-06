@@ -14,7 +14,7 @@ image:
   preview_only: false
 links: null
 projects: null
-#publication: '64th Annual Conference of Association of Deans of Agriculture in Nigeria Universities (ADAN). Faculty of Agriculture, Shabu-Lafia Campus, Nasarawa State University, Keffi, Nigeria, between 15th and 18th August'
+publication: '64th Annual Conference of Association of Deans of Agriculture in Nigeria Universities (ADAN). Faculty of Agriculture, Shabu-Lafia Campus, Nasarawa State University, Keffi, Nigeria, between 15th and 18th August'
 #publication_short: In *STC*
 publication_types:
 - "1"
