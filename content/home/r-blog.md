@@ -64,6 +64,4 @@ subtitle = ""
  
  # CSS class.
  css_class = ""
-
-Proudly re-syndicated by [R-bloggers](http://r-bloggers.com/)
 +++
