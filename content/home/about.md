@@ -9,4 +9,5 @@ weight = 30  # Order that this section will appear in.
 # See https://sourcethemes.com/academic/docs/get-started/#introduce-yourself
 author = "admin"
 avatar_image= "haggai_04.jpg"
+Proudly re-syndicated by [R-bloggers](http://r-bloggers.com/)
 +++
