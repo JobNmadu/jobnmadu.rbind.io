@@ -1,0 +1,125 @@
+---
+title: "Better and enhanced method of estimating Mallow's Cp"
+output:
+  prettydoc::html_pretty:
+    theme: cayman #tactile, architect, leonids, hpstr
+    highlight: vignette #github
+    math: katex #latex
+  html_document: default
+  word_document: default
+  pdf_document: 
+    latex_engine: xelatex
+description: |
+  This blog shows an enhanced method for estimating Mallw's Cp in r. The method can be used to estimated Mallow's Cp even from GLM and other non-linear models.
+author:
+  - name: Job Nmadu
+    url: https://jobnmadu.com/
+categories:
+  - R
+date: "2023-02-04T01:00:00Z"
+tags: [RStats, Mallow's Cp, Machine Learning]
+---
+
+# Introduction
+
+In statistics, [`Mallows's Cp`](https://en.wikipedia.org/wiki/Mallows%27s_Cp), named for Colin Lingwood Mallows, an English statistician, is used to assess the fit of a regression model that has been estimated using ordinary least squares. Models with a `Mallows' Cp` value near P+1 (i.e. the number of explanatory variables + 1) have a low bias. If every potential model has a high value for `Mallows' Cp`, this indicates that some important predictor variables are likely missing from each model.
+
+Traditionally, `Mallow's Cp` has always been estimated from Linear models. In R, there are two packages that does this very well. It is easier to estimates from [wle package](https://github.com/cran/wle) because it does not require nested models like the [olsrr package](https://github.com/rsquaredacademy/olsrr). In addition, `olrss` can only estimate `Mallow's Cp` from linear models. Unfortunately, `wle` has been archieved by [CRAN](https://cran.r-project.org/).
+
+In this blog, I share with you a new method from [Dyn4cast package](https://github.com/JobNmadu/Dyn4cast) that is capable of estimating the `Mallow's Cp` from lm, glm and other forms of non-linear models. It is a one line code and easy to use. The usage is as follows:
+
+`MallowsCp(Model, y, x, type, Nlevels = 0)`
+
+`Model` is the model estimated
+
+`type` falls under `LM, ALM, GLM, N-LM` types of model. N-LM is not LM.
+
+`y` is vector of the dependent variable data
+
+`x` is vector of independent variable data
+
+`Nlevels` is the additional variables created by the model during estimation, defaults to `0` is none is provided.
+
+
+
+# Load library
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(tidy      = "styler",
+                      fig.align = "center",
+                      comment   = NA,
+                      warning   = FALSE,
+                      error     = FALSE,
+                      message   = FALSE,
+                      collapse  = FALSE,
+                      out.width = "100%",
+                      dev = "ragg_png", #<- prevent default Windows device to
+                      # render plots
+                      dpi       = 132,
+                      echo      = TRUE)
+```
+
+
+
+```{r, fig.width = 14, fig.height = 8, echo = TRUE}
+
+library(Dyn4cast)
+library(greybox)
+library(splines)
+binary <- readRDS("data/binary.RDS")
+linear <- readRDS("data/linear.RDS")
+others <- readRDS("data/others.RDS")
+```
+
+# Mallow's Cp from lm model
+
+```{r, fig.width = 14, fig.height = 8, echo = TRUE}
+
+Model <- lm(Income ~ ., data = linear)
+Type <- "LM"
+MallowsCp(Model = Model, y = linear$Income, x = linear[, -1], type = Type, Nlevels = 0)
+```
+
+
+# Mallow's Cp from ALM model
+
+```{r, fig.width = 14, fig.height = 8, echo = TRUE}
+
+Model <- alm(Income ~ ., data = linear)
+Type <- "ALM"
+MallowsCp(Model = Model, y = linear$Income, x = linear[, -1], type = Type, Nlevels = 0)
+```
+
+
+# Mallow's Cp from GLM model
+
+```{r, fig.width = 14, fig.height = 8, echo = TRUE}
+
+
+Model <- glm(GENDER ~ ., data = binary, family = binomial(link = "logit"))
+Type <- "GLM"
+MallowsCp(Model = Model, y = binary$GENDER, x = binary[, -1], type = Type, Nlevels = 0)
+```
+
+# Mallow's Cp from other models: splines, ARIMA
+
+```{r, fig.width = 14, fig.height = 8, echo = TRUE}
+
+y = others$Total; x = others$Series
+
+Model  <- lm(others$Total ~ bs(Series, knots = c(30, 115)), data = others)
+Type <- "LM"
+MallowsCp(Model = Model, y = y, x = x, type = Type, Nlevels = 0)
+
+# smooth.spline is not a model
+Model  <- smooth.spline(others$Series, others$Total)
+Type <- "LM"
+MallowsCp(Model = Model, y = y, x = x, type = Type, Nlevels = 0)
+
+Model  <- forecast::auto.arima(others$Total)
+Type <- "LM"
+MallowsCp(Model = Model, y = x, x = x, type = Type, Nlevels = 0)
+
+```
+

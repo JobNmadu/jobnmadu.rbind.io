@@ -1,0 +1,85 @@
+---
+title: "Better and enhanced method of estimating Mallow's Cp"
+output:
+  prettydoc::html_pretty:
+    theme: cayman #tactile, architect, leonids, hpstr
+    highlight: vignette #github
+    math: katex #latex
+  html_document: default
+  word_document: default
+  pdf_document: 
+    latex_engine: xelatex
+description: |
+  This blog shows an enhanced method for estimating Mallw's Cp in r. The method can be used to estimated Mallow's Cp even from GLM and other non-linear models.
+author:
+  - name: Job Nmadu
+    url: https://jobnmadu.com/
+categories:
+  - R
+date: "2023-02-04T01:00:00Z"
+tags: [RStats, Mallow's Cp, Machine Learning]
+---
+
+
+
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>In statistics, <a href="https://en.wikipedia.org/wiki/Mallows%27s_Cp"><code>Mallows's Cp</code></a>, named for Colin Lingwood Mallows, an English statistician, is used to assess the fit of a regression model that has been estimated using ordinary least squares. Models with a <code>Mallows' Cp</code> value near P+1 (i.e. the number of explanatory variables + 1) have a low bias. If every potential model has a high value for <code>Mallows' Cp</code>, this indicates that some important predictor variables are likely missing from each model.</p>
+<p>Traditionally, <code>Mallow's Cp</code> has always been estimated from Linear models. In R, there are two packages that does this very well. It is easier to estimates from <a href="https://github.com/cran/wle">wle package</a> because it does not require nested models like the <a href="https://github.com/rsquaredacademy/olsrr">olsrr package</a>. In addition, <code>olrss</code> can only estimate <code>Mallow's Cp</code> from linear models. Unfortunately, <code>wle</code> has been archieved by <a href="https://cran.r-project.org/">CRAN</a>.</p>
+<p>In this blog, I share with you a new method from <a href="https://github.com/JobNmadu/Dyn4cast">Dyn4cast package</a> that is capable of estimating the <code>Mallow's Cp</code> from lm, glm and other forms of non-linear models. It is a one line code and easy to use. The usage is as follows:</p>
+<p><code>MallowsCp(Model, y, x, type, Nlevels = 0)</code></p>
+<p><code>Model</code> is the model estimated</p>
+<p><code>type</code> falls under <code>LM, ALM, GLM, N-LM</code> types of model. N-LM is not LM.</p>
+<p><code>y</code> is vector of the dependent variable data</p>
+<p><code>x</code> is vector of independent variable data</p>
+<p><code>Nlevels</code> is the additional variables created by the model during estimation, defaults to <code>0</code> is none is provided.</p>
+</div>
+<div id="load-library" class="section level1">
+<h1>Load library</h1>
+<pre class="r"><code>library(Dyn4cast)
+library(greybox)
+library(splines)
+binary &lt;- readRDS(&quot;data/binary.RDS&quot;)
+linear &lt;- readRDS(&quot;data/linear.RDS&quot;)
+others &lt;- readRDS(&quot;data/others.RDS&quot;)</code></pre>
+</div>
+<div id="mallows-cp-from-lm-model" class="section level1">
+<h1>Mallow’s Cp from lm model</h1>
+<pre class="r"><code>Model &lt;- lm(Income ~ ., data = linear)
+Type &lt;- &quot;LM&quot;
+MallowsCp(Model = Model, y = linear$Income, x = linear[, -1], type = Type, Nlevels = 0)</code></pre>
+<pre><code>[1] 5</code></pre>
+</div>
+<div id="mallows-cp-from-alm-model" class="section level1">
+<h1>Mallow’s Cp from ALM model</h1>
+<pre class="r"><code>Model &lt;- alm(Income ~ ., data = linear)
+Type &lt;- &quot;ALM&quot;
+MallowsCp(Model = Model, y = linear$Income, x = linear[, -1], type = Type, Nlevels = 0)</code></pre>
+<pre><code>[1] 5</code></pre>
+</div>
+<div id="mallows-cp-from-glm-model" class="section level1">
+<h1>Mallow’s Cp from GLM model</h1>
+<pre class="r"><code>Model &lt;- glm(GENDER ~ ., data = binary, family = binomial(link = &quot;logit&quot;))
+Type &lt;- &quot;GLM&quot;
+MallowsCp(Model = Model, y = binary$GENDER, x = binary[, -1], type = Type, Nlevels = 0)</code></pre>
+<pre><code>[1] 9</code></pre>
+</div>
+<div id="mallows-cp-from-other-models-splines-arima" class="section level1">
+<h1>Mallow’s Cp from other models: splines, ARIMA</h1>
+<pre class="r"><code>y &lt;- others$Total
+x &lt;- others$Series
+
+Model &lt;- lm(others$Total ~ bs(Series, knots = c(30, 115)), data = others)
+Type &lt;- &quot;LM&quot;
+MallowsCp(Model = Model, y = y, x = x, type = Type, Nlevels = 0)</code></pre>
+<pre><code>[1] 2</code></pre>
+<pre class="r"><code># smooth.spline is not a model
+Model &lt;- smooth.spline(others$Series, others$Total)
+Type &lt;- &quot;LM&quot;
+MallowsCp(Model = Model, y = y, x = x, type = Type, Nlevels = 0)</code></pre>
+<pre><code>[1] NaN</code></pre>
+<pre class="r"><code>Model &lt;- forecast::auto.arima(others$Total)
+Type &lt;- &quot;LM&quot;
+MallowsCp(Model = Model, y = x, x = x, type = Type, Nlevels = 0)</code></pre>
+<pre><code>[1] 2</code></pre>
+</div>
