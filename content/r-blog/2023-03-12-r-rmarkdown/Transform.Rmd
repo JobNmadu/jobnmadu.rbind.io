@@ -1,0 +1,165 @@
+---
+title: "Data transformation and standardization in r"
+output:
+  prettydoc::html_pretty:
+    theme: cayman #tactile, architect, leonids, hpstr
+    highlight: vignette #github
+    math: katex #latex
+  html_document: default
+  word_document: default
+  pdf_document: 
+    latex_engine: xelatex
+description: |
+  This blog is about a simplified method of data transformation. Data transformation makes it easier to interpret data of different magnitude and/or units.
+author:
+  - name: Job Nmadu
+    url: https://jobnmadu.com/
+categories:
+  - R
+date: "2023-03-12T01:00:00Z"
+tags: [RStats, Data, Data standardization, Data transformation, Machine Learning]
+---
+
+# Introduction
+
+Often economic and other **Machine Learning** data are of different units or sizes making either estimation, interpretation or visualization difficult. The solution to these issues can be handled if the data can be transformed to _unitless_ or data of similar magnitude. When the need to transform thus arises, then one finds it difficult to get handy function to achieve that.
+
+
+In this blog, I share with you a function `data_transform` from [Dyn4cast package](https://github.com/JobNmadu/Dyn4cast) that can easily transform your data.frame for estimation and visualization purposes. It is a one line code and easy to use. The usage is as follows:
+
+`data_transform(data, method, x, MARGIN)`
+
+`data` clean `numeric` data frame
+
+`method` method of transformation or standardization: 1 = `min-max`, 2 = `log`, 3 = `mean-SD`.
+
+`MARGIN` optional, to indicate if the data is `column-wise` or `row-wise`. Defaults to `coulmn-wise` if not indicate
+
+
+
+# Load library
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(tidy      = "styler",
+                      fig.align = "center",
+                      comment   = NA,
+                      warning   = FALSE,
+                      error     = FALSE,
+                      message   = FALSE,
+                      collapse  = FALSE,
+                      out.width = "100%",
+                      dev = "ragg_png", #<- prevent default Windows device to
+                      # render plots
+                      dpi       = 132,
+                      echo      = TRUE)
+```
+
+
+
+```{r, fig.width = 14, fig.height = 8, echo = TRUE}
+
+library(Dyn4cast)
+Transform <- readRDS("data/Transform.RDS")
+```
+
+# Visualize the raw data without any transformation
+
+```{r, fig.width = 14, fig.height = 8, echo = TRUE}
+
+data0 <- Transform %>%
+pivot_longer(!X, names_to = "Factors", values_to = "Data")
+
+ggplot(data = data0, aes(x = X, y = Data, fill = Factors, color = Factors)) +
+  geom_line() +
+  scale_fill_brewer(palette = "Set1") +
+  scale_color_brewer(palette = "Set1") +
+  labs(y = "Data", x = "Series", color = "Factors") +
+  theme_bw(base_size = 12)
+```
+
+The pattern of the smaller data is hidden by the larger data, it is even difficult to see their distribution
+
+
+# Transformation by min-max method
+
+You could also transform the `X column` but is is better not to.
+
+```{r, fig.width = 14, fig.height = 8, echo = TRUE}
+
+data11 <- data1 <- data_transform(Transform[, -1], 1)
+data1 <- cbind(Transform[, 1], data1)
+data1 <- data1 %>%
+  pivot_longer(!X, names_to = "Factors", values_to = "Data")
+
+ggplot(data = data1, aes(x = X, y = Data, fill = Factors, color = Factors)) +
+  geom_line() +
+  scale_fill_brewer(palette = "Set1") +
+  scale_color_brewer(palette = "Set1") +
+  labs(y = "Data", x = "Series", color = "Factors") +
+  theme_bw(base_size = 12)
+```
+
+
+The pattern of each of the variables are now very evident.
+
+# `log` transformation of the data
+
+```{r, fig.width = 14, fig.height = 8, echo = TRUE}
+
+data21 <- data2 <- data_transform(Transform[, -1], 2)
+data2 <- cbind(Transform[, 1], data2)
+data2 <- data2 %>%
+  pivot_longer(!X, names_to = "Factors", values_to = "Data")
+
+ggplot(data = data2, aes(x = X, y = Data, fill = Factors, color = Factors)) +
+  geom_line() +
+  scale_fill_brewer(palette = "Set1") +
+  scale_color_brewer(palette = "Set1") +
+  labs(y = "Data", x = "Series", color = "Factors") +
+  theme_bw(base_size = 12)
+```
+
+`log` is a linear transformation of the data. The pattern are shown but much less that the transformation with `min-max` method.
+
+# `Mean-SD` transformation
+
+```{r, fig.width = 14, fig.height = 8, echo = TRUE}
+
+data31 <- data3 <- data_transform(Transform[, -1], 3)
+data3 <- cbind(Transform[, 1], data3)
+data3 <- data3 %>%
+  pivot_longer(!X, names_to = "Factors", values_to = "Data")
+
+ggplot(data = data3, aes(x = X, y = Data, fill = Factors, color = Factors)) +
+  geom_line() +
+  scale_fill_brewer(palette = "Set1") +
+  scale_color_brewer(palette = "Set1") +
+  labs(y = "Data", x = "Series", color = "Factors") +
+  theme_bw(base_size = 12)
+```
+
+Much similar to the min-max transformation, but the essential pattern of the data is evident.
+
+# Comparison of the linear regression of the raw and transformed data
+
+```{r, fig.width = 14, fig.height = 8, echo = TRUE}
+
+Raw <- lm(col1~., data = Transform[, -1])
+
+Data1 <- lm(col1~., data = data.frame(data11))
+
+Data2 <- lm(col1~., data = data.frame(data21))
+
+Data3 <- lm(col1~., data = data.frame(data31))
+
+m_list <- list(Raw = Raw, Max = Data1, Log = Data2, Mean = Data3)
+
+modelsummary::modelsummary(m_list, stars = TRUE, digits = 2)
+
+modelsummary::modelplot(m_list)
+```
+
+The coefficients of the transformed data are better than the coefficients of the raw data although the effects of the variables looks same except for the intercept and col4 and col5. Log transformation estimated a very significant intercept wheareas those of raw and max transformation are rarely significant. The Mean transformation did not estimate a significant intercept. All the transformations estimated a significant col4 except log wheareas log estimated a significant col5 while others are rarely significant.
+
+In terms of the model properties, the log transformation is the best, followed by max, then Mean; and the raw data gave the worst model properties.
