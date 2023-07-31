@@ -14,7 +14,6 @@ description: |
 author:
   - name: Job Nmadu
     url: https://jobnmadu.github.io/Dyn4cast/
-    link: https://jobnmadu.com/
 categories:
   - R
 date: "2023-07-31T01:00:00Z"
