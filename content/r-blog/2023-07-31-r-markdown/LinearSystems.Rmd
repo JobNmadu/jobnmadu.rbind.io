@@ -53,7 +53,7 @@ The linear model still remains a reference point towards advanced modeling of so
 - Cubic root model
 
 
-In this blog, I share with you a function `Linearsystems` from [Dyn4cast package](https://jobnmadu.github.io/Dyn4cast/) that can easily transform your data.frame for estimation and visualization purposes. It is a one line code and easy to use. The usage is as follows:
+In this blog, I share with you a function `Linearsystems` from [Dyn4cast package](https://jobnmadu.github.io/Dyn4cast/) which you can use in a very easy way to perform linear regression and or its various transformations. It is a one line code and easy to use. The usage is as follows:
 
 `Linearsystems(y, x, mod, limit, Test = NA)`
 
