@@ -1,0 +1,236 @@
+---
+title: "Linear model and Transformations"
+output:
+  prettydoc::html_pretty:
+    theme: cayman #tactile, architect, leonids, hpstr
+    highlight: vignette #github
+    math: katex #latex
+  html_document: default
+  word_document: default
+  pdf_document: 
+    latex_engine: xelatex
+description: |
+  This blog is about linear regression and various transformation. It shows the power of one line of code.
+author:
+  - name: Job Nmadu
+    url: https://jobnmadu.github.io/Dyn4cast/
+    link: https://jobnmadu.com/
+categories:
+  - R
+date: "2023-07-31T01:00:00Z"
+tags: [RStats, Linear regression, Linear transformations, Machine Learning]
+---
+
+# Introduction
+
+The linear model still remains a reference point towards advanced modeling of some datasets as foundation for **Machine Learning**, **Data Science** and **Artificial Intelligence** in spite of some of her weaknesses. The major task in **modeling** is to compare various models before a selection is made for one or for advanced modeling. Often, some trial and error methods are used to decide which model to select. This is where this function is unique. It helps to estimate 14 different linear models and provide their coefficients in a formatted Table for quick comparison so that time and energy are saved. The interesting thing about this function is the simplicity, and it is a _one line_ code. The differenct transformations are:
+
+- Linear model
+
+- Linear model with interactions
+
+- Semilog model
+
+- Growth model
+
+- Double Log model
+
+- Mixed-power model
+
+- Translog model
+
+- Quadratic model
+
+- Cubic model
+
+- Inverse of y model
+
+- Inverse of x model
+
+- Inverse of y & x model
+
+- Square root model
+
+- Cubic root model
+
+
+In this blog, I share with you a function `data_transform` from [Dyn4cast package](https://github.com/JobNmadu/Dyn4cast) that can easily transform your data.frame for estimation and visualization purposes. It is a one line code and easy to use. The usage is as follows:
+
+`Linearsystems(y, x, mod, limit, Test = NA)`
+
+`y` is the vector of the dependent variable.  
+
+`x` is the vector of the independent variables preferable in `data.frame`.  
+
+`mod` is the group of linear models to be estimated. It takes value from 0 to 6. 0 = EDA (correlation, summary tables, Visuals means); 1 = Linear systems, 2 = power models, 3 = polynomial models, 4 = root models, 5 = inverse models, 6 = all the 14 models.  
+
+`limit` is the number of variables to be included in the coefficients plots.  
+
+`Test` is the test data to be used to predict y. If not supplied, the fitted y is used hence may be identical with the fitted value.  
+
+With this one line of **codes**, in addition to the individual _estimated models_, the following are what you get:
+
+Visual means of the numeric variable
+
+Correlation plot	
+
+Significant plots of all the models estimated	
+
+Model Table	
+
+Machine Learning Metrics which is also a list of 47 performance and diagnostic statistic	
+
+Table of Marginal effects	
+
+Fitted plots long format	
+
+Fitted plots wide format	
+
+Prediction plots long format	
+
+Prediction plots wide format	
+
+Naive effects plots long format	
+
+Naive effects plots wide format	
+
+Summary of numeric variables	
+
+Summary of character variables	
+
+Let us dive into an awesome experience in machine learning!
+
+# Load library
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(tidy      = "styler",
+                      fig.align = "center",
+                      comment   = NA,
+                      warning   = FALSE,
+                      error     = FALSE,
+                      message   = FALSE,
+                      collapse  = FALSE,
+                      out.width = "100%",
+                      dev = "ragg_png", #<- prevent default Windows device to
+                      # render plots
+                      dpi       = 132,
+                      echo      = TRUE)
+```
+
+
+```{r}
+library(Dyn4cast)
+```
+
+# Estimate without test data
+
+```{r, warning=FALSE}
+y = linearsystems$MKTcost
+x <- select(linearsystems, -MKTcost)
+Model1 <- Linearsystems(y, x, 6, 15)
+```
+
+## Correlation matrix
+
+```{r}
+Model1$`Correlation plot`$plot()
+```
+
+
+## Model Table
+
+```{r}
+Model1$`Model Table`
+```
+
+
+## Significant plot
+
+Individual model has one
+
+```{r}
+Model1$`Significant plot of Double Log`
+```
+
+
+## Fitted estimates
+
+```{r}
+Model1$`Fitted plots wide format`
+```
+
+## Marginal effects
+
+```{r}
+Model1$`Tables of marginal effects`[[1]]
+```
+
+## Naive effects
+
+```{r}
+Model1$`Naive effects plots long format`
+```
+
+# Estimation with test data
+
+```{r, warning=FALSE}
+
+x = sampling[, -1]
+y = sampling$qOutput
+Data <- cbind(y, x)
+sampling <- sample(1:nrow(Data), 0.8*nrow(Data)) # 80% of data is sampled for training the model
+train <- Data[sampling, ]
+Test  <- Data[-sampling, ] # 20% of data is reserved for testing (predicting) the model
+y <- train$y
+x <- train[, -1]
+mod <- 4
+Model2 <- Linearsystems(y, x, 4, 15, Test)
+
+```
+
+
+```{r, warning=FALSE}
+Model2$`Model Table`
+```
+
+## Model Table
+
+```{r, warning=FALSE}
+Model2$`Table of Marginal effects`
+
+```
+
+## Visualise means of the numeric variables
+
+```{r, warning=FALSE}
+Model2$`Visual means of the numeric variable`
+```
+
+## Fitted estimates
+
+```{r}
+
+Model2$`Fitted plots long format`
+```
+
+## Predicted 
+
+```{r}
+Model2$`Prediction plots long format`
+```
+
+## Significant plot
+
+```{r}
+
+Model2$`Significant plot of Square root`
+```
+
+## Performance and Diagnostic values
+
+```{r}
+
+Model2$`Machine Learning Metrics`
+```
+
+Welcome to easy machine learning and models estimation!
