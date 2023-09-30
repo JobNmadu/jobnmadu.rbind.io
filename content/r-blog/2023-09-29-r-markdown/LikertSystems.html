@@ -25,7 +25,7 @@ tags: [RStats, Garrett Ranking, Latent factors, Data Science, Machine Learning]
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
 <p>This blog is about two new functions, <code>Model_factors</code> and <code>garrett_ranking</code> that have been added to the <code>Dyn4cast</code> package. The two functions provides means for gaining deeper insights into the meaning behind Likert-type variables collected from respondents. Garrett ranking provides the ranks of the observations of the variables based on the level of seriousness attached to it by the respondents. On the other hand, Model factors determines and retrieve the latent factors inherent in such data which now becomes continuous data. The factors or data frame retrieved from the variables can be used in other analysis like regression and machine learning.</p>
-<p>The two functions are path of factor analysis, essentially, exploratory factor analysis (EFA), used to unravel the underlying structure of the observed variables. The analysis also helps to reduce the complex structure by determining a smaller number of latent factors that sufficiently represent the variation in the observed variables. With EFA, no prior knowledge or hypothesis about the number or nature of the factors is assumed. These are great tools to help tell the story behind your data. The data used for <code>Model_factors</code> is prepared using <code>fa.parallel</code> and <code>fa</code> functions in the <code>psych</code> package. The interesting thing about these functions are their simplicity, and we still maintain the <em>one line</em> code technique.</p>
+<p>The two functions are part of factor analysis, essentially, exploratory factor analysis (EFA), used to unravel the underlying structure of the observed variables. The analysis also helps to reduce the complex structure by determining a smaller number of latent factors that sufficiently represent the variation in the observed variables. With EFA, no prior knowledge or hypothesis about the number or nature of the factors is assumed. These are great tools to help tell the story behind your data. The data used for <code>Model_factors</code> is prepared using <code>fa.parallel</code> and <code>fa</code> functions in the <code>psych</code> package. The interesting thing about these functions are their simplicity, and we still maintain the <em>one line</em> code technique.</p>
 <p>The basic usage of the codes are:</p>
 <p><code>garrett_ranking(data, num_rank, ranking = NULL, m_rank = c(2:15))</code></p>
 <p><code>Data</code> The data for the Garrett Ranking.</p>
@@ -399,5 +399,20 @@ Cumulative Var 0.133 0.233 0.329 0.413 0.489</code></pre>
 3 x19   0.592
 4 x07   0.417
 5 x09   0.403</code></pre>
+<pre class="r"><code>DD$Latent_frame</code></pre>
+<pre><code># A tibble: 103 × 5
+     MR1   MR2   MR3   MR4   MR5
+   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1  16.7  6.28  2.99 11.2  10.4 
+ 2  18.6  6.28  2.99  9.76 10.4 
+ 3  16.3  3.23  2.99 11.5   9.22
+ 4  16.7  6.28  2.99 11.2  10.4 
+ 5  18.1  5.65  2.99 11.2  10.4 
+ 6  18.1  6.28  2.99 11.2  10.4 
+ 7  19.1  6.28  2.25 11.2   9.22
+ 8  18.1  5.65  2.99 11.2  10.4 
+ 9  18.1  5.65  2.99 11.2  10.4 
+10  19.1  6.28  2.25 11.2   9.22
+# ℹ 93 more rows</code></pre>
 <p>Welcome to the world of Data Science and easy Machine Learning!</p>
 </div>
