@@ -1,0 +1,403 @@
+---
+title: "Revael the stories behind those Likert-type data"
+output:
+  prettydoc::html_pretty:
+    theme: cayman #tactile, architect, leonids, hpstr
+    highlight: vignette #github
+    math: katex #latex
+  html_document: default
+  word_document: default
+  pdf_document: 
+    latex_engine: xelatex
+description: |
+  This blog is about two new functions in the R package `Dyn4cast` . The power of one line of code technology is still maintained..
+author:
+  - name: Job Nmadu
+    url: https://jobnmadu.github.io/Dyn4cast/
+categories:
+  - R
+date: "2023-09-29T01:00:00Z"
+tags: [RStats, Garrett Ranking, Latent factors, Data Science, Machine Learning]
+---
+
+
+
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>This blog is about two new functions, <code>Model_factors</code> and <code>garrett_ranking</code> that have been added to the <code>Dyn4cast</code> package. The two functions provides means for gaining deeper insights into the meaning behind Likert-type variables collected from respondents. Garrett ranking provides the ranks of the observations of the variables based on the level of seriousness attached to it by the respondents. On the other hand, Model factors determines and retrieve the latent factors inherent in such data which now becomes continuous data. The factors or data frame retrieved from the variables can be used in other analysis like regression and machine learning.</p>
+<p>The two functions are path of factor analysis, essentially, exploratory factor analysis (EFA), used to unravel the underlying structure of the observed variables. The analysis also helps to reduce the complex structure by determining a smaller number of latent factors that sufficiently represent the variation in the observed variables. With EFA, no prior knowledge or hypothesis about the number or nature of the factors is assumed. These are great tools to help tell the story behind your data. The data used for <code>Model_factors</code> is prepared using <code>fa.parallel</code> and <code>fa</code> functions in the <code>psych</code> package. The interesting thing about these functions are their simplicity, and we still maintain the <em>one line</em> code technique.</p>
+<p>The basic usage of the codes are:</p>
+<p><code>garrett_ranking(data, num_rank, ranking = NULL, m_rank = c(2:15))</code></p>
+<p><code>Data</code> The data for the Garrett Ranking.</p>
+<p><code>num_rank</code> number of ranks applied to the data. If the data is a five-point Likert-type data, then number of ranks is 5.</p>
+<p><code>Ranking</code> A vector of list representing the ranks applied to the data. If not available, positional ranks are applied.</p>
+<p><code>m_rank</code> scope of ranking (2-15).</p>
+<p><code>Model_factors(data = dat, DATA = Data)</code></p>
+<p><code>data</code> <code>R</code> object⁠ obtained from EFA using the <code>fa</code> function in <code>psych</code> package</p>
+<p><code>DATA</code> <code>data.frame</code> of the raw data used to obtain data object.</p>
+<p>Let us go!</p>
+</div>
+<div id="load-library" class="section level1">
+<h1>Load library</h1>
+<pre class="r"><code>library(Dyn4cast)</code></pre>
+</div>
+<div id="garrett-ranking" class="section level1">
+<h1>Garrett Ranking</h1>
+<div id="ranking-is-supplied" class="section level2">
+<h2>ranking is supplied</h2>
+<pre class="r"><code>garrett_data &lt;- data.frame(garrett_data)
+ranking &lt;- c(
+  &quot;Serious constraint&quot;, &quot;Constraint&quot;,
+  &quot;Not certain it is a constraint&quot;, &quot;Not a constraint&quot;,
+  &quot;Not a serious constraint&quot;
+)
+
+garrett_ranking(garrett_data, 5, ranking)</code></pre>
+<pre><code>$`Data mean table`
+   S/No Description      Mean Remark Rank
+1     1          S1 14.758621  Above    1
+2     2          S2  8.172414  Above    2
+3     7          S7  7.034483  Above    3
+4    13         S13  7.034483  Above    4
+5     3          S3  5.965517  Above    5
+6     9          S9  4.517241  Above    6
+7    15         S15  4.517241  Above    7
+8     6          S6  3.965517  Above    8
+9    12         S12  3.965517  Above    9
+10    5          S5  3.413793  Above   10
+11   11         S11  3.413793  Above   11
+12    4          S4  3.310345  Above   12
+13   10         S10  3.310345  Above   13
+14    8          S8  1.862069  Below   14
+15   14         S14  1.862069  Below   15
+
+$`Garrett value`
+# A tibble: 5 × 4
+  Number `Garrett point` `Garrett index` `Garrett value`
+   &lt;dbl&gt;           &lt;dbl&gt;           &lt;dbl&gt;           &lt;dbl&gt;
+1      1            3.33              15              85
+2      2           10                 25              75
+3      3           16.7               31              69
+4      4           23.3               36              64
+5      5           30                 40              60
+
+$`Garrett ranked data`
+   S/No Description Serious constraint Constraint
+1     2          S2                  5          3
+2     9          S9                  7          6
+3    15         S15                  7          6
+4     5          S5                 10          2
+5    11         S11                 10          2
+6     4          S4                  4          4
+7    10         S10                  4          4
+8     3          S3                  1          2
+9     1          S1                  0          0
+10    6          S6                  0          4
+11   12         S12                  0          4
+12    7          S7                  0          2
+13   13         S13                  0          2
+14    8          S8                  0          0
+15   14         S14                  0          0
+   Not certain it is a constraint Not a constraint Not a serious constraint
+1                               2                2                        1
+2                               0                5                        1
+3                               0                5                        1
+4                               8                5                        0
+5                               8                5                        0
+6                               6                7                        3
+7                               6                7                        3
+8                               5                5                        1
+9                               2                1                        0
+10                              6                5                        6
+11                              6                5                        6
+12                              0                2                        2
+13                              0                2                        2
+14                              5                2                       17
+15                              5                2                       17
+   Total Total Garrett Score Mean score Rank
+1     13                 976   75.07692    1
+2     19                1425   75.00000    2
+3     19                1425   75.00000    3
+4     25                1872   74.88000    4
+5     25                1872   74.88000    5
+6     24                1682   70.08333    6
+7     24                1682   70.08333    7
+8     14                 960   68.57143    8
+9      3                 202   67.33333    9
+10    21                1394   66.38095   10
+11    21                1394   66.38095   11
+12     6                 398   66.33333   12
+13     6                 398   66.33333   13
+14    24                1493   62.20833   14
+15    24                1493   62.20833   15</code></pre>
+</div>
+<div id="ranking-not-supplied" class="section level2">
+<h2>ranking not supplied</h2>
+<pre class="r"><code>garrett_ranking(garrett_data, 5)</code></pre>
+<pre><code>$`Data mean table`
+   S/No Description      Mean Remark Rank
+1     1          S1 14.758621  Above    1
+2     2          S2  8.172414  Above    2
+3     7          S7  7.034483  Above    3
+4    13         S13  7.034483  Above    4
+5     3          S3  5.965517  Above    5
+6     9          S9  4.517241  Above    6
+7    15         S15  4.517241  Above    7
+8     6          S6  3.965517  Above    8
+9    12         S12  3.965517  Above    9
+10    5          S5  3.413793  Above   10
+11   11         S11  3.413793  Above   11
+12    4          S4  3.310345  Above   12
+13   10         S10  3.310345  Above   13
+14    8          S8  1.862069  Below   14
+15   14         S14  1.862069  Below   15
+
+$`Garrett value`
+# A tibble: 5 × 4
+  Number `Garrett point` `Garrett index` `Garrett value`
+   &lt;dbl&gt;           &lt;dbl&gt;           &lt;dbl&gt;           &lt;dbl&gt;
+1      1            3.33              15              85
+2      2           10                 25              75
+3      3           16.7               31              69
+4      4           23.3               36              64
+5      5           30                 40              60
+
+$`Garrett ranked data`
+   S/No Description 1st Rank 2nd Rank 3rd Rank 4th Rank 5th Rank Total
+1     2          S2        5        3        2        2        1    13
+2     9          S9        7        6        0        5        1    19
+3    15         S15        7        6        0        5        1    19
+4     5          S5       10        2        8        5        0    25
+5    11         S11       10        2        8        5        0    25
+6     4          S4        4        4        6        7        3    24
+7    10         S10        4        4        6        7        3    24
+8     3          S3        1        2        5        5        1    14
+9     1          S1        0        0        2        1        0     3
+10    6          S6        0        4        6        5        6    21
+11   12         S12        0        4        6        5        6    21
+12    7          S7        0        2        0        2        2     6
+13   13         S13        0        2        0        2        2     6
+14    8          S8        0        0        5        2       17    24
+15   14         S14        0        0        5        2       17    24
+   Total Garrett Score Mean score Rank
+1                  976   75.07692    1
+2                 1425   75.00000    2
+3                 1425   75.00000    3
+4                 1872   74.88000    4
+5                 1872   74.88000    5
+6                 1682   70.08333    6
+7                 1682   70.08333    7
+8                  960   68.57143    8
+9                  202   67.33333    9
+10                1394   66.38095   10
+11                1394   66.38095   11
+12                 398   66.33333   12
+13                 398   66.33333   13
+14                1493   62.20833   14
+15                1493   62.20833   15</code></pre>
+</div>
+</div>
+<div id="you-can-rank-subset-of-the-data" class="section level1">
+<h1>you can rank subset of the data</h1>
+<pre class="r"><code>garrett_ranking(garrett_data, 8)</code></pre>
+<pre><code>$`Data mean table`
+   S/No Description      Mean Remark Rank
+1     1          S1 14.758621  Above    1
+2     2          S2  8.172414  Above    2
+3     7          S7  7.034483  Above    3
+4    13         S13  7.034483  Above    4
+5     3          S3  5.965517  Above    5
+6     9          S9  4.517241  Above    6
+7    15         S15  4.517241  Above    7
+8     6          S6  3.965517  Below    8
+9    12         S12  3.965517  Below    9
+10    5          S5  3.413793  Below   10
+11   11         S11  3.413793  Below   11
+12    4          S4  3.310345  Below   12
+13   10         S10  3.310345  Below   13
+14    8          S8  1.862069  Below   14
+15   14         S14  1.862069  Below   15
+
+$`Garrett value`
+# A tibble: 8 × 4
+  Number `Garrett point` `Garrett index` `Garrett value`
+   &lt;dbl&gt;           &lt;dbl&gt;           &lt;dbl&gt;           &lt;dbl&gt;
+1      1            3.33              15              85
+2      2           10                 25              75
+3      3           16.7               31              69
+4      4           23.3               36              64
+5      5           30                 40              60
+6      6           36.7               43              57
+7      7           43.3               47              53
+8      8           50                 50              50
+
+$`Garrett ranked data`
+   S/No Description 1st Rank 2nd Rank 3rd Rank 4th Rank 5th Rank 6th Rank
+1     7          S7        4        2        2        0        2        0
+2    13         S13        4        2        2        0        2        0
+3     2          S2        2        0        2        5        3        2
+4     9          S9        0        4        4        7        6        0
+5    15         S15        0        4        4        7        6        0
+6     3          S3        1        3        4        1        2        5
+7     5          S5        0        1        0       10        2        8
+8    11         S11        0        1        0       10        2        8
+9     4          S4        0        1        3        4        4        6
+10   10         S10        0        1        3        4        4        6
+11    6          S6        0        1        1        0        4        6
+12   12         S12        0        1        1        0        4        6
+13    1          S1        0        0        0        0        0        2
+14    8          S8        1        0        0        0        0        5
+15   14         S14        1        0        0        0        0        5
+   7th Rank 8th Rank Total Total Garrett Score Mean score Rank
+1         2        2    14                 954   68.14286    1
+2         2        2    14                 954   68.14286    2
+3         2        1    17                1078   63.41176    3
+4         5        1    27                1699   62.92593    4
+5         5        1    27                1699   62.92593    5
+6         5        1    22                1370   62.27273    6
+7         5        0    26                1556   59.84615    7
+8         5        0    26                1556   59.84615    8
+9         7        3    28                1641   58.60714    9
+10        7        3    28                1641   58.60714   10
+11        5        6    23                1291   56.13043   11
+12        5        6    23                1291   56.13043   12
+13        1        0     3                 167   55.66667   13
+14        2       17    25                1326   53.04000   14
+15        2       17    25                1326   53.04000   15</code></pre>
+<pre class="r"><code>garrett_ranking(garrett_data, 4)</code></pre>
+<pre><code>$`Data mean table`
+   S/No Description      Mean Remark Rank
+1     1          S1 14.758621  Above    1
+2     2          S2  8.172414  Above    2
+3     7          S7  7.034483  Above    3
+4    13         S13  7.034483  Above    4
+5     3          S3  5.965517  Above    5
+6     9          S9  4.517241  Above    6
+7    15         S15  4.517241  Above    7
+8     6          S6  3.965517  Above    8
+9    12         S12  3.965517  Above    9
+10    5          S5  3.413793  Above   10
+11   11         S11  3.413793  Above   11
+12    4          S4  3.310345  Above   12
+13   10         S10  3.310345  Above   13
+14    8          S8  1.862069  Below   14
+15   14         S14  1.862069  Below   15
+
+$`Garrett value`
+# A tibble: 4 × 4
+  Number `Garrett point` `Garrett index` `Garrett value`
+   &lt;dbl&gt;           &lt;dbl&gt;           &lt;dbl&gt;           &lt;dbl&gt;
+1      1            3.33              15              85
+2      2           10                 25              75
+3      3           16.7               31              69
+4      4           23.3               36              64
+
+$`Garrett ranked data`
+   S/No Description 1st Rank 2nd Rank 3rd Rank 4th Rank Total
+1     9          S9        6        0        5        1    12
+2    15         S15        6        0        5        1    12
+3     2          S2        3        2        2        1     8
+4     5          S5        2        8        5        0    15
+5    11         S11        2        8        5        0    15
+6     3          S3        2        5        5        1    13
+7     4          S4        4        6        7        3    20
+8    10         S10        4        6        7        3    20
+9     1          S1        0        2        1        0     3
+10    7          S7        2        0        2        2     6
+11   13         S13        2        0        2        2     6
+12    6          S6        4        6        5        6    21
+13   12         S12        4        6        5        6    21
+14    8          S8        0        5        2       17    24
+15   14         S14        0        5        2       17    24
+   Total Garrett Score Mean score Rank
+1                  919   76.58333    1
+2                  919   76.58333    2
+3                  607   75.87500    3
+4                 1115   74.33333    4
+5                 1115   74.33333    5
+6                  954   73.38462    6
+7                 1465   73.25000    7
+8                 1465   73.25000    8
+9                  219   73.00000    9
+10                 436   72.66667   10
+11                 436   72.66667   11
+12                1519   72.33333   12
+13                1519   72.33333   13
+14                1601   66.70833   14
+15                1601   66.70833   15</code></pre>
+</div>
+<div id="latent-variables-recovery" class="section level1">
+<h1>Latent Variables Recovery</h1>
+<pre class="r"><code>library(psych)
+Data &lt;- Quicksummary
+GGn &lt;- names(Data)
+GG &lt;- ncol(Data)
+GGx &lt;- c(paste0(&quot;x0&quot;, 1:9), paste(&quot;x&quot;, 10:ncol(Data), sep = &quot;&quot;))
+names(Data) &lt;- GGx
+lll &lt;- fa.parallel(Data, fm = &quot;minres&quot;, fa = &quot;fa&quot;)</code></pre>
+<p><img src="/r-blog/2023-09-29-r-markdown/LikertSystems_files/figure-html/unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<pre><code>Parallel analysis suggests that the number of factors =  5  and the number of components =  NA </code></pre>
+<pre class="r"><code>dat &lt;- fa(Data, nfactors = lll[[&quot;nfact&quot;]], rotate = &quot;varimax&quot;, fm = &quot;minres&quot;)
+
+DD &lt;- Model_factors(data = dat, DATA = Data)</code></pre>
+<pre><code>
+Loadings:
+    MR1    MR2    MR3    MR5    MR4   
+x11  0.513                            
+x12  0.611                            
+x13  0.559                            
+x20  0.556                            
+x24  0.617                       0.527
+x25  0.718                            
+x26  0.595                            
+x01         0.625                     
+x02         0.783                0.541
+x10         0.631                     
+x28        -0.610                     
+x04                0.740              
+x05                0.792              
+x06                0.720              
+x08                0.594         0.452
+x17                       0.667       
+x18                       0.527       
+x19                       0.592       
+x03                              0.523
+x07                       0.417       
+x09                       0.403       
+x14                                   
+x15  0.480                            
+x16                                   
+x21  0.492                            
+x22                              0.481
+x23        -0.440                0.499
+x27                              0.465
+x29                                   
+
+                 MR1   MR2   MR3   MR5   MR4
+SS loadings    3.854 2.895 2.786 2.441 2.203
+Proportion Var 0.133 0.100 0.096 0.084 0.076
+Cumulative Var 0.133 0.233 0.329 0.413 0.489</code></pre>
+<pre class="r"><code>DD$Latent_1</code></pre>
+<pre><code>  MR1 loading
+1 x11   0.513
+2 x12   0.611
+3 x13   0.559
+4 x20   0.556
+6 x25   0.718
+7 x26   0.595
+8 x15   0.480
+9 x21   0.492</code></pre>
+<pre class="r"><code>DD$Latent_3</code></pre>
+<pre><code>  MR3 loading
+1 x04   0.740
+2 x05   0.792
+3 x06   0.720</code></pre>
+<pre class="r"><code>DD$Latent_5</code></pre>
+<pre><code>  MR5 loading
+1 x17   0.667
+2 x18   0.527
+3 x19   0.592
+4 x07   0.417
+5 x09   0.403</code></pre>
+<p>Welcome to the world of Data Science and easy Machine Learning!</p>
+</div>
