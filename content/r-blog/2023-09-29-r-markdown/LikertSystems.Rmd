@@ -1,5 +1,5 @@
 ---
-title: "Revael the stories behind those Likert-type data"
+title: "Reveal the stories behind those Likert-type data"
 output:
   prettydoc::html_pretty:
     theme: cayman #tactile, architect, leonids, hpstr
