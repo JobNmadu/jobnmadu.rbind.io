@@ -1,0 +1,1508 @@
+<!DOCTYPE html>
+<html lang="en-uk">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academia 4.3.1">
+  <meta name="generator" content="Hugo 0.81.0" />
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Job Nmadu">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="IntroductionThis blog is about two new functions, Model_factors and garrett_ranking that have been added to the Dyn4cast package. The two functions provides means for gaining deeper insights into the meaning behind Likert-type variables collected from respondents. Garrett ranking provides the ranks of the observations of the variables based on the level of seriousness attached to it by the respondents. On the other hand, Model factors determines and retrieve the latent factors inherent in such data which now becomes continuous data.">
+
+  
+  <link rel="alternate" hreflang="en-uk" href="https://jobnmadu.com/r-blog/2023-09-29-r-markdown/likertsystems/">
+
+  
+
+
+  
+
+  
+  
+  
+  <meta name="theme-color" content="#3f51b5">
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css" integrity="sha384-aOkxzJ5uQz7WBObEZcHvV5JvRW3TUc2rNPA7pe3AwnsUohiw1Vj2Rgx2KSOkF5+h" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" integrity="sha256-ygkqlh3CYSUri3LhQxzdcm0n1EQvH2Y+U5S2idbLtxs=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.css" integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ==" crossorigin="anonymous">
+    
+
+    
+
+  
+
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Open+Sans|Roboto+Mono&display=swap">
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/css/academia.min.3632deb0096ca98c81e95314c5855a45.css">
+
+  
+
+  
+  
+  
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'G-V53DTDYQF5', 'auto');
+      ga('set', 'anonymizeIp', true);
+      ga('require', 'eventTracker');
+      ga('require', 'outboundLinkTracker');
+      ga('require', 'urlChangeTracker');
+      ga('send', 'pageview');
+    </script>
+    <script async src="//www.google-analytics.com/analytics.js"></script>
+    
+    <script async src="https://cdnjs.cloudflare.com/ajax/libs/autotrack/2.4.1/autotrack.js" integrity="sha512-HUmooslVKj4m6OBu0OgzjXXr+QuFYy/k7eLI5jdeEy/F4RSgMn6XRWRGkFi5IFaFgy7uFTkegp3Z0XnJf3Jq+g==" crossorigin="anonymous"></script>
+    
+  
+  
+
+  
+
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="icon" type="image/png" href="/img/icon.png">
+  <link rel="apple-touch-icon" type="image/png" href="/img/icon-192.png">
+
+  <link rel="canonical" href="https://jobnmadu.com/r-blog/2023-09-29-r-markdown/likertsystems/">
+
+  
+  
+  
+  
+    
+  
+  <meta property="twitter:card" content="summary_large_image">
+  
+  <meta property="twitter:site" content="@JobNmadu">
+  <meta property="twitter:creator" content="@JobNmadu">
+  
+  <meta property="og:site_name" content="Data modelling to develop ...">
+  <meta property="og:url" content="https://jobnmadu.com/r-blog/2023-09-29-r-markdown/likertsystems/">
+  <meta property="og:title" content="Reveal the stories behind those Likert-type data | Data modelling to develop ...">
+  <meta property="og:description" content="IntroductionThis blog is about two new functions, Model_factors and garrett_ranking that have been added to the Dyn4cast package. The two functions provides means for gaining deeper insights into the meaning behind Likert-type variables collected from respondents. Garrett ranking provides the ranks of the observations of the variables based on the level of seriousness attached to it by the respondents. On the other hand, Model factors determines and retrieve the latent factors inherent in such data which now becomes continuous data."><meta property="og:image" content="https://jobnmadu.com/img/haggai_04.jpg">
+  <meta property="twitter:image" content="https://jobnmadu.com/img/haggai_04.jpg"><meta property="og:locale" content="en-uk">
+  
+  <meta property="article:published_time" content="2023-09-29T01:00:00&#43;00:00">
+  
+  <meta property="article:modified_time" content="2023-09-30T13:08:58&#43;01:00">
+  
+
+  
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+<script>
+  window.addEventListener("load", function(){
+    window.cookieconsent.initialise({
+      "palette": {
+        "popup": {
+          "background": "#3f51b5",
+          "text": "#fff"
+        },
+        "button": {
+          "background": "#fff",
+          "text": "#3f51b5"
+        }
+      },
+      "theme": "classic",
+      "content": {
+        "message": "This website uses cookies to ensure you get the best experience on our website.",
+        "dismiss": "Got it!",
+        "link": "Learn more",
+        "href": "https://cookies.insites.com"
+      }
+    })});
+</script>
+
+
+
+  
+
+
+
+
+
+  <title>Reveal the stories behind those Likert-type data | Data modelling to develop ...</title>
+
+</head>
+
+
+<body id="top" data-spy="scroll" data-target="#TableOfContents" data-offset="71" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" role="textbox" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+<nav class="navbar navbar-light fixed-top navbar-expand-lg py-0" id="navbar-main">
+  <div class="container">
+
+    
+      <a class="navbar-brand" href="/">Data modelling to develop ...</a>
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation"><span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+    
+    <div class="collapse navbar-collapse" id="navbar">
+      
+      
+      <ul class="navbar-nav ml-auto">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>Home</span></a>
+        </li>
+
+        
+        
+
+        
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"><span>CV</span><span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            
+            <li class="dropdown-item my-0 py-0 mx-0 px-0">
+              <a href="/files/Nmadu_brief_CV.pdf"><span>Resume in brief</span></a>
+            </li>
+            
+            <li class="dropdown-item my-0 py-0 mx-0 px-0">
+              <a href="/files/Nmadu_biography.pdf"><span>View Biographical notes</span></a>
+            </li>
+            
+            <li class="dropdown-item my-0 py-0 mx-0 px-0">
+              <a href="/files/Nmadu_timelineCV.pdf"><span>View Experience on timeline</span></a>
+            </li>
+            
+            <li class="dropdown-item my-0 py-0 mx-0 px-0">
+              <a href="/files/Nmadu_full_CV2022_1.pdf"><span>View Full CV</span></a>
+            </li>
+            
+            <li class="dropdown-item my-0 py-0 mx-0 px-0">
+              <a href="/files/JobNmadu.html"><span>View upadted publications list</span></a>
+            </li>
+            
+          </ul>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#publications"><span>Publications</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#r-blog"><span>R-Blog</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#software"><span>Software</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#posts"><span>Posts</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#contact"><span>Contact</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link  active" href="/"><span></span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+
+        
+        <li class="nav-item">
+          <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
+        </li>
+        
+
+        
+
+        
+        <li class="nav-item">
+          <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+        </li>
+        
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+  <article class="article py-5" itemscope itemtype="http://schema.org/Article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+    
+    
+    
+    <div class="article-container py-3">
+      <h1 itemprop="name">Reveal the stories behind those Likert-type data</h1>
+
+      
+
+      
+      
+
+
+
+<meta content="2023-09-29 01:00:00 &#43;0000 UTC" itemprop="datePublished">
+<meta content="2023-09-30 13:08:58 &#43;0100 WAT" itemprop="dateModified">
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+          Last updated on
+      
+    
+    <time>Sep 30, 2023</time>
+  </span>
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder"></i>
+    <a href="/categories/r/">R</a></span>
+  
+
+  
+    
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=https://jobnmadu.com/r-blog/2023-09-29-r-markdown/likertsystems/&amp;text=Reveal%20the%20stories%20behind%20those%20Likert-type%20data" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=https://jobnmadu.com/r-blog/2023-09-29-r-markdown/likertsystems/&amp;t=Reveal%20the%20stories%20behind%20those%20Likert-type%20data" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Reveal%20the%20stories%20behind%20those%20Likert-type%20data&amp;body=https://jobnmadu.com/r-blog/2023-09-29-r-markdown/likertsystems/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=https://jobnmadu.com/r-blog/2023-09-29-r-markdown/likertsystems/&amp;title=Reveal%20the%20stories%20behind%20those%20Likert-type%20data" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://web.whatsapp.com/send?text=Reveal%20the%20stories%20behind%20those%20Likert-type%20data%20https://jobnmadu.com/r-blog/2023-09-29-r-markdown/likertsystems/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+  
+
+</div>
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
+      
+    </div>
+  </div>
+</div>
+
+  <div class="article-container">
+
+    <div class="article-style" itemprop="articleBody">
+      
+
+
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>This blog is about two new functions, <code>Model_factors</code> and <code>garrett_ranking</code> that have been added to the <code>Dyn4cast</code> package. The two functions provides means for gaining deeper insights into the meaning behind Likert-type variables collected from respondents. Garrett ranking provides the ranks of the observations of the variables based on the level of seriousness attached to it by the respondents. On the other hand, Model factors determines and retrieve the latent factors inherent in such data which now becomes continuous data. The factors or data frame retrieved from the variables can be used in other analysis like regression and machine learning.</p>
+<p>The two functions are part of factor analysis, essentially, exploratory factor analysis (EFA), used to unravel the underlying structure of the observed variables. The analysis also helps to reduce the complex structure by determining a smaller number of latent factors that sufficiently represent the variation in the observed variables. With EFA, no prior knowledge or hypothesis about the number or nature of the factors is assumed. These are great tools to help tell the story behind your data. The data used for <code>Model_factors</code> is prepared using <code>fa.parallel</code> and <code>fa</code> functions in the <code>psych</code> package. The interesting thing about these functions are their simplicity, and we still maintain the <em>one line</em> code technique.</p>
+<p>The basic usage of the codes are:</p>
+<p><code>garrett_ranking(data, num_rank, ranking = NULL, m_rank = c(2:15))</code></p>
+<p><code>Data</code> The data for the Garrett Ranking.</p>
+<p><code>num_rank</code> number of ranks applied to the data. If the data is a five-point Likert-type data, then number of ranks is 5.</p>
+<p><code>Ranking</code> A vector of list representing the ranks applied to the data. If not available, positional ranks are applied.</p>
+<p><code>m_rank</code> scope of ranking (2-15).</p>
+<p><code>Model_factors(data = dat, DATA = Data)</code></p>
+<p><code>data</code> <code>R</code> object⁠ obtained from EFA using the <code>fa</code> function in <code>psych</code> package</p>
+<p><code>DATA</code> <code>data.frame</code> of the raw data used to obtain data object.</p>
+<p>Let us go!</p>
+</div>
+<div id="load-library" class="section level1">
+<h1>Load library</h1>
+<pre class="r"><code>library(Dyn4cast)</code></pre>
+</div>
+<div id="garrett-ranking" class="section level1">
+<h1>Garrett Ranking</h1>
+<div id="ranking-is-supplied" class="section level2">
+<h2>ranking is supplied</h2>
+<pre class="r"><code>garrett_data &lt;- data.frame(garrett_data)
+ranking &lt;- c(
+  &quot;Serious constraint&quot;, &quot;Constraint&quot;,
+  &quot;Not certain it is a constraint&quot;, &quot;Not a constraint&quot;,
+  &quot;Not a serious constraint&quot;
+)
+
+garrett_ranking(garrett_data, 5, ranking)</code></pre>
+<pre><code>$`Data mean table`
+   S/No Description      Mean Remark Rank
+1     1          S1 14.758621  Above    1
+2     2          S2  8.172414  Above    2
+3     7          S7  7.034483  Above    3
+4    13         S13  7.034483  Above    4
+5     3          S3  5.965517  Above    5
+6     9          S9  4.517241  Above    6
+7    15         S15  4.517241  Above    7
+8     6          S6  3.965517  Above    8
+9    12         S12  3.965517  Above    9
+10    5          S5  3.413793  Above   10
+11   11         S11  3.413793  Above   11
+12    4          S4  3.310345  Above   12
+13   10         S10  3.310345  Above   13
+14    8          S8  1.862069  Below   14
+15   14         S14  1.862069  Below   15
+
+$`Garrett value`
+# A tibble: 5 × 4
+  Number `Garrett point` `Garrett index` `Garrett value`
+   &lt;dbl&gt;           &lt;dbl&gt;           &lt;dbl&gt;           &lt;dbl&gt;
+1      1            3.33              15              85
+2      2           10                 25              75
+3      3           16.7               31              69
+4      4           23.3               36              64
+5      5           30                 40              60
+
+$`Garrett ranked data`
+   S/No Description Serious constraint Constraint
+1     2          S2                  5          3
+2     9          S9                  7          6
+3    15         S15                  7          6
+4     5          S5                 10          2
+5    11         S11                 10          2
+6     4          S4                  4          4
+7    10         S10                  4          4
+8     3          S3                  1          2
+9     1          S1                  0          0
+10    6          S6                  0          4
+11   12         S12                  0          4
+12    7          S7                  0          2
+13   13         S13                  0          2
+14    8          S8                  0          0
+15   14         S14                  0          0
+   Not certain it is a constraint Not a constraint Not a serious constraint
+1                               2                2                        1
+2                               0                5                        1
+3                               0                5                        1
+4                               8                5                        0
+5                               8                5                        0
+6                               6                7                        3
+7                               6                7                        3
+8                               5                5                        1
+9                               2                1                        0
+10                              6                5                        6
+11                              6                5                        6
+12                              0                2                        2
+13                              0                2                        2
+14                              5                2                       17
+15                              5                2                       17
+   Total Total Garrett Score Mean score Rank
+1     13                 976   75.07692    1
+2     19                1425   75.00000    2
+3     19                1425   75.00000    3
+4     25                1872   74.88000    4
+5     25                1872   74.88000    5
+6     24                1682   70.08333    6
+7     24                1682   70.08333    7
+8     14                 960   68.57143    8
+9      3                 202   67.33333    9
+10    21                1394   66.38095   10
+11    21                1394   66.38095   11
+12     6                 398   66.33333   12
+13     6                 398   66.33333   13
+14    24                1493   62.20833   14
+15    24                1493   62.20833   15</code></pre>
+</div>
+<div id="ranking-not-supplied" class="section level2">
+<h2>ranking not supplied</h2>
+<pre class="r"><code>garrett_ranking(garrett_data, 5)</code></pre>
+<pre><code>$`Data mean table`
+   S/No Description      Mean Remark Rank
+1     1          S1 14.758621  Above    1
+2     2          S2  8.172414  Above    2
+3     7          S7  7.034483  Above    3
+4    13         S13  7.034483  Above    4
+5     3          S3  5.965517  Above    5
+6     9          S9  4.517241  Above    6
+7    15         S15  4.517241  Above    7
+8     6          S6  3.965517  Above    8
+9    12         S12  3.965517  Above    9
+10    5          S5  3.413793  Above   10
+11   11         S11  3.413793  Above   11
+12    4          S4  3.310345  Above   12
+13   10         S10  3.310345  Above   13
+14    8          S8  1.862069  Below   14
+15   14         S14  1.862069  Below   15
+
+$`Garrett value`
+# A tibble: 5 × 4
+  Number `Garrett point` `Garrett index` `Garrett value`
+   &lt;dbl&gt;           &lt;dbl&gt;           &lt;dbl&gt;           &lt;dbl&gt;
+1      1            3.33              15              85
+2      2           10                 25              75
+3      3           16.7               31              69
+4      4           23.3               36              64
+5      5           30                 40              60
+
+$`Garrett ranked data`
+   S/No Description 1st Rank 2nd Rank 3rd Rank 4th Rank 5th Rank Total
+1     2          S2        5        3        2        2        1    13
+2     9          S9        7        6        0        5        1    19
+3    15         S15        7        6        0        5        1    19
+4     5          S5       10        2        8        5        0    25
+5    11         S11       10        2        8        5        0    25
+6     4          S4        4        4        6        7        3    24
+7    10         S10        4        4        6        7        3    24
+8     3          S3        1        2        5        5        1    14
+9     1          S1        0        0        2        1        0     3
+10    6          S6        0        4        6        5        6    21
+11   12         S12        0        4        6        5        6    21
+12    7          S7        0        2        0        2        2     6
+13   13         S13        0        2        0        2        2     6
+14    8          S8        0        0        5        2       17    24
+15   14         S14        0        0        5        2       17    24
+   Total Garrett Score Mean score Rank
+1                  976   75.07692    1
+2                 1425   75.00000    2
+3                 1425   75.00000    3
+4                 1872   74.88000    4
+5                 1872   74.88000    5
+6                 1682   70.08333    6
+7                 1682   70.08333    7
+8                  960   68.57143    8
+9                  202   67.33333    9
+10                1394   66.38095   10
+11                1394   66.38095   11
+12                 398   66.33333   12
+13                 398   66.33333   13
+14                1493   62.20833   14
+15                1493   62.20833   15</code></pre>
+</div>
+</div>
+<div id="you-can-rank-subset-of-the-data" class="section level1">
+<h1>you can rank subset of the data</h1>
+<pre class="r"><code>garrett_ranking(garrett_data, 8)</code></pre>
+<pre><code>$`Data mean table`
+   S/No Description      Mean Remark Rank
+1     1          S1 14.758621  Above    1
+2     2          S2  8.172414  Above    2
+3     7          S7  7.034483  Above    3
+4    13         S13  7.034483  Above    4
+5     3          S3  5.965517  Above    5
+6     9          S9  4.517241  Above    6
+7    15         S15  4.517241  Above    7
+8     6          S6  3.965517  Below    8
+9    12         S12  3.965517  Below    9
+10    5          S5  3.413793  Below   10
+11   11         S11  3.413793  Below   11
+12    4          S4  3.310345  Below   12
+13   10         S10  3.310345  Below   13
+14    8          S8  1.862069  Below   14
+15   14         S14  1.862069  Below   15
+
+$`Garrett value`
+# A tibble: 8 × 4
+  Number `Garrett point` `Garrett index` `Garrett value`
+   &lt;dbl&gt;           &lt;dbl&gt;           &lt;dbl&gt;           &lt;dbl&gt;
+1      1            3.33              15              85
+2      2           10                 25              75
+3      3           16.7               31              69
+4      4           23.3               36              64
+5      5           30                 40              60
+6      6           36.7               43              57
+7      7           43.3               47              53
+8      8           50                 50              50
+
+$`Garrett ranked data`
+   S/No Description 1st Rank 2nd Rank 3rd Rank 4th Rank 5th Rank 6th Rank
+1     7          S7        4        2        2        0        2        0
+2    13         S13        4        2        2        0        2        0
+3     2          S2        2        0        2        5        3        2
+4     9          S9        0        4        4        7        6        0
+5    15         S15        0        4        4        7        6        0
+6     3          S3        1        3        4        1        2        5
+7     5          S5        0        1        0       10        2        8
+8    11         S11        0        1        0       10        2        8
+9     4          S4        0        1        3        4        4        6
+10   10         S10        0        1        3        4        4        6
+11    6          S6        0        1        1        0        4        6
+12   12         S12        0        1        1        0        4        6
+13    1          S1        0        0        0        0        0        2
+14    8          S8        1        0        0        0        0        5
+15   14         S14        1        0        0        0        0        5
+   7th Rank 8th Rank Total Total Garrett Score Mean score Rank
+1         2        2    14                 954   68.14286    1
+2         2        2    14                 954   68.14286    2
+3         2        1    17                1078   63.41176    3
+4         5        1    27                1699   62.92593    4
+5         5        1    27                1699   62.92593    5
+6         5        1    22                1370   62.27273    6
+7         5        0    26                1556   59.84615    7
+8         5        0    26                1556   59.84615    8
+9         7        3    28                1641   58.60714    9
+10        7        3    28                1641   58.60714   10
+11        5        6    23                1291   56.13043   11
+12        5        6    23                1291   56.13043   12
+13        1        0     3                 167   55.66667   13
+14        2       17    25                1326   53.04000   14
+15        2       17    25                1326   53.04000   15</code></pre>
+<pre class="r"><code>garrett_ranking(garrett_data, 4)</code></pre>
+<pre><code>$`Data mean table`
+   S/No Description      Mean Remark Rank
+1     1          S1 14.758621  Above    1
+2     2          S2  8.172414  Above    2
+3     7          S7  7.034483  Above    3
+4    13         S13  7.034483  Above    4
+5     3          S3  5.965517  Above    5
+6     9          S9  4.517241  Above    6
+7    15         S15  4.517241  Above    7
+8     6          S6  3.965517  Above    8
+9    12         S12  3.965517  Above    9
+10    5          S5  3.413793  Above   10
+11   11         S11  3.413793  Above   11
+12    4          S4  3.310345  Above   12
+13   10         S10  3.310345  Above   13
+14    8          S8  1.862069  Below   14
+15   14         S14  1.862069  Below   15
+
+$`Garrett value`
+# A tibble: 4 × 4
+  Number `Garrett point` `Garrett index` `Garrett value`
+   &lt;dbl&gt;           &lt;dbl&gt;           &lt;dbl&gt;           &lt;dbl&gt;
+1      1            3.33              15              85
+2      2           10                 25              75
+3      3           16.7               31              69
+4      4           23.3               36              64
+
+$`Garrett ranked data`
+   S/No Description 1st Rank 2nd Rank 3rd Rank 4th Rank Total
+1     9          S9        6        0        5        1    12
+2    15         S15        6        0        5        1    12
+3     2          S2        3        2        2        1     8
+4     5          S5        2        8        5        0    15
+5    11         S11        2        8        5        0    15
+6     3          S3        2        5        5        1    13
+7     4          S4        4        6        7        3    20
+8    10         S10        4        6        7        3    20
+9     1          S1        0        2        1        0     3
+10    7          S7        2        0        2        2     6
+11   13         S13        2        0        2        2     6
+12    6          S6        4        6        5        6    21
+13   12         S12        4        6        5        6    21
+14    8          S8        0        5        2       17    24
+15   14         S14        0        5        2       17    24
+   Total Garrett Score Mean score Rank
+1                  919   76.58333    1
+2                  919   76.58333    2
+3                  607   75.87500    3
+4                 1115   74.33333    4
+5                 1115   74.33333    5
+6                  954   73.38462    6
+7                 1465   73.25000    7
+8                 1465   73.25000    8
+9                  219   73.00000    9
+10                 436   72.66667   10
+11                 436   72.66667   11
+12                1519   72.33333   12
+13                1519   72.33333   13
+14                1601   66.70833   14
+15                1601   66.70833   15</code></pre>
+</div>
+<div id="latent-variables-recovery" class="section level1">
+<h1>Latent Variables Recovery</h1>
+<pre class="r"><code>library(psych)
+Data &lt;- Quicksummary
+GGn &lt;- names(Data)
+GG &lt;- ncol(Data)
+GGx &lt;- c(paste0(&quot;x0&quot;, 1:9), paste(&quot;x&quot;, 10:ncol(Data), sep = &quot;&quot;))
+names(Data) &lt;- GGx
+lll &lt;- fa.parallel(Data, fm = &quot;minres&quot;, fa = &quot;fa&quot;)</code></pre>
+<p><img src="/r-blog/2023-09-29-r-markdown/LikertSystems_files/figure-html/unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<pre><code>Parallel analysis suggests that the number of factors =  5  and the number of components =  NA </code></pre>
+<pre class="r"><code>dat &lt;- fa(Data, nfactors = lll[[&quot;nfact&quot;]], rotate = &quot;varimax&quot;, fm = &quot;minres&quot;)
+
+DD &lt;- Model_factors(data = dat, DATA = Data)</code></pre>
+<pre><code>
+Loadings:
+    MR1    MR2    MR3    MR5    MR4   
+x11  0.513                            
+x12  0.611                            
+x13  0.559                            
+x20  0.556                            
+x24  0.617                       0.527
+x25  0.718                            
+x26  0.595                            
+x01         0.625                     
+x02         0.783                0.541
+x10         0.631                     
+x28        -0.610                     
+x04                0.740              
+x05                0.792              
+x06                0.720              
+x08                0.594         0.452
+x17                       0.667       
+x18                       0.527       
+x19                       0.592       
+x03                              0.523
+x07                       0.417       
+x09                       0.403       
+x14                                   
+x15  0.480                            
+x16                                   
+x21  0.492                            
+x22                              0.481
+x23        -0.440                0.499
+x27                              0.465
+x29                                   
+
+                 MR1   MR2   MR3   MR5   MR4
+SS loadings    3.854 2.895 2.786 2.441 2.203
+Proportion Var 0.133 0.100 0.096 0.084 0.076
+Cumulative Var 0.133 0.233 0.329 0.413 0.489</code></pre>
+<pre class="r"><code>DD$Latent_1</code></pre>
+<pre><code>  MR1 loading
+1 x11   0.513
+2 x12   0.611
+3 x13   0.559
+4 x20   0.556
+6 x25   0.718
+7 x26   0.595
+8 x15   0.480
+9 x21   0.492</code></pre>
+<pre class="r"><code>DD$Latent_3</code></pre>
+<pre><code>  MR3 loading
+1 x04   0.740
+2 x05   0.792
+3 x06   0.720</code></pre>
+<pre class="r"><code>DD$Latent_5</code></pre>
+<pre><code>  MR5 loading
+1 x17   0.667
+2 x18   0.527
+3 x19   0.592
+4 x07   0.417
+5 x09   0.403</code></pre>
+<pre class="r"><code>DD$Latent_frame</code></pre>
+<pre><code># A tibble: 103 × 5
+     MR1   MR2   MR3   MR4   MR5
+   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1  16.7  6.28  2.99 11.2  10.4 
+ 2  18.6  6.28  2.99  9.76 10.4 
+ 3  16.3  3.23  2.99 11.5   9.22
+ 4  16.7  6.28  2.99 11.2  10.4 
+ 5  18.1  5.65  2.99 11.2  10.4 
+ 6  18.1  6.28  2.99 11.2  10.4 
+ 7  19.1  6.28  2.25 11.2   9.22
+ 8  18.1  5.65  2.99 11.2  10.4 
+ 9  18.1  5.65  2.99 11.2  10.4 
+10  19.1  6.28  2.25 11.2   9.22
+# ℹ 93 more rows</code></pre>
+<p>Welcome to the world of Data Science and easy Machine Learning!</p>
+</div>
+
+    </div>
+
+    
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tags/rstats/">RStats</a>
+  
+  <a class="badge badge-light" href="/tags/garrett-ranking/">Garrett Ranking</a>
+  
+  <a class="badge badge-light" href="/tags/latent-factors/">Latent factors</a>
+  
+  <a class="badge badge-light" href="/tags/data-science/">Data Science</a>
+  
+  <a class="badge badge-light" href="/tags/machine-learning/">Machine Learning</a>
+  
+</div>
+
+
+
+    
+      
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+  
+  
+    
+  
+  
+  <div class="media author-card" itemscope itemtype="http://schema.org/Person">
+    
+
+    <div class="media-body">
+      <h5 class="card-title" itemprop="name"><a href="https://jobnmadu.com/">Job Nmadu</a></h5>
+      <h6 class="card-subtitle">Professor of Agricultural Economics and Dean, School of Agriculture and Agricultural Technology</h6>
+      <p class="card-text" itemprop="description">Research interests are economic efficiencies of small scale farming and welfare effects of agricultural interventions.</p>
+      <ul class="network-icon" aria-hidden="true">
+        
+          
+          
+          
+            
+          
+          
+          
+          
+          
+            
+          
+          <li>
+            <a itemprop="sameAs" href="/#contact" >
+              <i class="fas fa-envelope"></i>
+            </a>
+          </li>
+        
+          
+          
+          
+            
+          
+          
+          
+          
+          
+            
+          
+          <li>
+            <a itemprop="sameAs" href="/job.nmadu@gmail.com" >
+              <i class="fas fa-envelope"></i>
+            </a>
+          </li>
+        
+          
+          
+          
+            
+          
+          
+          
+          
+          
+            
+          
+          <li>
+            <a itemprop="sameAs" href="https://twitter.com/JobNmadu" target="_blank" rel="noopener">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </li>
+        
+          
+          
+          
+          
+          
+          
+          
+            
+          
+          <li>
+            <a itemprop="sameAs" href="http://scholar.google.com/citations?user=C1_-HgIAAAAJ&amp;hl=en" target="_blank" rel="noopener">
+              <i class="ai ai-google-scholar"></i>
+            </a>
+          </li>
+        
+          
+          
+          
+            
+          
+          
+          
+          
+          
+            
+          
+          <li>
+            <a itemprop="sameAs" href="https://github.com/JobNmadu" target="_blank" rel="noopener">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+        
+          
+          
+          
+            
+          
+          
+          
+          
+          
+            
+          
+          <li>
+            <a itemprop="sameAs" href="https://www.linkedin.com/in/jobnmadu" target="_blank" rel="noopener">
+              <i class="fab fa-linkedin"></i>
+            </a>
+          </li>
+        
+          
+          
+          
+            
+          
+          
+          
+          
+          
+            
+          
+          <li>
+            <a itemprop="sameAs" href="https://t.me/Job_Nmadu" target="_blank" rel="noopener">
+              <i class="fab fa-telegram"></i>
+            </a>
+          </li>
+        
+          
+          
+          
+            
+          
+          
+          
+          
+          
+            
+          
+          <li>
+            <a itemprop="sameAs" href="https://jobnmadu.blogspot.com/" target="_blank" rel="noopener">
+              <i class="fab fa-blogger"></i>
+            </a>
+          </li>
+        
+          
+          
+          
+          
+          
+          
+          
+            
+          
+          <li>
+            <a itemprop="sameAs" href="https://orcid.org/0000-0002-1320-8957" target="_blank" rel="noopener">
+              <i class="ai ai-orcid"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+
+      
+      
+      <div class="article-widget">
+        <div class="hr-light"></div>
+        <h3>Related</h3>
+        <ul>
+          
+          <li><a href="/r-blog/2023-07-31-r-markdown/linearsystems/">Linear model and Transformations</a></li>
+          
+          <li><a href="/r-blog/2023-03-12-r-rmarkdown/transform/">Data transformation and standardization in r</a></li>
+          
+          <li><a href="/r-blog/2023-02-04-r-rmarkdown/mallows/">Better and enhanced method of estimating Mallow&#39;s Cp</a></li>
+          
+          <li><a href="/r-blog/2022-09-18-r-rmarkdown/fre_days/">Frequency of occurrence of COVID-19 cases across Nigeria</a></li>
+          
+          <li><a href="/r-blog/2020-12-01-r-rmarkdown/dynamic-forecast-from-regression-models/">Modelling of COVID-19 distribution in Nigeria</a></li>
+          
+        </ul>
+      </div>
+      
+    
+
+    
+    <div class="article-widget">
+      
+<div class="post-nav">
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">Previous</div>
+    <a href="/r-blog/2023-07-31-r-markdown/linearsystems/" rel="prev">Linear model and Transformations</a>
+  </div>
+  
+</div>
+
+    </div>
+    
+
+    
+
+
+  </div>
+</article>
+
+      
+
+    
+    
+    
+    <script src="/js/mathjax-config.js"></script>
+    
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" integrity="sha256-X5PoE3KU5l+JcX+w09p/wHl9AzK333C4hJ2I9S5mD4M=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js" integrity="sha256-aYTdUrn6Ow1DDgh5JTc3aDGnnju48y/1c8s1dgkYPQ8=" crossorigin="anonymous"></script>
+        
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/languages/r.min.js"></script>
+        
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/languages/SQL.min.js"></script>
+        
+      
+
+      
+      
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_CHTML-full" integrity="sha256-GhM+5JHb6QUzOQPXSJLEWP7R73CbkisjzK5Eyij4U9w=" crossorigin="anonymous" async></script>
+      
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.js" integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log==" crossorigin="anonymous"></script>
+    
+
+    
+    
+    
+
+    
+    
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    
+    
+    <script>
+      const search_index_filename = "/index.json";
+      const i18n = {
+        'placeholder': "Search...",
+        'results': "results found",
+        'no_results': "No results found"
+      };
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academia.min.1864145399ae9e7997bb63a7a7dd152c.js"></script>
+
+    
+
+
+
+
+
+
+  
+  <div class="container">
+    <footer class="site-footer">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-6 mb-4 mb-md-0">
+        
+        <p class="mb-0">
+          JNNmadu © 2023 &middot; 
+          Powered by
+          <a href="https://gethugothemes.com" target="_blank" rel="noopener">Gethugothemes</a>
+        </p>
+      </div>
+      <div class="col-md-6">
+        <ul class="list-inline network-icon text-right mb-0">
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="https://www.twitter.com/JobNmadu" target="_blank" rel="noopener" title="DM Me"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+          </li>
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="skype:job.nda.nmadu"  title="Skype Me"><i class="fab fa-skype" aria-hidden="true"></i></a>
+          </li>
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="https://t.me/Job_Nmadu" target="_blank" rel="noopener" title="Telegram Me"><i class="fab fa-telegram" aria-hidden="true"></i></a>
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,7384 @@
+<!DOCTYPE html>
+<html lang="en-uk">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academia 4.3.1">
+  <meta name="generator" content="Hugo 0.81.0" />
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Job Nmadu">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="IntroductionThe linear model still remains a reference point towards advanced modeling of some datasets as foundation for Machine Learning, Data Science and Artificial Intelligence in spite of some of her weaknesses. The major task in modeling is to compare various models before a selection is made for one or for advanced modeling. Often, some trial and error methods are used to decide which model to select. This is where this function is unique.">
+
+  
+  <link rel="alternate" hreflang="en-uk" href="https://jobnmadu.com/r-blog/2023-07-31-r-markdown/linearsystems/">
+
+  
+
+
+  
+
+  
+  
+  
+  <meta name="theme-color" content="#3f51b5">
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css" integrity="sha384-aOkxzJ5uQz7WBObEZcHvV5JvRW3TUc2rNPA7pe3AwnsUohiw1Vj2Rgx2KSOkF5+h" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" integrity="sha256-ygkqlh3CYSUri3LhQxzdcm0n1EQvH2Y+U5S2idbLtxs=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.css" integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ==" crossorigin="anonymous">
+    
+
+    
+
+  
+
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Open+Sans|Roboto+Mono&display=swap">
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/css/academia.min.3632deb0096ca98c81e95314c5855a45.css">
+
+  
+
+  
+  
+  
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'G-V53DTDYQF5', 'auto');
+      ga('set', 'anonymizeIp', true);
+      ga('require', 'eventTracker');
+      ga('require', 'outboundLinkTracker');
+      ga('require', 'urlChangeTracker');
+      ga('send', 'pageview');
+    </script>
+    <script async src="//www.google-analytics.com/analytics.js"></script>
+    
+    <script async src="https://cdnjs.cloudflare.com/ajax/libs/autotrack/2.4.1/autotrack.js" integrity="sha512-HUmooslVKj4m6OBu0OgzjXXr+QuFYy/k7eLI5jdeEy/F4RSgMn6XRWRGkFi5IFaFgy7uFTkegp3Z0XnJf3Jq+g==" crossorigin="anonymous"></script>
+    
+  
+  
+
+  
+
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="icon" type="image/png" href="/img/icon.png">
+  <link rel="apple-touch-icon" type="image/png" href="/img/icon-192.png">
+
+  <link rel="canonical" href="https://jobnmadu.com/r-blog/2023-07-31-r-markdown/linearsystems/">
+
+  
+  
+  
+  
+    
+  
+  <meta property="twitter:card" content="summary_large_image">
+  
+  <meta property="twitter:site" content="@JobNmadu">
+  <meta property="twitter:creator" content="@JobNmadu">
+  
+  <meta property="og:site_name" content="Data modelling to develop ...">
+  <meta property="og:url" content="https://jobnmadu.com/r-blog/2023-07-31-r-markdown/linearsystems/">
+  <meta property="og:title" content="Linear model and Transformations | Data modelling to develop ...">
+  <meta property="og:description" content="IntroductionThe linear model still remains a reference point towards advanced modeling of some datasets as foundation for Machine Learning, Data Science and Artificial Intelligence in spite of some of her weaknesses. The major task in modeling is to compare various models before a selection is made for one or for advanced modeling. Often, some trial and error methods are used to decide which model to select. This is where this function is unique."><meta property="og:image" content="https://jobnmadu.com/img/haggai_04.jpg">
+  <meta property="twitter:image" content="https://jobnmadu.com/img/haggai_04.jpg"><meta property="og:locale" content="en-uk">
+  
+  <meta property="article:published_time" content="2023-07-31T01:00:00&#43;00:00">
+  
+  <meta property="article:modified_time" content="2023-09-30T02:00:14&#43;01:00">
+  
+
+  
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+<script>
+  window.addEventListener("load", function(){
+    window.cookieconsent.initialise({
+      "palette": {
+        "popup": {
+          "background": "#3f51b5",
+          "text": "#fff"
+        },
+        "button": {
+          "background": "#fff",
+          "text": "#3f51b5"
+        }
+      },
+      "theme": "classic",
+      "content": {
+        "message": "This website uses cookies to ensure you get the best experience on our website.",
+        "dismiss": "Got it!",
+        "link": "Learn more",
+        "href": "https://cookies.insites.com"
+      }
+    })});
+</script>
+
+
+
+  
+
+
+
+
+
+  <title>Linear model and Transformations | Data modelling to develop ...</title>
+
+</head>
+
+
+<body id="top" data-spy="scroll" data-target="#TableOfContents" data-offset="71" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" role="textbox" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+<nav class="navbar navbar-light fixed-top navbar-expand-lg py-0" id="navbar-main">
+  <div class="container">
+
+    
+      <a class="navbar-brand" href="/">Data modelling to develop ...</a>
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation"><span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+    
+    <div class="collapse navbar-collapse" id="navbar">
+      
+      
+      <ul class="navbar-nav ml-auto">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>Home</span></a>
+        </li>
+
+        
+        
+
+        
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"><span>CV</span><span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            
+            <li class="dropdown-item my-0 py-0 mx-0 px-0">
+              <a href="/files/Nmadu_brief_CV.pdf"><span>Resume in brief</span></a>
+            </li>
+            
+            <li class="dropdown-item my-0 py-0 mx-0 px-0">
+              <a href="/files/Nmadu_biography.pdf"><span>View Biographical notes</span></a>
+            </li>
+            
+            <li class="dropdown-item my-0 py-0 mx-0 px-0">
+              <a href="/files/Nmadu_timelineCV.pdf"><span>View Experience on timeline</span></a>
+            </li>
+            
+            <li class="dropdown-item my-0 py-0 mx-0 px-0">
+              <a href="/files/Nmadu_full_CV2022_1.pdf"><span>View Full CV</span></a>
+            </li>
+            
+            <li class="dropdown-item my-0 py-0 mx-0 px-0">
+              <a href="/files/JobNmadu.html"><span>View upadted publications list</span></a>
+            </li>
+            
+          </ul>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#publications"><span>Publications</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#r-blog"><span>R-Blog</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#software"><span>Software</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#posts"><span>Posts</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#contact"><span>Contact</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link  active" href="/"><span></span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+
+        
+        <li class="nav-item">
+          <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
+        </li>
+        
+
+        
+
+        
+        <li class="nav-item">
+          <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+        </li>
+        
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+  <article class="article py-5" itemscope itemtype="http://schema.org/Article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+    
+    
+    
+    <div class="article-container py-3">
+      <h1 itemprop="name">Linear model and Transformations</h1>
+
+      
+
+      
+      
+
+
+
+<meta content="2023-07-31 01:00:00 &#43;0000 UTC" itemprop="datePublished">
+<meta content="2023-09-30 02:00:14 &#43;0100 WAT" itemprop="dateModified">
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+          Last updated on
+      
+    
+    <time>Sep 30, 2023</time>
+  </span>
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder"></i>
+    <a href="/categories/r/">R</a></span>
+  
+
+  
+    
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=https://jobnmadu.com/r-blog/2023-07-31-r-markdown/linearsystems/&amp;text=Linear%20model%20and%20Transformations" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=https://jobnmadu.com/r-blog/2023-07-31-r-markdown/linearsystems/&amp;t=Linear%20model%20and%20Transformations" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Linear%20model%20and%20Transformations&amp;body=https://jobnmadu.com/r-blog/2023-07-31-r-markdown/linearsystems/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=https://jobnmadu.com/r-blog/2023-07-31-r-markdown/linearsystems/&amp;title=Linear%20model%20and%20Transformations" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://web.whatsapp.com/send?text=Linear%20model%20and%20Transformations%20https://jobnmadu.com/r-blog/2023-07-31-r-markdown/linearsystems/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+  
+
+</div>
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
+      
+    </div>
+  </div>
+</div>
+
+  <div class="article-container">
+
+    <div class="article-style" itemprop="articleBody">
+      
+<script src="/rmarkdown-libs/kePrint/kePrint.js"></script>
+<link href="/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
+<link href="/rmarkdown-libs/bsTable/bootstrapTable.min.css" rel="stylesheet" />
+<script src="/rmarkdown-libs/bsTable/bootstrapTable.js"></script>
+
+
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>The linear model still remains a reference point towards advanced modeling of some datasets as foundation for <strong>Machine Learning</strong>, <strong>Data Science</strong> and <strong>Artificial Intelligence</strong> in spite of some of her weaknesses. The major task in <strong>modeling</strong> is to compare various models before a selection is made for one or for advanced modeling. Often, some trial and error methods are used to decide which model to select. This is where this function is unique. It helps to estimate 14 different linear models and provide their coefficients in a formatted Table for quick comparison so that time and energy are saved. The interesting thing about this function is the simplicity, and it is a <em>one line</em> code. The different transformations are:</p>
+<ul>
+<li><p>Linear model</p></li>
+<li><p>Linear model with interactions</p></li>
+<li><p>Semilog model</p></li>
+<li><p>Growth model</p></li>
+<li><p>Double Log model</p></li>
+<li><p>Mixed-power model</p></li>
+<li><p>Translog model</p></li>
+<li><p>Quadratic model</p></li>
+<li><p>Cubic model</p></li>
+<li><p>Inverse of y model</p></li>
+<li><p>Inverse of x model</p></li>
+<li><p>Inverse of y &amp; x model</p></li>
+<li><p>Square root model</p></li>
+<li><p>Cubic root model</p></li>
+</ul>
+<p>In this blog, I share with you a function <code>Linearsystems</code> from <a href="https://jobnmadu.github.io/Dyn4cast/">Dyn4cast package</a> which you can use in a very easy way to perform linear regression and or its various transformations. It is a one line code and easy to use. The usage is as follows:</p>
+<p><code>Linearsystems(y, x, mod, limit, Test = NA)</code></p>
+<p><code>y</code> is the vector of the dependent variable.</p>
+<p><code>x</code> is the vector of the independent variables preferable in <code>data.frame</code>.</p>
+<p><code>mod</code> is the group of linear models to be estimated. It takes value from 0 to 6. 0 = EDA (correlation, summary tables, Visuals means); 1 = Linear systems, 2 = power models, 3 = polynomial models, 4 = root models, 5 = inverse models, 6 = all the 14 models.</p>
+<p><code>limit</code> is the number of variables to be included in the coefficients plots.</p>
+<p><code>Test</code> is the test data to be used to predict y. If not supplied, the fitted y is used hence may be identical with the fitted value.</p>
+<p>With this one line of <strong>codes</strong>, in addition to the individual <em>estimated models</em>, the following are what you get:</p>
+<p>Visual means of the numeric variable</p>
+<p>Correlation plot</p>
+<p>Significant plots of all the models estimated</p>
+<p>Model Table</p>
+<p>Machine Learning Metrics which is also a list of 47 performance and diagnostic statistic</p>
+<p>Table of Marginal effects</p>
+<p>Fitted plots long format</p>
+<p>Fitted plots wide format</p>
+<p>Prediction plots long format</p>
+<p>Prediction plots wide format</p>
+<p>Naive effects plots long format</p>
+<p>Naive effects plots wide format</p>
+<p>Summary of numeric variables</p>
+<p>Summary of character variables</p>
+<p>Let us dive into an awesome experience in machine learning!</p>
+</div>
+<div id="load-library" class="section level1">
+<h1>Load library</h1>
+<pre class="r"><code>library(Dyn4cast)</code></pre>
+</div>
+<div id="estimate-without-test-data" class="section level1">
+<h1>Estimate without test data</h1>
+<pre class="r"><code>y &lt;- linearsystems$MKTcost
+x &lt;- select(linearsystems, -MKTcost)
+Model1 &lt;- Linearsystems(y, x, 6, 15)</code></pre>
+<div id="correlation-matrix" class="section level2">
+<h2>Correlation matrix</h2>
+<pre class="r"><code>Model1$`Correlation plot`$plot()</code></pre>
+<p><img src="/r-blog/2023-07-31-r-markdown/LinearSystems_files/figure-html/unnamed-chunk-3-1.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="model-table" class="section level2">
+<h2>Model Table</h2>
+<pre class="r"><code>Model1$`Model Table`</code></pre>
+<table style="NAborder-bottom: 0; width: auto !important; margin-left: auto; margin-right: auto;" class="table">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:center;">
+Linear
+</th>
+<th style="text-align:center;">
+Cobb Douglas
+</th>
+<th style="text-align:center;">
+Linlog
+</th>
+<th style="text-align:center;">
+Loglin
+</th>
+<th style="text-align:center;">
+ Reciprocal in X
+</th>
+<th style="text-align:center;">
+Reciprocal in Y
+</th>
+<th style="text-align:center;">
+Double reciprocal
+</th>
+<th style="text-align:center;">
+Quadratic
+</th>
+<th style="text-align:center;">
+Square root
+</th>
+<th style="text-align:center;">
+Cubic root
+</th>
+<th style="text-align:center;">
+Cubic
+</th>
+<th style="text-align:center;">
+Mixed-power
+</th>
+<th style="text-align:center;">
+Translog
+</th>
+<th style="text-align:center;">
+Linear with interaction
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+(Intercept)
+</td>
+<td style="text-align:center;">
+1182.609
+</td>
+<td style="text-align:center;">
+3.794**
+</td>
+<td style="text-align:center;">
+13.073*
+</td>
+<td style="text-align:center;">
+9.572***
+</td>
+<td style="text-align:center;">
+−0.935
+</td>
+<td style="text-align:center;">
+−0.291
+</td>
+<td style="text-align:center;">
+1.496
+</td>
+<td style="text-align:center;">
+10.051**
+</td>
+<td style="text-align:center;">
+12.979
+</td>
+<td style="text-align:center;">
+14.920
+</td>
+<td style="text-align:center;">
+7.998
+</td>
+<td style="text-align:center;">
+12.093
+</td>
+<td style="text-align:center;">
+−914.830
+</td>
+<td style="text-align:center;">
+178869.456
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+(3733.003)
+</td>
+<td style="text-align:center;">
+(1.278)
+</td>
+<td style="text-align:center;">
+(4.964)
+</td>
+<td style="text-align:center;">
+(2.514)
+</td>
+<td style="text-align:center;">
+(2.459)
+</td>
+<td style="text-align:center;">
+(0.289)
+</td>
+<td style="text-align:center;">
+(1.129)
+</td>
+<td style="text-align:center;">
+(3.638)
+</td>
+<td style="text-align:center;">
+(12.254)
+</td>
+<td style="text-align:center;">
+(18.472)
+</td>
+<td style="text-align:center;">
+(12.105)
+</td>
+<td style="text-align:center;">
+(16.289)
+</td>
+<td style="text-align:center;">
+(1845.357)
+</td>
+<td style="text-align:center;">
+(124754.685)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Age
+</td>
+<td style="text-align:center;">
+−26.698
+</td>
+<td style="text-align:center;">
+−0.446
+</td>
+<td style="text-align:center;">
+−1.729
+</td>
+<td style="text-align:center;">
+−0.042
+</td>
+<td style="text-align:center;">
+7.921
+</td>
+<td style="text-align:center;">
+0.005
+</td>
+<td style="text-align:center;">
+−3.596
+</td>
+<td style="text-align:center;">
+−0.043
+</td>
+<td style="text-align:center;">
+−0.035
+</td>
+<td style="text-align:center;">
+−0.036
+</td>
+<td style="text-align:center;">
+0.088
+</td>
+<td style="text-align:center;">
+−0.037
+</td>
+<td style="text-align:center;">
+261.741
+</td>
+<td style="text-align:center;">
+−5430.850
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+(39.822)
+</td>
+<td style="text-align:center;">
+(0.284)
+</td>
+<td style="text-align:center;">
+(1.103)
+</td>
+<td style="text-align:center;">
+(0.027)
+</td>
+<td style="text-align:center;">
+(5.593)
+</td>
+<td style="text-align:center;">
+(0.003)
+</td>
+<td style="text-align:center;">
+(2.568)
+</td>
+<td style="text-align:center;">
+(0.150)
+</td>
+<td style="text-align:center;">
+(0.285)
+</td>
+<td style="text-align:center;">
+(0.214)
+</td>
+<td style="text-align:center;">
+(0.811)
+</td>
+<td style="text-align:center;">
+(0.146)
+</td>
+<td style="text-align:center;">
+(516.542)
+</td>
+<td style="text-align:center;">
+(3483.580)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Experience
+</td>
+<td style="text-align:center;">
+15.358
+</td>
+<td style="text-align:center;">
+−0.021
+</td>
+<td style="text-align:center;">
+−0.074
+</td>
+<td style="text-align:center;">
+0.000
+</td>
+<td style="text-align:center;">
+0.205
+</td>
+<td style="text-align:center;">
+0.000
+</td>
+<td style="text-align:center;">
+−0.094
+</td>
+<td style="text-align:center;">
+−0.039
+</td>
+<td style="text-align:center;">
+0.168
+</td>
+<td style="text-align:center;">
+0.128
+</td>
+<td style="text-align:center;">
+−0.247
+</td>
+<td style="text-align:center;">
+0.099
+</td>
+<td style="text-align:center;">
+672.779
+</td>
+<td style="text-align:center;">
+−13992.660
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+(119.313)
+</td>
+<td style="text-align:center;">
+(0.244)
+</td>
+<td style="text-align:center;">
+(0.950)
+</td>
+<td style="text-align:center;">
+(0.080)
+</td>
+<td style="text-align:center;">
+(1.228)
+</td>
+<td style="text-align:center;">
+(0.009)
+</td>
+<td style="text-align:center;">
+(0.564)
+</td>
+<td style="text-align:center;">
+(0.368)
+</td>
+<td style="text-align:center;">
+(0.589)
+</td>
+<td style="text-align:center;">
+(0.433)
+</td>
+<td style="text-align:center;">
+(0.985)
+</td>
+<td style="text-align:center;">
+(0.316)
+</td>
+<td style="text-align:center;">
+(798.885)
+</td>
+<td style="text-align:center;">
+(16252.545)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Years spent in formal education
+</td>
+<td style="text-align:center;">
+217.766
+</td>
+<td style="text-align:center;">
+−0.157
+</td>
+<td style="text-align:center;">
+−0.201
+</td>
+<td style="text-align:center;">
+0.031
+</td>
+<td style="text-align:center;">
+2.118
+</td>
+<td style="text-align:center;">
+0.002
+</td>
+<td style="text-align:center;">
+−1.040
+</td>
+<td style="text-align:center;">
+−0.674
+</td>
+<td style="text-align:center;">
+1.287
+</td>
+<td style="text-align:center;">
+0.964
+</td>
+<td style="text-align:center;">
+−1.384
+</td>
+<td style="text-align:center;">
+0.699
+</td>
+<td style="text-align:center;">
+349.387
+</td>
+<td style="text-align:center;">
+−15364.578
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+(196.683)
+</td>
+<td style="text-align:center;">
+(0.436)
+</td>
+<td style="text-align:center;">
+(1.693)
+</td>
+<td style="text-align:center;">
+(0.132)
+</td>
+<td style="text-align:center;">
+(2.493)
+</td>
+<td style="text-align:center;">
+(0.015)
+</td>
+<td style="text-align:center;">
+(1.144)
+</td>
+<td style="text-align:center;">
+(0.631)
+</td>
+<td style="text-align:center;">
+(1.013)
+</td>
+<td style="text-align:center;">
+(0.750)
+</td>
+<td style="text-align:center;">
+(2.634)
+</td>
+<td style="text-align:center;">
+(0.541)
+</td>
+<td style="text-align:center;">
+(740.038)
+</td>
+<td style="text-align:center;">
+(11710.394)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Household size
+</td>
+<td style="text-align:center;">
+317.218**
+</td>
+<td style="text-align:center;">
+0.269
+</td>
+<td style="text-align:center;">
+1.423+
+</td>
+<td style="text-align:center;">
+0.150+
+</td>
+<td style="text-align:center;">
+−0.930
+</td>
+<td style="text-align:center;">
+−0.010
+</td>
+<td style="text-align:center;">
+0.375
+</td>
+<td style="text-align:center;">
+0.015
+</td>
+<td style="text-align:center;">
+0.274
+</td>
+<td style="text-align:center;">
+0.235
+</td>
+<td style="text-align:center;">
+0.728
+</td>
+<td style="text-align:center;">
+0.207
+</td>
+<td style="text-align:center;">
+338.839
+</td>
+<td style="text-align:center;">
+−18999.563
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+(115.742)
+</td>
+<td style="text-align:center;">
+(0.196)
+</td>
+<td style="text-align:center;">
+(0.762)
+</td>
+<td style="text-align:center;">
+(0.078)
+</td>
+<td style="text-align:center;">
+(0.877)
+</td>
+<td style="text-align:center;">
+(0.009)
+</td>
+<td style="text-align:center;">
+(0.403)
+</td>
+<td style="text-align:center;">
+(0.357)
+</td>
+<td style="text-align:center;">
+(0.672)
+</td>
+<td style="text-align:center;">
+(0.504)
+</td>
+<td style="text-align:center;">
+(1.544)
+</td>
+<td style="text-align:center;">
+(0.379)
+</td>
+<td style="text-align:center;">
+(762.332)
+</td>
+<td style="text-align:center;">
+(12326.813)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Years as a cooperative member
+</td>
+<td style="text-align:center;">
+−52.901
+</td>
+<td style="text-align:center;">
+−0.077
+</td>
+<td style="text-align:center;">
+−0.272
+</td>
+<td style="text-align:center;">
+−0.025
+</td>
+<td style="text-align:center;">
+0.239
+</td>
+<td style="text-align:center;">
+0.004
+</td>
+<td style="text-align:center;">
+−0.112
+</td>
+<td style="text-align:center;">
+−0.137
+</td>
+<td style="text-align:center;">
+0.176
+</td>
+<td style="text-align:center;">
+0.119
+</td>
+<td style="text-align:center;">
+−0.435
+</td>
+<td style="text-align:center;">
+0.083
+</td>
+<td style="text-align:center;">
+50.240
+</td>
+<td style="text-align:center;">
+−16929.904
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+(130.234)
+</td>
+<td style="text-align:center;">
+(0.247)
+</td>
+<td style="text-align:center;">
+(0.960)
+</td>
+<td style="text-align:center;">
+(0.088)
+</td>
+<td style="text-align:center;">
+(1.183)
+</td>
+<td style="text-align:center;">
+(0.010)
+</td>
+<td style="text-align:center;">
+(0.543)
+</td>
+<td style="text-align:center;">
+(0.357)
+</td>
+<td style="text-align:center;">
+(0.602)
+</td>
+<td style="text-align:center;">
+(0.448)
+</td>
+<td style="text-align:center;">
+(1.183)
+</td>
+<td style="text-align:center;">
+(0.332)
+</td>
+<td style="text-align:center;">
+(849.055)
+</td>
+<td style="text-align:center;">
+(17391.449)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Marital statusMarried
+</td>
+<td style="text-align:center;">
+1842.879
+</td>
+<td style="text-align:center;">
+−0.247
+</td>
+<td style="text-align:center;">
+−0.589
+</td>
+<td style="text-align:center;">
+−0.555
+</td>
+<td style="text-align:center;">
+−0.130
+</td>
+<td style="text-align:center;">
+0.135
+</td>
+<td style="text-align:center;">
+0.064
+</td>
+<td style="text-align:center;">
+−0.225
+</td>
+<td style="text-align:center;">
+−0.137
+</td>
+<td style="text-align:center;">
+−0.137
+</td>
+<td style="text-align:center;">
+−0.176
+</td>
+<td style="text-align:center;">
+−0.133
+</td>
+<td style="text-align:center;">
+0.105
+</td>
+<td style="text-align:center;">
+−2815.028
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+(1715.980)
+</td>
+<td style="text-align:center;">
+(0.277)
+</td>
+<td style="text-align:center;">
+(1.075)
+</td>
+<td style="text-align:center;">
+(1.156)
+</td>
+<td style="text-align:center;">
+(0.134)
+</td>
+<td style="text-align:center;">
+(0.133)
+</td>
+<td style="text-align:center;">
+(0.062)
+</td>
+<td style="text-align:center;">
+(1.290)
+</td>
+<td style="text-align:center;">
+(1.312)
+</td>
+<td style="text-align:center;">
+(1.314)
+</td>
+<td style="text-align:center;">
+(1.420)
+</td>
+<td style="text-align:center;">
+(1.314)
+</td>
+<td style="text-align:center;">
+(0.327)
+</td>
+<td style="text-align:center;">
+(3232.693)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Marital statusSingle
+</td>
+<td style="text-align:center;">
+4142.944
+</td>
+<td style="text-align:center;">
+0.153
+</td>
+<td style="text-align:center;">
+1.932
+</td>
+<td style="text-align:center;">
+0.396
+</td>
+<td style="text-align:center;">
+0.570
+</td>
+<td style="text-align:center;">
+0.122
+</td>
+<td style="text-align:center;">
+−0.209
+</td>
+<td style="text-align:center;">
+0.117
+</td>
+<td style="text-align:center;">
+−0.396
+</td>
+<td style="text-align:center;">
+−0.851
+</td>
+<td style="text-align:center;">
+2.167
+</td>
+<td style="text-align:center;">
+−0.081
+</td>
+<td style="text-align:center;">
+0.666
+</td>
+<td style="text-align:center;">
+4127.110
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+(2619.350)
+</td>
+<td style="text-align:center;">
+(0.552)
+</td>
+<td style="text-align:center;">
+(2.144)
+</td>
+<td style="text-align:center;">
+(1.764)
+</td>
+<td style="text-align:center;">
+(0.748)
+</td>
+<td style="text-align:center;">
+(0.203)
+</td>
+<td style="text-align:center;">
+(0.343)
+</td>
+<td style="text-align:center;">
+(2.101)
+</td>
+<td style="text-align:center;">
+(5.621)
+</td>
+<td style="text-align:center;">
+(8.373)
+</td>
+<td style="text-align:center;">
+(4.340)
+</td>
+<td style="text-align:center;">
+(4.742)
+</td>
+<td style="text-align:center;">
+(2.819)
+</td>
+<td style="text-align:center;">
+(6366.084)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Marital statusWidowed
+</td>
+<td style="text-align:center;">
+2168.175
+</td>
+<td style="text-align:center;">
+−0.025
+</td>
+<td style="text-align:center;">
+0.238
+</td>
+<td style="text-align:center;">
+0.217
+</td>
+<td style="text-align:center;">
+−0.015
+</td>
+<td style="text-align:center;">
+0.039
+</td>
+<td style="text-align:center;">
+0.012
+</td>
+<td style="text-align:center;">
+0.459
+</td>
+<td style="text-align:center;">
+0.545
+</td>
+<td style="text-align:center;">
+0.543
+</td>
+<td style="text-align:center;">
+0.470
+</td>
+<td style="text-align:center;">
+0.548
+</td>
+<td style="text-align:center;">
+0.145
+</td>
+<td style="text-align:center;">
+−1061.522
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+(1560.281)
+</td>
+<td style="text-align:center;">
+(0.262)
+</td>
+<td style="text-align:center;">
+(1.016)
+</td>
+<td style="text-align:center;">
+(1.051)
+</td>
+<td style="text-align:center;">
+(0.133)
+</td>
+<td style="text-align:center;">
+(0.121)
+</td>
+<td style="text-align:center;">
+(0.061)
+</td>
+<td style="text-align:center;">
+(1.185)
+</td>
+<td style="text-align:center;">
+(1.178)
+</td>
+<td style="text-align:center;">
+(1.175)
+</td>
+<td style="text-align:center;">
+(1.277)
+</td>
+<td style="text-align:center;">
+(1.174)
+</td>
+<td style="text-align:center;">
+(0.287)
+</td>
+<td style="text-align:center;">
+(3056.615)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Main OccupationMarketing of Agricultural produce
+</td>
+<td style="text-align:center;">
+696.759
+</td>
+<td style="text-align:center;">
+−0.089
+</td>
+<td style="text-align:center;">
+−0.279
+</td>
+<td style="text-align:center;">
+−0.194
+</td>
+<td style="text-align:center;">
+−0.059
+</td>
+<td style="text-align:center;">
+0.032
+</td>
+<td style="text-align:center;">
+0.028
+</td>
+<td style="text-align:center;">
+−0.163
+</td>
+<td style="text-align:center;">
+−0.163
+</td>
+<td style="text-align:center;">
+−0.162
+</td>
+<td style="text-align:center;">
+−0.132
+</td>
+<td style="text-align:center;">
+−0.162
+</td>
+<td style="text-align:center;">
+−0.029
+</td>
+<td style="text-align:center;">
+871.619
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+(988.961)
+</td>
+<td style="text-align:center;">
+(0.172)
+</td>
+<td style="text-align:center;">
+(0.667)
+</td>
+<td style="text-align:center;">
+(0.666)
+</td>
+<td style="text-align:center;">
+(0.089)
+</td>
+<td style="text-align:center;">
+(0.077)
+</td>
+<td style="text-align:center;">
+(0.041)
+</td>
+<td style="text-align:center;">
+(0.686)
+</td>
+<td style="text-align:center;">
+(0.684)
+</td>
+<td style="text-align:center;">
+(0.684)
+</td>
+<td style="text-align:center;">
+(0.711)
+</td>
+<td style="text-align:center;">
+(0.684)
+</td>
+<td style="text-align:center;">
+(0.125)
+</td>
+<td style="text-align:center;">
+(1136.352)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Main OccupationSale of provision
+</td>
+<td style="text-align:center;">
+974.225
+</td>
+<td style="text-align:center;">
+0.010
+</td>
+<td style="text-align:center;">
+0.150
+</td>
+<td style="text-align:center;">
+0.182
+</td>
+<td style="text-align:center;">
+−0.001
+</td>
+<td style="text-align:center;">
+0.002
+</td>
+<td style="text-align:center;">
+0.002
+</td>
+<td style="text-align:center;">
+0.158
+</td>
+<td style="text-align:center;">
+0.210
+</td>
+<td style="text-align:center;">
+0.217
+</td>
+<td style="text-align:center;">
+0.295
+</td>
+<td style="text-align:center;">
+0.221
+</td>
+<td style="text-align:center;">
+0.039
+</td>
+<td style="text-align:center;">
+705.656
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+(1227.830)
+</td>
+<td style="text-align:center;">
+(0.214)
+</td>
+<td style="text-align:center;">
+(0.832)
+</td>
+<td style="text-align:center;">
+(0.827)
+</td>
+<td style="text-align:center;">
+(0.112)
+</td>
+<td style="text-align:center;">
+(0.095)
+</td>
+<td style="text-align:center;">
+(0.052)
+</td>
+<td style="text-align:center;">
+(0.871)
+</td>
+<td style="text-align:center;">
+(0.862)
+</td>
+<td style="text-align:center;">
+(0.861)
+</td>
+<td style="text-align:center;">
+(0.946)
+</td>
+<td style="text-align:center;">
+(0.861)
+</td>
+<td style="text-align:center;">
+(0.170)
+</td>
+<td style="text-align:center;">
+(1546.785)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Level of educationNon-formal
+</td>
+<td style="text-align:center;">
+−4535.272
+</td>
+<td style="text-align:center;">
+−0.045
+</td>
+<td style="text-align:center;">
+−1.255
+</td>
+<td style="text-align:center;">
+−2.159
+</td>
+<td style="text-align:center;">
+1.732
+</td>
+<td style="text-align:center;">
+0.178
+</td>
+<td style="text-align:center;">
+−0.859
+</td>
+<td style="text-align:center;">
+2.457
+</td>
+<td style="text-align:center;">
+13.394
+</td>
+<td style="text-align:center;">
+20.708
+</td>
+<td style="text-align:center;">
+4.919
+</td>
+<td style="text-align:center;">
+12.420
+</td>
+<td style="text-align:center;">
+1.798
+</td>
+<td style="text-align:center;">
+−7893.322
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+(3088.096)
+</td>
+<td style="text-align:center;">
+(1.182)
+</td>
+<td style="text-align:center;">
+(4.591)
+</td>
+<td style="text-align:center;">
+(2.080)
+</td>
+<td style="text-align:center;">
+(2.312)
+</td>
+<td style="text-align:center;">
+(0.239)
+</td>
+<td style="text-align:center;">
+(1.061)
+</td>
+<td style="text-align:center;">
+(4.227)
+</td>
+<td style="text-align:center;">
+(12.301)
+</td>
+<td style="text-align:center;">
+(17.922)
+</td>
+<td style="text-align:center;">
+(10.034)
+</td>
+<td style="text-align:center;">
+(11.352)
+</td>
+<td style="text-align:center;">
+(4.440)
+</td>
+<td style="text-align:center;">
+(9121.469)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Level of educationPrimary
+</td>
+<td style="text-align:center;">
+−1891.589
+</td>
+<td style="text-align:center;">
+0.094
+</td>
+<td style="text-align:center;">
+−0.460
+</td>
+<td style="text-align:center;">
+−1.164
+</td>
+<td style="text-align:center;">
+1.748
+</td>
+<td style="text-align:center;">
+0.102
+</td>
+<td style="text-align:center;">
+−0.862
+</td>
+<td style="text-align:center;">
+2.917
+</td>
+<td style="text-align:center;">
+13.843
+</td>
+<td style="text-align:center;">
+21.153
+</td>
+<td style="text-align:center;">
+5.386
+</td>
+<td style="text-align:center;">
+12.866
+</td>
+<td style="text-align:center;">
+1.871
+</td>
+<td style="text-align:center;">
+−4970.197
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+(1948.345)
+</td>
+<td style="text-align:center;">
+(0.964)
+</td>
+<td style="text-align:center;">
+(3.744)
+</td>
+<td style="text-align:center;">
+(1.312)
+</td>
+<td style="text-align:center;">
+(2.202)
+</td>
+<td style="text-align:center;">
+(0.151)
+</td>
+<td style="text-align:center;">
+(1.011)
+</td>
+<td style="text-align:center;">
+(3.489)
+</td>
+<td style="text-align:center;">
+(11.776)
+</td>
+<td style="text-align:center;">
+(17.436)
+</td>
+<td style="text-align:center;">
+(9.624)
+</td>
+<td style="text-align:center;">
+(10.828)
+</td>
+<td style="text-align:center;">
+(4.372)
+</td>
+<td style="text-align:center;">
+(8139.493)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Level of educationSecondary
+</td>
+<td style="text-align:center;">
+−4243.879
+</td>
+<td style="text-align:center;">
+0.336
+</td>
+<td style="text-align:center;">
+0.018
+</td>
+<td style="text-align:center;">
+−0.927
+</td>
+<td style="text-align:center;">
+1.943
+</td>
+<td style="text-align:center;">
+−0.004
+</td>
+<td style="text-align:center;">
+−0.958
+</td>
+<td style="text-align:center;">
+3.913
+</td>
+<td style="text-align:center;">
+14.780
+</td>
+<td style="text-align:center;">
+22.087
+</td>
+<td style="text-align:center;">
+6.378
+</td>
+<td style="text-align:center;">
+13.791
+</td>
+<td style="text-align:center;">
+2.017
+</td>
+<td style="text-align:center;">
+−7558.975
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+(2878.842)
+</td>
+<td style="text-align:center;">
+(1.175)
+</td>
+<td style="text-align:center;">
+(4.566)
+</td>
+<td style="text-align:center;">
+(1.939)
+</td>
+<td style="text-align:center;">
+(2.317)
+</td>
+<td style="text-align:center;">
+(0.223)
+</td>
+<td style="text-align:center;">
+(1.064)
+</td>
+<td style="text-align:center;">
+(4.360)
+</td>
+<td style="text-align:center;">
+(12.447)
+</td>
+<td style="text-align:center;">
+(18.071)
+</td>
+<td style="text-align:center;">
+(9.725)
+</td>
+<td style="text-align:center;">
+(11.481)
+</td>
+<td style="text-align:center;">
+(4.474)
+</td>
+<td style="text-align:center;">
+(9144.744)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Level of educationTertiary
+</td>
+<td style="text-align:center;">
+−5416.211
+</td>
+<td style="text-align:center;">
+0.325
+</td>
+<td style="text-align:center;">
+−0.166
+</td>
+<td style="text-align:center;">
+−1.233
+</td>
+<td style="text-align:center;">
+1.950
+</td>
+<td style="text-align:center;">
+0.006
+</td>
+<td style="text-align:center;">
+−0.963
+</td>
+<td style="text-align:center;">
+3.383
+</td>
+<td style="text-align:center;">
+14.186
+</td>
+<td style="text-align:center;">
+21.490
+</td>
+<td style="text-align:center;">
+5.702
+</td>
+<td style="text-align:center;">
+13.189
+</td>
+<td style="text-align:center;">
+1.937
+</td>
+<td style="text-align:center;">
+−9340.187
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+(3356.079)
+</td>
+<td style="text-align:center;">
+(1.248)
+</td>
+<td style="text-align:center;">
+(4.849)
+</td>
+<td style="text-align:center;">
+(2.261)
+</td>
+<td style="text-align:center;">
+(2.345)
+</td>
+<td style="text-align:center;">
+(0.260)
+</td>
+<td style="text-align:center;">
+(1.077)
+</td>
+<td style="text-align:center;">
+(4.393)
+</td>
+<td style="text-align:center;">
+(12.329)
+</td>
+<td style="text-align:center;">
+(17.932)
+</td>
+<td style="text-align:center;">
+(9.464)
+</td>
+<td style="text-align:center;">
+(11.364)
+</td>
+<td style="text-align:center;">
+(4.432)
+</td>
+<td style="text-align:center;">
+(9561.933)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+IAge
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+0.000
+</td>
+<td style="text-align:center;">
+−0.049
+</td>
+<td style="text-align:center;">
+−0.098
+</td>
+<td style="text-align:center;">
+−0.003
+</td>
+<td style="text-align:center;">
+−0.048
+</td>
+<td style="text-align:center;">
+−0.174
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(0.002)
+</td>
+<td style="text-align:center;">
+(3.637)
+</td>
+<td style="text-align:center;">
+(7.544)
+</td>
+<td style="text-align:center;">
+(0.020)
+</td>
+<td style="text-align:center;">
+(5.969)
+</td>
+<td style="text-align:center;">
+(1.124)
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+IExperience
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+0.003
+</td>
+<td style="text-align:center;">
+−0.975
+</td>
+<td style="text-align:center;">
+−1.578
+</td>
+<td style="text-align:center;">
+0.022
+</td>
+<td style="text-align:center;">
+−0.932
+</td>
+<td style="text-align:center;">
+0.881
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(0.015)
+</td>
+<td style="text-align:center;">
+(3.916)
+</td>
+<td style="text-align:center;">
+(6.370)
+</td>
+<td style="text-align:center;">
+(0.085)
+</td>
+<td style="text-align:center;">
+(3.676)
+</td>
+<td style="text-align:center;">
+(1.112)
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+IYears spent in formal education
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+0.027
+</td>
+<td style="text-align:center;">
+−8.762
+</td>
+<td style="text-align:center;">
+−14.761
+</td>
+<td style="text-align:center;">
+0.088
+</td>
+<td style="text-align:center;">
+−8.700
+</td>
+<td style="text-align:center;">
+0.409
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(0.024)
+</td>
+<td style="text-align:center;">
+(7.050)
+</td>
+<td style="text-align:center;">
+(11.744)
+</td>
+<td style="text-align:center;">
+(0.227)
+</td>
+<td style="text-align:center;">
+(6.884)
+</td>
+<td style="text-align:center;">
+(0.677)
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+IHousehold size
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+0.006
+</td>
+<td style="text-align:center;">
+−0.793
+</td>
+<td style="text-align:center;">
+−1.200
+</td>
+<td style="text-align:center;">
+−0.069
+</td>
+<td style="text-align:center;">
+−0.644
+</td>
+<td style="text-align:center;">
+−0.134
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(0.018)
+</td>
+<td style="text-align:center;">
+(3.992)
+</td>
+<td style="text-align:center;">
+(6.394)
+</td>
+<td style="text-align:center;">
+(0.164)
+</td>
+<td style="text-align:center;">
+(3.638)
+</td>
+<td style="text-align:center;">
+(0.571)
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+IYears as a cooperative member
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+0.006
+</td>
+<td style="text-align:center;">
+−1.194
+</td>
+<td style="text-align:center;">
+−1.801
+</td>
+<td style="text-align:center;">
+0.035
+</td>
+<td style="text-align:center;">
+−1.017
+</td>
+<td style="text-align:center;">
+1.074
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(0.015)
+</td>
+<td style="text-align:center;">
+(3.870)
+</td>
+<td style="text-align:center;">
+(6.291)
+</td>
+<td style="text-align:center;">
+(0.109)
+</td>
+<td style="text-align:center;">
+(3.629)
+</td>
+<td style="text-align:center;">
+(1.178)
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ICAge
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+0.000
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(0.000)
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ICExperience
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+−0.001
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(0.002)
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ICYears spent in formal education
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+−0.002
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(0.006)
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ICHousehold size
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+0.002
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(0.005)
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ICYears as a cooperative member
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+−0.001
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(0.003)
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Age × Experience
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+−187.488
+</td>
+<td style="text-align:center;">
+413.060
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(222.702)
+</td>
+<td style="text-align:center;">
+(421.287)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Age × Years spent in formal education
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+−99.604
+</td>
+<td style="text-align:center;">
+487.222
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(208.652)
+</td>
+<td style="text-align:center;">
+(333.733)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Experience × Years spent in formal education
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+−260.899
+</td>
+<td style="text-align:center;">
+1263.591
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(316.027)
+</td>
+<td style="text-align:center;">
+(1423.802)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Age × Household size
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+−97.341
+</td>
+<td style="text-align:center;">
+626.189+
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(213.777)
+</td>
+<td style="text-align:center;">
+(326.989)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Experience × Household size
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+−256.864
+</td>
+<td style="text-align:center;">
+1524.101
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(321.486)
+</td>
+<td style="text-align:center;">
+(1450.023)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Years spent in formal education × Household size
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+−129.986
+</td>
+<td style="text-align:center;">
+1885.469
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(307.538)
+</td>
+<td style="text-align:center;">
+(1237.124)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Age × Years as a cooperative member
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+−20.388
+</td>
+<td style="text-align:center;">
+567.013
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(237.791)
+</td>
+<td style="text-align:center;">
+(470.536)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Experience × Years as a cooperative member
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+−146.606
+</td>
+<td style="text-align:center;">
+1314.591
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(322.411)
+</td>
+<td style="text-align:center;">
+(1078.651)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Years spent in formal education × Years as a cooperative member
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+−19.775
+</td>
+<td style="text-align:center;">
+1402.282
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(339.431)
+</td>
+<td style="text-align:center;">
+(1512.580)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Household size × Years as a cooperative member
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+−9.780
+</td>
+<td style="text-align:center;">
+1598.233
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(349.012)
+</td>
+<td style="text-align:center;">
+(1616.021)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Age × Experience × Years spent in formal education
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+72.621
+</td>
+<td style="text-align:center;">
+−38.214
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(88.449)
+</td>
+<td style="text-align:center;">
+(38.386)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Age × Experience × Household size
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+71.786
+</td>
+<td style="text-align:center;">
+−45.862
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(89.607)
+</td>
+<td style="text-align:center;">
+(36.700)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Age × Years spent in formal education × Household size
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+37.224
+</td>
+<td style="text-align:center;">
+−59.358+
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(86.574)
+</td>
+<td style="text-align:center;">
+(35.423)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Experience × Years spent in formal education × Household size
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+99.695
+</td>
+<td style="text-align:center;">
+−141.079
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(127.942)
+</td>
+<td style="text-align:center;">
+(135.348)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Age × Experience × Years as a cooperative member
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+41.773
+</td>
+<td style="text-align:center;">
+−41.293
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(90.451)
+</td>
+<td style="text-align:center;">
+(29.463)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Age × Years spent in formal education × Years as a cooperative member
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+7.558
+</td>
+<td style="text-align:center;">
+−45.465
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(95.569)
+</td>
+<td style="text-align:center;">
+(43.009)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Experience × Years spent in formal education × Years as a cooperative member
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+56.856
+</td>
+<td style="text-align:center;">
+−106.971
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(128.179)
+</td>
+<td style="text-align:center;">
+(96.548)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Age × Household size × Years as a cooperative member
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+5.684
+</td>
+<td style="text-align:center;">
+−57.279
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(97.274)
+</td>
+<td style="text-align:center;">
+(41.653)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Experience × Household size × Years as a cooperative member
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+53.271
+</td>
+<td style="text-align:center;">
+−124.988
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(130.612)
+</td>
+<td style="text-align:center;">
+(94.861)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Years spent in formal education × Household size × Years as a cooperative member
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+3.965
+</td>
+<td style="text-align:center;">
+−148.608
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(139.964)
+</td>
+<td style="text-align:center;">
+(139.454)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Age × Experience × Years spent in formal education × Household size
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+−27.844
+</td>
+<td style="text-align:center;">
+4.331
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(35.809)
+</td>
+<td style="text-align:center;">
+(3.616)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Age × Experience × Years spent in formal education × Years as a cooperative member
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+−16.311
+</td>
+<td style="text-align:center;">
+3.364
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(36.096)
+</td>
+<td style="text-align:center;">
+(2.695)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Age × Experience × Household size × Years as a cooperative member
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+−15.558
+</td>
+<td style="text-align:center;">
+4.083
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(36.514)
+</td>
+<td style="text-align:center;">
+(2.543)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Age × Years spent in formal education × Household size × Years as a cooperative member
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+−2.115
+</td>
+<td style="text-align:center;">
+5.009
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(39.255)
+</td>
+<td style="text-align:center;">
+(3.834)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Experience × Years spent in formal education × Household size × Years as a cooperative member
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+−21.016
+</td>
+<td style="text-align:center;">
+10.938
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(51.999)
+</td>
+<td style="text-align:center;">
+(8.733)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Age × Experience × Years spent in formal education × Household size × Years as a cooperative member
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+6.104
+</td>
+<td style="text-align:center;">
+−0.356
+</td>
+</tr>
+<tr>
+<td style="text-align:left;box-shadow: 0px 1.5px">
+</td>
+<td style="text-align:center;box-shadow: 0px 1.5px">
+</td>
+<td style="text-align:center;box-shadow: 0px 1.5px">
+</td>
+<td style="text-align:center;box-shadow: 0px 1.5px">
+</td>
+<td style="text-align:center;box-shadow: 0px 1.5px">
+</td>
+<td style="text-align:center;box-shadow: 0px 1.5px">
+</td>
+<td style="text-align:center;box-shadow: 0px 1.5px">
+</td>
+<td style="text-align:center;box-shadow: 0px 1.5px">
+</td>
+<td style="text-align:center;box-shadow: 0px 1.5px">
+</td>
+<td style="text-align:center;box-shadow: 0px 1.5px">
+</td>
+<td style="text-align:center;box-shadow: 0px 1.5px">
+</td>
+<td style="text-align:center;box-shadow: 0px 1.5px">
+</td>
+<td style="text-align:center;box-shadow: 0px 1.5px">
+</td>
+<td style="text-align:center;box-shadow: 0px 1.5px">
+(14.611)
+</td>
+<td style="text-align:center;box-shadow: 0px 1.5px">
+(0.241)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Num.Obs.
+</td>
+<td style="text-align:center;">
+100
+</td>
+<td style="text-align:center;">
+100
+</td>
+<td style="text-align:center;">
+100
+</td>
+<td style="text-align:center;">
+100
+</td>
+<td style="text-align:center;">
+100
+</td>
+<td style="text-align:center;">
+100
+</td>
+<td style="text-align:center;">
+100
+</td>
+<td style="text-align:center;">
+100
+</td>
+<td style="text-align:center;">
+100
+</td>
+<td style="text-align:center;">
+100
+</td>
+<td style="text-align:center;">
+100
+</td>
+<td style="text-align:center;">
+100
+</td>
+<td style="text-align:center;">
+100
+</td>
+<td style="text-align:center;">
+100
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+R2
+</td>
+<td style="text-align:center;">
+0.269
+</td>
+<td style="text-align:center;">
+0.134
+</td>
+<td style="text-align:center;">
+0.139
+</td>
+<td style="text-align:center;">
+0.144
+</td>
+<td style="text-align:center;">
+0.136
+</td>
+<td style="text-align:center;">
+0.144
+</td>
+<td style="text-align:center;">
+0.141
+</td>
+<td style="text-align:center;">
+0.166
+</td>
+<td style="text-align:center;">
+0.168
+</td>
+<td style="text-align:center;">
+0.168
+</td>
+<td style="text-align:center;">
+0.173
+</td>
+<td style="text-align:center;">
+0.168
+</td>
+<td style="text-align:center;">
+0.248
+</td>
+<td style="text-align:center;">
+0.471
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+R2 Adj.
+</td>
+<td style="text-align:center;">
+0.149
+</td>
+<td style="text-align:center;">
+−0.008
+</td>
+<td style="text-align:center;">
+−0.003
+</td>
+<td style="text-align:center;">
+0.003
+</td>
+<td style="text-align:center;">
+−0.006
+</td>
+<td style="text-align:center;">
+0.003
+</td>
+<td style="text-align:center;">
+−0.001
+</td>
+<td style="text-align:center;">
+−0.032
+</td>
+<td style="text-align:center;">
+−0.030
+</td>
+<td style="text-align:center;">
+−0.030
+</td>
+<td style="text-align:center;">
+−0.092
+</td>
+<td style="text-align:center;">
+−0.030
+</td>
+<td style="text-align:center;">
+−0.379
+</td>
+<td style="text-align:center;">
+0.112
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AIC
+</td>
+<td style="text-align:center;">
+1867.6
+</td>
+<td style="text-align:center;">
+136.2
+</td>
+<td style="text-align:center;">
+407.6
+</td>
+<td style="text-align:center;">
+407.0
+</td>
+<td style="text-align:center;">
+6.6
+</td>
+<td style="text-align:center;">
+−25.8
+</td>
+<td style="text-align:center;">
+−149.1
+</td>
+<td style="text-align:center;">
+414.4
+</td>
+<td style="text-align:center;">
+414.2
+</td>
+<td style="text-align:center;">
+414.2
+</td>
+<td style="text-align:center;">
+423.6
+</td>
+<td style="text-align:center;">
+414.2
+</td>
+<td style="text-align:center;">
+54.8
+</td>
+<td style="text-align:center;">
+1887.3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BIC
+</td>
+<td style="text-align:center;">
+1909.3
+</td>
+<td style="text-align:center;">
+177.9
+</td>
+<td style="text-align:center;">
+449.3
+</td>
+<td style="text-align:center;">
+448.7
+</td>
+<td style="text-align:center;">
+48.3
+</td>
+<td style="text-align:center;">
+15.9
+</td>
+<td style="text-align:center;">
+−107.4
+</td>
+<td style="text-align:center;">
+469.1
+</td>
+<td style="text-align:center;">
+468.9
+</td>
+<td style="text-align:center;">
+468.9
+</td>
+<td style="text-align:center;">
+491.3
+</td>
+<td style="text-align:center;">
+468.9
+</td>
+<td style="text-align:center;">
+177.2
+</td>
+<td style="text-align:center;">
+1996.7
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Log.Lik.
+</td>
+<td style="text-align:center;">
+−917.806
+</td>
+<td style="text-align:center;">
+−52.086
+</td>
+<td style="text-align:center;">
+−187.788
+</td>
+<td style="text-align:center;">
+−187.515
+</td>
+<td style="text-align:center;">
+12.708
+</td>
+<td style="text-align:center;">
+28.878
+</td>
+<td style="text-align:center;">
+90.564
+</td>
+<td style="text-align:center;">
+−186.183
+</td>
+<td style="text-align:center;">
+−186.107
+</td>
+<td style="text-align:center;">
+−186.112
+</td>
+<td style="text-align:center;">
+−185.782
+</td>
+<td style="text-align:center;">
+−186.105
+</td>
+<td style="text-align:center;">
+19.615
+</td>
+<td style="text-align:center;">
+−901.648
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+F
+</td>
+<td style="text-align:center;">
+2.235
+</td>
+<td style="text-align:center;">
+0.941
+</td>
+<td style="text-align:center;">
+0.982
+</td>
+<td style="text-align:center;">
+1.021
+</td>
+<td style="text-align:center;">
+0.959
+</td>
+<td style="text-align:center;">
+1.018
+</td>
+<td style="text-align:center;">
+0.996
+</td>
+<td style="text-align:center;">
+0.841
+</td>
+<td style="text-align:center;">
+0.848
+</td>
+<td style="text-align:center;">
+0.848
+</td>
+<td style="text-align:center;">
+0.654
+</td>
+<td style="text-align:center;">
+0.849
+</td>
+<td style="text-align:center;">
+0.395
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+RMSE
+</td>
+<td style="text-align:center;">
+2342.84
+</td>
+<td style="text-align:center;">
+0.41
+</td>
+<td style="text-align:center;">
+1.58
+</td>
+<td style="text-align:center;">
+1.58
+</td>
+<td style="text-align:center;">
+0.21
+</td>
+<td style="text-align:center;">
+0.18
+</td>
+<td style="text-align:center;">
+0.10
+</td>
+<td style="text-align:center;">
+1.56
+</td>
+<td style="text-align:center;">
+1.56
+</td>
+<td style="text-align:center;">
+1.56
+</td>
+<td style="text-align:center;">
+1.55
+</td>
+<td style="text-align:center;">
+1.56
+</td>
+<td style="text-align:center;">
+0.20
+</td>
+<td style="text-align:center;">
+1993.28
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> + p &lt; 0.1, * p &lt; 0.05, ** p &lt; 0.01, *** p &lt; 0.001
+</td>
+</tr>
+</tfoot>
+</table>
+</div>
+<div id="significant-plot" class="section level2">
+<h2>Significant plot</h2>
+<p>Individual model has one</p>
+<pre class="r"><code>Model1$`Significant plot of Double Log`</code></pre>
+<p><img src="/r-blog/2023-07-31-r-markdown/LinearSystems_files/figure-html/unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="fitted-estimates" class="section level2">
+<h2>Fitted estimates</h2>
+<pre class="r"><code>Model1$`Fitted plots wide format`</code></pre>
+<p><img src="/r-blog/2023-07-31-r-markdown/LinearSystems_files/figure-html/unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="marginal-effects" class="section level2">
+<h2>Marginal effects</h2>
+<pre class="r"><code>Model1$`Tables of marginal effects`[[1]]</code></pre>
+<table style="NAborder-bottom: 0; width: auto !important; margin-left: auto; margin-right: auto;" class="table">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:center;">
+Linear
+</th>
+<th style="text-align:center;">
+Linear with interaction
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Age dY/dX
+</td>
+<td style="text-align:center;">
+−26.698
+</td>
+<td style="text-align:center;">
+−81.589
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+(39.826)
+</td>
+<td style="text-align:center;">
+(3168.661)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Experience dY/dX
+</td>
+<td style="text-align:center;">
+15.358
+</td>
+<td style="text-align:center;">
+−2.022
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+(119.309)
+</td>
+<td style="text-align:center;">
+(1773.827)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Household size dY/dX
+</td>
+<td style="text-align:center;">
+317.218***
+</td>
+<td style="text-align:center;">
+429.647***
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+(0.041)
+</td>
+<td style="text-align:center;">
+(0.998)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Level of education Non-formal - Illiterate
+</td>
+<td style="text-align:center;">
+−4535.272
+</td>
+<td style="text-align:center;">
+−7893.322***
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(0.001)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Level of education Primary - Illiterate
+</td>
+<td style="text-align:center;">
+−1891.589
+</td>
+<td style="text-align:center;">
+−4970.197***
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(0.001)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Level of education Secondary - Illiterate
+</td>
+<td style="text-align:center;">
+−4243.879
+</td>
+<td style="text-align:center;">
+−7558.975***
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(0.001)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Level of education Tertiary - Illiterate
+</td>
+<td style="text-align:center;">
+−5416.211
+</td>
+<td style="text-align:center;">
+−9340.187***
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(0.001)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Main Occupation Marketing of Agricultural produce - Civil Servant
+</td>
+<td style="text-align:center;">
+696.759
+</td>
+<td style="text-align:center;">
+871.619***
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(0.001)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Main Occupation Sale of provision - Civil Servant
+</td>
+<td style="text-align:center;">
+974.225
+</td>
+<td style="text-align:center;">
+705.656***
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(0.001)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Marital status Married - Divorced
+</td>
+<td style="text-align:center;">
+1842.879***
+</td>
+<td style="text-align:center;">
+−2815.028***
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+(0.000)
+</td>
+<td style="text-align:center;">
+(0.001)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Marital status Single - Divorced
+</td>
+<td style="text-align:center;">
+4142.944
+</td>
+<td style="text-align:center;">
+4127.110***
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(0.001)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Marital status Widowed - Divorced
+</td>
+<td style="text-align:center;">
+2168.175
+</td>
+<td style="text-align:center;">
+−1061.522***
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(0.000)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Years as a cooperative member dY/dX
+</td>
+<td style="text-align:center;">
+−52.901***
+</td>
+<td style="text-align:center;">
+−32.928***
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+(0.019)
+</td>
+<td style="text-align:center;">
+(0.439)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Years spent in formal education dY/dX
+</td>
+<td style="text-align:center;">
+217.766***
+</td>
+<td style="text-align:center;">
+263.233***
+</td>
+</tr>
+<tr>
+<td style="text-align:left;box-shadow: 0px 1.5px">
+</td>
+<td style="text-align:center;box-shadow: 0px 1.5px">
+(0.054)
+</td>
+<td style="text-align:center;box-shadow: 0px 1.5px">
+(1.064)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Num.Obs.
+</td>
+<td style="text-align:center;">
+100
+</td>
+<td style="text-align:center;">
+100
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+R2
+</td>
+<td style="text-align:center;">
+0.269
+</td>
+<td style="text-align:center;">
+0.471
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+R2 Adj.
+</td>
+<td style="text-align:center;">
+0.149
+</td>
+<td style="text-align:center;">
+0.112
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AIC
+</td>
+<td style="text-align:center;">
+1867.6
+</td>
+<td style="text-align:center;">
+1887.3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BIC
+</td>
+<td style="text-align:center;">
+1909.3
+</td>
+<td style="text-align:center;">
+1996.7
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Log.Lik.
+</td>
+<td style="text-align:center;">
+−917.806
+</td>
+<td style="text-align:center;">
+−901.648
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+F
+</td>
+<td style="text-align:center;">
+2.235
+</td>
+<td style="text-align:center;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+RMSE
+</td>
+<td style="text-align:center;">
+2342.84
+</td>
+<td style="text-align:center;">
+1993.28
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> + p &lt; 0.1, * p &lt; 0.05, ** p &lt; 0.01, *** p &lt; 0.001
+</td>
+</tr>
+</tfoot>
+</table>
+</div>
+<div id="naive-effects" class="section level2">
+<h2>Naive effects</h2>
+<pre class="r"><code>Model1$`Naive effects plots long format`</code></pre>
+<p><img src="/r-blog/2023-07-31-r-markdown/LinearSystems_files/figure-html/unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="estimation-with-test-data" class="section level1">
+<h1>Estimation with test data</h1>
+<pre class="r"><code>x &lt;- sampling[, -1]
+y &lt;- sampling$qOutput
+Data &lt;- cbind(y, x)
+sampling &lt;- sample(1:nrow(Data), 0.8 * nrow(Data)) # 80% of data is sampled for training the model
+train &lt;- Data[sampling, ]
+Test &lt;- Data[-sampling, ] # 20% of data is reserved for testing (predicting) the model
+y &lt;- train$y
+x &lt;- train[, -1]
+mod &lt;- 4
+Model2 &lt;- Linearsystems(y, x, 4, 15, Test)</code></pre>
+<pre class="r"><code>Model2$`Model Table`</code></pre>
+<table style="NAborder-bottom: 0; width: auto !important; margin-left: auto; margin-right: auto;" class="table">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:center;">
+Linear
+</th>
+<th style="text-align:center;">
+Square root
+</th>
+<th style="text-align:center;">
+Cubic root
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+(Intercept)
+</td>
+<td style="text-align:center;">
+−260.945**
+</td>
+<td style="text-align:center;">
+7.664***
+</td>
+<td style="text-align:center;">
+6.490***
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+(96.670)
+</td>
+<td style="text-align:center;">
+(0.475)
+</td>
+<td style="text-align:center;">
+(0.670)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+qLabor
+</td>
+<td style="text-align:center;">
+−84.260
+</td>
+<td style="text-align:center;">
+1.453
+</td>
+<td style="text-align:center;">
+0.421
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+(73.512)
+</td>
+<td style="text-align:center;">
+(1.015)
+</td>
+<td style="text-align:center;">
+(0.759)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+land
+</td>
+<td style="text-align:center;">
+25.807***
+</td>
+<td style="text-align:center;">
+−0.048***
+</td>
+<td style="text-align:center;">
+−0.039***
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+(1.555)
+</td>
+<td style="text-align:center;">
+(0.008)
+</td>
+<td style="text-align:center;">
+(0.006)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+qVarInput
+</td>
+<td style="text-align:center;">
+1.220***
+</td>
+<td style="text-align:center;">
+0.003
+</td>
+<td style="text-align:center;">
+0.003+
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+(0.075)
+</td>
+<td style="text-align:center;">
+(0.002)
+</td>
+<td style="text-align:center;">
+(0.001)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+time
+</td>
+<td style="text-align:center;">
+20.992***
+</td>
+<td style="text-align:center;">
+−0.006*
+</td>
+<td style="text-align:center;">
+0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+(1.436)
+</td>
+<td style="text-align:center;">
+(0.002)
+</td>
+<td style="text-align:center;">
+(0.002)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+IqLabor
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+−3.778
+</td>
+<td style="text-align:center;">
+−2.034
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(2.410)
+</td>
+<td style="text-align:center;">
+(2.851)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Iland
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+0.753***
+</td>
+<td style="text-align:center;">
+1.726***
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(0.080)
+</td>
+<td style="text-align:center;">
+(0.159)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+IqVarInput
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+−0.108
+</td>
+<td style="text-align:center;">
+−0.436
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(0.091)
+</td>
+<td style="text-align:center;">
+(0.306)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Itime
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+0.126***
+</td>
+<td style="text-align:center;">
+0.179***
+</td>
+</tr>
+<tr>
+<td style="text-align:left;box-shadow: 0px 1.5px">
+</td>
+<td style="text-align:center;box-shadow: 0px 1.5px">
+</td>
+<td style="text-align:center;box-shadow: 0px 1.5px">
+(0.008)
+</td>
+<td style="text-align:center;box-shadow: 0px 1.5px">
+(0.014)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Num.Obs.
+</td>
+<td style="text-align:center;">
+160
+</td>
+<td style="text-align:center;">
+160
+</td>
+<td style="text-align:center;">
+160
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+R2
+</td>
+<td style="text-align:center;">
+1.000
+</td>
+<td style="text-align:center;">
+1.000
+</td>
+<td style="text-align:center;">
+1.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+R2 Adj.
+</td>
+<td style="text-align:center;">
+1.000
+</td>
+<td style="text-align:center;">
+1.000
+</td>
+<td style="text-align:center;">
+1.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AIC
+</td>
+<td style="text-align:center;">
+1127.7
+</td>
+<td style="text-align:center;">
+−1130.2
+</td>
+<td style="text-align:center;">
+−1127.6
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BIC
+</td>
+<td style="text-align:center;">
+1146.2
+</td>
+<td style="text-align:center;">
+−1099.5
+</td>
+<td style="text-align:center;">
+−1096.9
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Log.Lik.
+</td>
+<td style="text-align:center;">
+−557.874
+</td>
+<td style="text-align:center;">
+575.109
+</td>
+<td style="text-align:center;">
+573.808
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+F
+</td>
+<td style="text-align:center;">
+5059140.593
+</td>
+<td style="text-align:center;">
+157990.105
+</td>
+<td style="text-align:center;">
+155442.975
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+RMSE
+</td>
+<td style="text-align:center;">
+7.91
+</td>
+<td style="text-align:center;">
+0.01
+</td>
+<td style="text-align:center;">
+0.01
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> + p &lt; 0.1, * p &lt; 0.05, ** p &lt; 0.01, *** p &lt; 0.001
+</td>
+</tr>
+</tfoot>
+</table>
+<div id="model-table-1" class="section level2">
+<h2>Model Table</h2>
+<pre class="r"><code>Model2$`Table of Marginal effects`</code></pre>
+<table style="NAborder-bottom: 0; width: auto !important; margin-left: auto; margin-right: auto;" class="table">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:center;">
+Linear
+</th>
+<th style="text-align:center;">
+Square root
+</th>
+<th style="text-align:center;">
+Cubic root
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+land
+</td>
+<td style="text-align:center;">
+25.807***
+</td>
+<td style="text-align:center;">
+−0.048***
+</td>
+<td style="text-align:center;">
+−0.039***
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+(1.555)
+</td>
+<td style="text-align:center;">
+(0.008)
+</td>
+<td style="text-align:center;">
+(0.006)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+qLabor
+</td>
+<td style="text-align:center;">
+−84.260
+</td>
+<td style="text-align:center;">
+1.453
+</td>
+<td style="text-align:center;">
+0.421
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+(73.495)
+</td>
+<td style="text-align:center;">
+(1.015)
+</td>
+<td style="text-align:center;">
+(0.759)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+qVarInput
+</td>
+<td style="text-align:center;">
+1.220***
+</td>
+<td style="text-align:center;">
+0.003
+</td>
+<td style="text-align:center;">
+0.003+
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+(0.075)
+</td>
+<td style="text-align:center;">
+(0.002)
+</td>
+<td style="text-align:center;">
+(0.001)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+time
+</td>
+<td style="text-align:center;">
+20.992***
+</td>
+<td style="text-align:center;">
+−0.006**
+</td>
+<td style="text-align:center;">
+0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+(1.436)
+</td>
+<td style="text-align:center;">
+(0.002)
+</td>
+<td style="text-align:center;">
+(0.002)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Iland
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+0.753***
+</td>
+<td style="text-align:center;">
+1.726***
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(0.080)
+</td>
+<td style="text-align:center;">
+(0.159)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+IqLabor
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+−3.778
+</td>
+<td style="text-align:center;">
+−2.034
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(2.410)
+</td>
+<td style="text-align:center;">
+(2.850)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+IqVarInput
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+−0.108
+</td>
+<td style="text-align:center;">
+−0.436
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(0.091)
+</td>
+<td style="text-align:center;">
+(0.306)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Itime
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+0.126***
+</td>
+<td style="text-align:center;">
+0.179***
+</td>
+</tr>
+<tr>
+<td style="text-align:left;box-shadow: 0px 1.5px">
+</td>
+<td style="text-align:center;box-shadow: 0px 1.5px">
+</td>
+<td style="text-align:center;box-shadow: 0px 1.5px">
+(0.008)
+</td>
+<td style="text-align:center;box-shadow: 0px 1.5px">
+(0.014)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Num.Obs.
+</td>
+<td style="text-align:center;">
+160
+</td>
+<td style="text-align:center;">
+160
+</td>
+<td style="text-align:center;">
+160
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+R2
+</td>
+<td style="text-align:center;">
+1.000
+</td>
+<td style="text-align:center;">
+1.000
+</td>
+<td style="text-align:center;">
+1.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+R2 Adj.
+</td>
+<td style="text-align:center;">
+1.000
+</td>
+<td style="text-align:center;">
+1.000
+</td>
+<td style="text-align:center;">
+1.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AIC
+</td>
+<td style="text-align:center;">
+1127.7
+</td>
+<td style="text-align:center;">
+−1130.2
+</td>
+<td style="text-align:center;">
+−1127.6
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BIC
+</td>
+<td style="text-align:center;">
+1146.2
+</td>
+<td style="text-align:center;">
+−1099.5
+</td>
+<td style="text-align:center;">
+−1096.9
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Log.Lik.
+</td>
+<td style="text-align:center;">
+−557.874
+</td>
+<td style="text-align:center;">
+575.109
+</td>
+<td style="text-align:center;">
+573.808
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+F
+</td>
+<td style="text-align:center;">
+5059140.593
+</td>
+<td style="text-align:center;">
+157990.105
+</td>
+<td style="text-align:center;">
+155442.975
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+RMSE
+</td>
+<td style="text-align:center;">
+7.91
+</td>
+<td style="text-align:center;">
+0.01
+</td>
+<td style="text-align:center;">
+0.01
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> + p &lt; 0.1, * p &lt; 0.05, ** p &lt; 0.01, *** p &lt; 0.001
+</td>
+</tr>
+</tfoot>
+</table>
+</div>
+<div id="visualise-means-of-the-numeric-variables" class="section level2">
+<h2>Visualise means of the numeric variables</h2>
+<pre class="r"><code>Model2$`Visual means of the numeric variable`</code></pre>
+<p><img src="/r-blog/2023-07-31-r-markdown/LinearSystems_files/figure-html/unnamed-chunk-12-1.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="fitted-estimates-1" class="section level2">
+<h2>Fitted estimates</h2>
+<pre class="r"><code>Model2$`Fitted plots long format`</code></pre>
+<p><img src="/r-blog/2023-07-31-r-markdown/LinearSystems_files/figure-html/unnamed-chunk-13-1.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="predicted" class="section level2">
+<h2>Predicted</h2>
+<pre class="r"><code>Model2$`Prediction plots long format`</code></pre>
+<p><img src="/r-blog/2023-07-31-r-markdown/LinearSystems_files/figure-html/unnamed-chunk-14-1.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="significant-plot-1" class="section level2">
+<h2>Significant plot</h2>
+<pre class="r"><code>Model2$`Significant plot of Square root`</code></pre>
+<p><img src="/r-blog/2023-07-31-r-markdown/LinearSystems_files/figure-html/unnamed-chunk-15-1.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="performance-and-diagnostic-values" class="section level2">
+<h2>Performance and Diagnostic values</h2>
+<pre class="r"><code>Model2$`Machine Learning Metrics`</code></pre>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Name
+</th>
+<th style="text-align:left;">
+Linear
+</th>
+<th style="text-align:left;">
+Square.root
+</th>
+<th style="text-align:left;">
+Cubic.root
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Absolute Error
+</td>
+<td style="text-align:left;">
+380
+</td>
+<td style="text-align:left;">
+0.33
+</td>
+<td style="text-align:left;">
+0.35
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Absolute Percent Error
+</td>
+<td style="text-align:left;">
+0.27
+</td>
+<td style="text-align:left;">
+0.045
+</td>
+<td style="text-align:left;">
+0.047
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Accuracy
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Adjusted R Square
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Akaike’s Information Criterion AIC
+</td>
+<td style="text-align:left;">
+1100
+</td>
+<td style="text-align:left;">
+-1100
+</td>
+<td style="text-align:left;">
+-1100
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Allen’s Prediction Sum-Of-Squares (PRESS, P-Square)
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Area under the ROC curve (AUC)
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Average Precision at k
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Bias
+</td>
+<td style="text-align:left;">
+5e-15
+</td>
+<td style="text-align:left;">
+1.1e-17
+</td>
+<td style="text-align:left;">
+7.2e-17
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Brier score
+</td>
+<td style="text-align:left;">
+60
+</td>
+<td style="text-align:left;">
+4e-05
+</td>
+<td style="text-align:left;">
+4e-05
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Classification Error
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+F1 Score
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fScore
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+GINI Coefficient
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+kappa statistic
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Log Loss
+</td>
+<td style="text-align:left;">
+Inf
+</td>
+<td style="text-align:left;">
+Inf
+</td>
+<td style="text-align:left;">
+Inf
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Mallow’s cp
+</td>
+<td style="text-align:left;">
+5
+</td>
+<td style="text-align:left;">
+9
+</td>
+<td style="text-align:left;">
+9
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Matthews Correlation Coefficient
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Mean Log Loss
+</td>
+<td style="text-align:left;">
+-210000
+</td>
+<td style="text-align:left;">
+-260
+</td>
+<td style="text-align:left;">
+-260
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Mean Absolute Error
+</td>
+<td style="text-align:left;">
+2.4
+</td>
+<td style="text-align:left;">
+0.0021
+</td>
+<td style="text-align:left;">
+0.0022
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Mean Absolute Percent Error
+</td>
+<td style="text-align:left;">
+0.0017
+</td>
+<td style="text-align:left;">
+0.00028
+</td>
+<td style="text-align:left;">
+0.00029
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Mean Average Precision at k
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Mean Absolute Scaled Error
+</td>
+<td style="text-align:left;">
+0.00072
+</td>
+<td style="text-align:left;">
+0.0031
+</td>
+<td style="text-align:left;">
+0.0032
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Median Absolute Error
+</td>
+<td style="text-align:left;">
+0.55
+</td>
+<td style="text-align:left;">
+0.00053
+</td>
+<td style="text-align:left;">
+0.00064
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Mean Squared Error
+</td>
+<td style="text-align:left;">
+63
+</td>
+<td style="text-align:left;">
+4.4e-05
+</td>
+<td style="text-align:left;">
+4.5e-05
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Mean Squared Log Error
+</td>
+<td style="text-align:left;">
+4.9e-05
+</td>
+<td style="text-align:left;">
+6.9e-07
+</td>
+<td style="text-align:left;">
+7e-07
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Model turning point error
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Negative Predictive Value
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Percent Bias
+</td>
+<td style="text-align:left;">
+5.6e-05
+</td>
+<td style="text-align:left;">
+-8.7e-07
+</td>
+<td style="text-align:left;">
+-8.9e-07
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Positive Predictive Value
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Precision
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+R Square
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Relative Absolute Error
+</td>
+<td style="text-align:left;">
+0.00097
+</td>
+<td style="text-align:left;">
+0.0042
+</td>
+<td style="text-align:left;">
+0.0044
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Recall
+</td>
+<td style="text-align:left;">
+NaN
+</td>
+<td style="text-align:left;">
+NaN
+</td>
+<td style="text-align:left;">
+NaN
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Root Mean Squared Error
+</td>
+<td style="text-align:left;">
+7.9
+</td>
+<td style="text-align:left;">
+0.0066
+</td>
+<td style="text-align:left;">
+0.0067
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Root Mean Squared Log Error
+</td>
+<td style="text-align:left;">
+0.007
+</td>
+<td style="text-align:left;">
+0.00083
+</td>
+<td style="text-align:left;">
+0.00083
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Root Relative Squared Error
+</td>
+<td style="text-align:left;">
+0.0028
+</td>
+<td style="text-align:left;">
+0.011
+</td>
+<td style="text-align:left;">
+0.011
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Relative Squared Error
+</td>
+<td style="text-align:left;">
+7.7e-06
+</td>
+<td style="text-align:left;">
+0.00012
+</td>
+<td style="text-align:left;">
+0.00012
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Schwarz’s Bayesian criterion BIC
+</td>
+<td style="text-align:left;">
+1100
+</td>
+<td style="text-align:left;">
+-1100
+</td>
+<td style="text-align:left;">
+-1100
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sensitivity
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+specificity
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Squared Error
+</td>
+<td style="text-align:left;">
+10000
+</td>
+<td style="text-align:left;">
+0.0071
+</td>
+<td style="text-align:left;">
+0.0072
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Squared Log Error
+</td>
+<td style="text-align:left;">
+0.0078
+</td>
+<td style="text-align:left;">
+0.00011
+</td>
+<td style="text-align:left;">
+0.00011
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Symmetric Mean Absolute Percentage Error
+</td>
+<td style="text-align:left;">
+0.0017
+</td>
+<td style="text-align:left;">
+0.00028
+</td>
+<td style="text-align:left;">
+0.00029
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sum of Squared Errors
+</td>
+<td style="text-align:left;">
+10000
+</td>
+<td style="text-align:left;">
+0.0071
+</td>
+<td style="text-align:left;">
+0.0072
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+True negative rate
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+True positive rate
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+<td style="text-align:left;">
+0
+</td>
+</tr>
+</tbody>
+</table>
+<p>Welcome to easy machine learning and models estimation!</p>
+</div>
+</div>
+
+    </div>
+
+    
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tags/rstats/">RStats</a>
+  
+  <a class="badge badge-light" href="/tags/linear-regression/">Linear regression</a>
+  
+  <a class="badge badge-light" href="/tags/linear-transformations/">Linear transformations</a>
+  
+  <a class="badge badge-light" href="/tags/machine-learning/">Machine Learning</a>
+  
+</div>
+
+
+
+    
+      
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+  
+  
+    
+  
+  
+  <div class="media author-card" itemscope itemtype="http://schema.org/Person">
+    
+
+    <div class="media-body">
+      <h5 class="card-title" itemprop="name"><a href="https://jobnmadu.com/">Job Nmadu</a></h5>
+      <h6 class="card-subtitle">Professor of Agricultural Economics and Dean, School of Agriculture and Agricultural Technology</h6>
+      <p class="card-text" itemprop="description">Research interests are economic efficiencies of small scale farming and welfare effects of agricultural interventions.</p>
+      <ul class="network-icon" aria-hidden="true">
+        
+          
+          
+          
+            
+          
+          
+          
+          
+          
+            
+          
+          <li>
+            <a itemprop="sameAs" href="/#contact" >
+              <i class="fas fa-envelope"></i>
+            </a>
+          </li>
+        
+          
+          
+          
+            
+          
+          
+          
+          
+          
+            
+          
+          <li>
+            <a itemprop="sameAs" href="/job.nmadu@gmail.com" >
+              <i class="fas fa-envelope"></i>
+            </a>
+          </li>
+        
+          
+          
+          
+            
+          
+          
+          
+          
+          
+            
+          
+          <li>
+            <a itemprop="sameAs" href="https://twitter.com/JobNmadu" target="_blank" rel="noopener">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </li>
+        
+          
+          
+          
+          
+          
+          
+          
+            
+          
+          <li>
+            <a itemprop="sameAs" href="http://scholar.google.com/citations?user=C1_-HgIAAAAJ&amp;hl=en" target="_blank" rel="noopener">
+              <i class="ai ai-google-scholar"></i>
+            </a>
+          </li>
+        
+          
+          
+          
+            
+          
+          
+          
+          
+          
+            
+          
+          <li>
+            <a itemprop="sameAs" href="https://github.com/JobNmadu" target="_blank" rel="noopener">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+        
+          
+          
+          
+            
+          
+          
+          
+          
+          
+            
+          
+          <li>
+            <a itemprop="sameAs" href="https://www.linkedin.com/in/jobnmadu" target="_blank" rel="noopener">
+              <i class="fab fa-linkedin"></i>
+            </a>
+          </li>
+        
+          
+          
+          
+            
+          
+          
+          
+          
+          
+            
+          
+          <li>
+            <a itemprop="sameAs" href="https://t.me/Job_Nmadu" target="_blank" rel="noopener">
+              <i class="fab fa-telegram"></i>
+            </a>
+          </li>
+        
+          
+          
+          
+            
+          
+          
+          
+          
+          
+            
+          
+          <li>
+            <a itemprop="sameAs" href="https://jobnmadu.blogspot.com/" target="_blank" rel="noopener">
+              <i class="fab fa-blogger"></i>
+            </a>
+          </li>
+        
+          
+          
+          
+          
+          
+          
+          
+            
+          
+          <li>
+            <a itemprop="sameAs" href="https://orcid.org/0000-0002-1320-8957" target="_blank" rel="noopener">
+              <i class="ai ai-orcid"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+
+      
+      
+      <div class="article-widget">
+        <div class="hr-light"></div>
+        <h3>Related</h3>
+        <ul>
+          
+          <li><a href="/r-blog/2023-03-12-r-rmarkdown/transform/">Data transformation and standardization in r</a></li>
+          
+          <li><a href="/r-blog/2023-02-04-r-rmarkdown/mallows/">Better and enhanced method of estimating Mallow&#39;s Cp</a></li>
+          
+          <li><a href="/r-blog/2022-09-18-r-rmarkdown/fre_days/">Frequency of occurrence of COVID-19 cases across Nigeria</a></li>
+          
+          <li><a href="/r-blog/2020-12-01-r-rmarkdown/dynamic-forecast-from-regression-models/">Modelling of COVID-19 distribution in Nigeria</a></li>
+          
+          <li><a href="/r-blog/2021-05-20-r-rmarkdown/data-scrapping/">COVID19 data scrapping from Nigerian Centre for Disease Control (NCDC)</a></li>
+          
+        </ul>
+      </div>
+      
+    
+
+    
+    <div class="article-widget">
+      
+<div class="post-nav">
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">Next</div>
+    <a href="/r-blog/2023-09-29-r-markdown/likertsystems/" rel="next">Reveal the stories behind those Likert-type data</a>
+  </div>
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">Previous</div>
+    <a href="/r-blog/2023-03-12-r-rmarkdown/transform/" rel="prev">Data transformation and standardization in r</a>
+  </div>
+  
+</div>
+
+    </div>
+    
+
+    
+
+
+  </div>
+</article>
+
+      
+
+    
+    
+    
+    <script src="/js/mathjax-config.js"></script>
+    
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" integrity="sha256-X5PoE3KU5l+JcX+w09p/wHl9AzK333C4hJ2I9S5mD4M=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js" integrity="sha256-aYTdUrn6Ow1DDgh5JTc3aDGnnju48y/1c8s1dgkYPQ8=" crossorigin="anonymous"></script>
+        
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/languages/r.min.js"></script>
+        
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/languages/SQL.min.js"></script>
+        
+      
+
+      
+      
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_CHTML-full" integrity="sha256-GhM+5JHb6QUzOQPXSJLEWP7R73CbkisjzK5Eyij4U9w=" crossorigin="anonymous" async></script>
+      
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.js" integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log==" crossorigin="anonymous"></script>
+    
+
+    
+    
+    
+
+    
+    
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    
+    
+    <script>
+      const search_index_filename = "/index.json";
+      const i18n = {
+        'placeholder': "Search...",
+        'results': "results found",
+        'no_results': "No results found"
+      };
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academia.min.1864145399ae9e7997bb63a7a7dd152c.js"></script>
+
+    
+
+
+
+
+
+
+  
+  <div class="container">
+    <footer class="site-footer">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-6 mb-4 mb-md-0">
+        
+        <p class="mb-0">
+          JNNmadu © 2023 &middot; 
+          Powered by
+          <a href="https://gethugothemes.com" target="_blank" rel="noopener">Gethugothemes</a>
+        </p>
+      </div>
+      <div class="col-md-6">
+        <ul class="list-inline network-icon text-right mb-0">
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="https://www.twitter.com/JobNmadu" target="_blank" rel="noopener" title="DM Me"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+          </li>
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="skype:job.nda.nmadu"  title="Skype Me"><i class="fab fa-skype" aria-hidden="true"></i></a>
+          </li>
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="https://t.me/Job_Nmadu" target="_blank" rel="noopener" title="Telegram Me"><i class="fab fa-telegram" aria-hidden="true"></i></a>
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

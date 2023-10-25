@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="en-uk">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academia 4.3.1">
+  <meta name="generator" content="Hugo 0.81.0" />
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Job Nmadu">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="IntroductionIn statistics, Mallows&#39;s Cp, named for Colin Lingwood Mallows, an English statistician, is used to assess the fit of a regression model that has been estimated using ordinary least squares. Models with a Mallows&#39; Cp value near P&#43;1 (i.e. the number of explanatory variables &#43; 1) have a low bias. If every potential model has a high value for Mallows&#39; Cp, this indicates that some important predictor variables are likely missing from each model.">
+
+  
+  <link rel="alternate" hreflang="en-uk" href="https://jobnmadu.com/r-blog/2023-02-04-r-rmarkdown/mallows/">
+
+  
+
+
+  
+
+  
+  
+  
+  <meta name="theme-color" content="#3f51b5">
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css" integrity="sha384-aOkxzJ5uQz7WBObEZcHvV5JvRW3TUc2rNPA7pe3AwnsUohiw1Vj2Rgx2KSOkF5+h" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" integrity="sha256-ygkqlh3CYSUri3LhQxzdcm0n1EQvH2Y+U5S2idbLtxs=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.css" integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ==" crossorigin="anonymous">
+    
+
+    
+
+  
+
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Open+Sans|Roboto+Mono&display=swap">
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/css/academia.min.3632deb0096ca98c81e95314c5855a45.css">
+
+  
+
+  
+  
+  
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'G-V53DTDYQF5', 'auto');
+      ga('set', 'anonymizeIp', true);
+      ga('require', 'eventTracker');
+      ga('require', 'outboundLinkTracker');
+      ga('require', 'urlChangeTracker');
+      ga('send', 'pageview');
+    </script>
+    <script async src="//www.google-analytics.com/analytics.js"></script>
+    
+    <script async src="https://cdnjs.cloudflare.com/ajax/libs/autotrack/2.4.1/autotrack.js" integrity="sha512-HUmooslVKj4m6OBu0OgzjXXr+QuFYy/k7eLI5jdeEy/F4RSgMn6XRWRGkFi5IFaFgy7uFTkegp3Z0XnJf3Jq+g==" crossorigin="anonymous"></script>
+    
+  
+  
+
+  
+
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="icon" type="image/png" href="/img/icon.png">
+  <link rel="apple-touch-icon" type="image/png" href="/img/icon-192.png">
+
+  <link rel="canonical" href="https://jobnmadu.com/r-blog/2023-02-04-r-rmarkdown/mallows/">
+
+  
+  
+  
+  
+    
+  
+  <meta property="twitter:card" content="summary_large_image">
+  
+  <meta property="twitter:site" content="@JobNmadu">
+  <meta property="twitter:creator" content="@JobNmadu">
+  
+  <meta property="og:site_name" content="Data modelling to develop ...">
+  <meta property="og:url" content="https://jobnmadu.com/r-blog/2023-02-04-r-rmarkdown/mallows/">
+  <meta property="og:title" content="Better and enhanced method of estimating Mallow&#39;s Cp | Data modelling to develop ...">
+  <meta property="og:description" content="IntroductionIn statistics, Mallows&#39;s Cp, named for Colin Lingwood Mallows, an English statistician, is used to assess the fit of a regression model that has been estimated using ordinary least squares. Models with a Mallows&#39; Cp value near P&#43;1 (i.e. the number of explanatory variables &#43; 1) have a low bias. If every potential model has a high value for Mallows&#39; Cp, this indicates that some important predictor variables are likely missing from each model."><meta property="og:image" content="https://jobnmadu.com/img/haggai_04.jpg">
+  <meta property="twitter:image" content="https://jobnmadu.com/img/haggai_04.jpg"><meta property="og:locale" content="en-uk">
+  
+  <meta property="article:published_time" content="2023-02-04T01:00:00&#43;00:00">
+  
+  <meta property="article:modified_time" content="2023-02-04T10:55:01&#43;01:00">
+  
+
+  
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+<script>
+  window.addEventListener("load", function(){
+    window.cookieconsent.initialise({
+      "palette": {
+        "popup": {
+          "background": "#3f51b5",
+          "text": "#fff"
+        },
+        "button": {
+          "background": "#fff",
+          "text": "#3f51b5"
+        }
+      },
+      "theme": "classic",
+      "content": {
+        "message": "This website uses cookies to ensure you get the best experience on our website.",
+        "dismiss": "Got it!",
+        "link": "Learn more",
+        "href": "https://cookies.insites.com"
+      }
+    })});
+</script>
+
+
+
+  
+
+
+
+
+
+  <title>Better and enhanced method of estimating Mallow&#39;s Cp | Data modelling to develop ...</title>
+
+</head>
+
+
+<body id="top" data-spy="scroll" data-target="#TableOfContents" data-offset="71" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" role="textbox" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+<nav class="navbar navbar-light fixed-top navbar-expand-lg py-0" id="navbar-main">
+  <div class="container">
+
+    
+      <a class="navbar-brand" href="/">Data modelling to develop ...</a>
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation"><span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+    
+    <div class="collapse navbar-collapse" id="navbar">
+      
+      
+      <ul class="navbar-nav ml-auto">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>Home</span></a>
+        </li>
+
+        
+        
+
+        
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"><span>CV</span><span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            
+            <li class="dropdown-item my-0 py-0 mx-0 px-0">
+              <a href="/files/Nmadu_brief_CV.pdf"><span>Resume in brief</span></a>
+            </li>
+            
+            <li class="dropdown-item my-0 py-0 mx-0 px-0">
+              <a href="/files/Nmadu_biography.pdf"><span>View Biographical notes</span></a>
+            </li>
+            
+            <li class="dropdown-item my-0 py-0 mx-0 px-0">
+              <a href="/files/Nmadu_timelineCV.pdf"><span>View Experience on timeline</span></a>
+            </li>
+            
+            <li class="dropdown-item my-0 py-0 mx-0 px-0">
+              <a href="/files/Nmadu_full_CV2022_1.pdf"><span>View Full CV</span></a>
+            </li>
+            
+            <li class="dropdown-item my-0 py-0 mx-0 px-0">
+              <a href="/files/JobNmadu.html"><span>View upadted publications list</span></a>
+            </li>
+            
+          </ul>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#publications"><span>Publications</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#r-blog"><span>R-Blog</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#software"><span>Software</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#posts"><span>Posts</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#contact"><span>Contact</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link  active" href="/"><span></span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+
+        
+        <li class="nav-item">
+          <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
+        </li>
+        
+
+        
+
+        
+        <li class="nav-item">
+          <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+        </li>
+        
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+  <article class="article py-5" itemscope itemtype="http://schema.org/Article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+    
+    
+    
+    <div class="article-container py-3">
+      <h1 itemprop="name">Better and enhanced method of estimating Mallow&#39;s Cp</h1>
+
+      
+
+      
+      
+
+
+
+<meta content="2023-02-04 01:00:00 &#43;0000 UTC" itemprop="datePublished">
+<meta content="2023-02-04 10:55:01 &#43;0100 WAT" itemprop="dateModified">
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+          Last updated on
+      
+    
+    <time>Feb 4, 2023</time>
+  </span>
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder"></i>
+    <a href="/categories/r/">R</a></span>
+  
+
+  
+    
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=https://jobnmadu.com/r-blog/2023-02-04-r-rmarkdown/mallows/&amp;text=Better%20and%20enhanced%20method%20of%20estimating%20Mallow&amp;#39;s%20Cp" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=https://jobnmadu.com/r-blog/2023-02-04-r-rmarkdown/mallows/&amp;t=Better%20and%20enhanced%20method%20of%20estimating%20Mallow&amp;#39;s%20Cp" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Better%20and%20enhanced%20method%20of%20estimating%20Mallow&amp;#39;s%20Cp&amp;body=https://jobnmadu.com/r-blog/2023-02-04-r-rmarkdown/mallows/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=https://jobnmadu.com/r-blog/2023-02-04-r-rmarkdown/mallows/&amp;title=Better%20and%20enhanced%20method%20of%20estimating%20Mallow&amp;#39;s%20Cp" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://web.whatsapp.com/send?text=Better%20and%20enhanced%20method%20of%20estimating%20Mallow&amp;#39;s%20Cp%20https://jobnmadu.com/r-blog/2023-02-04-r-rmarkdown/mallows/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+  
+
+</div>
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
+      
+    </div>
+  </div>
+</div>
+
+  <div class="article-container">
+
+    <div class="article-style" itemprop="articleBody">
+      
+
+
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>In statistics, <a href="https://en.wikipedia.org/wiki/Mallows%27s_Cp"><code>Mallows's Cp</code></a>, named for Colin Lingwood Mallows, an English statistician, is used to assess the fit of a regression model that has been estimated using ordinary least squares. Models with a <code>Mallows' Cp</code> value near P+1 (i.e. the number of explanatory variables + 1) have a low bias. If every potential model has a high value for <code>Mallows' Cp</code>, this indicates that some important predictor variables are likely missing from each model.</p>
+<p>Traditionally, <code>Mallow's Cp</code> has always been estimated from Linear models. In R, there are two packages that does this very well. It is easier to estimates from <a href="https://github.com/cran/wle">wle package</a> because it does not require nested models like the <a href="https://github.com/rsquaredacademy/olsrr">olsrr package</a>. In addition, <code>olrss</code> can only estimate <code>Mallow's Cp</code> from linear models. Unfortunately, <code>wle</code> has been archieved by <a href="https://cran.r-project.org/">CRAN</a>.</p>
+<p>In this blog, I share with you a new method from <a href="https://github.com/JobNmadu/Dyn4cast">Dyn4cast package</a> that is capable of estimating the <code>Mallow's Cp</code> from lm, glm and other forms of non-linear models. It is a one line code and easy to use. The usage is as follows:</p>
+<p><code>MallowsCp(Model, y, x, type, Nlevels = 0)</code></p>
+<p><code>Model</code> is the model estimated</p>
+<p><code>type</code> falls under <code>LM, ALM, GLM, N-LM</code> types of model. N-LM is not LM.</p>
+<p><code>y</code> is vector of the dependent variable data</p>
+<p><code>x</code> is vector of independent variable data</p>
+<p><code>Nlevels</code> is the additional variables created by the model during estimation, defaults to <code>0</code> is none is provided.</p>
+</div>
+<div id="load-library" class="section level1">
+<h1>Load library</h1>
+<pre class="r"><code>library(Dyn4cast)
+library(greybox)
+library(splines)
+binary &lt;- readRDS(&quot;data/binary.RDS&quot;)
+linear &lt;- readRDS(&quot;data/linear.RDS&quot;)
+others &lt;- readRDS(&quot;data/others.RDS&quot;)</code></pre>
+</div>
+<div id="mallows-cp-from-lm-model" class="section level1">
+<h1>Mallow’s Cp from lm model</h1>
+<pre class="r"><code>Model &lt;- lm(Income ~ ., data = linear)
+Type &lt;- &quot;LM&quot;
+MallowsCp(Model = Model, y = linear$Income, x = linear[, -1], type = Type, Nlevels = 0)</code></pre>
+<pre><code>[1] 5</code></pre>
+</div>
+<div id="mallows-cp-from-alm-model" class="section level1">
+<h1>Mallow’s Cp from ALM model</h1>
+<pre class="r"><code>Model &lt;- alm(Income ~ ., data = linear)
+Type &lt;- &quot;ALM&quot;
+MallowsCp(Model = Model, y = linear$Income, x = linear[, -1], type = Type, Nlevels = 0)</code></pre>
+<pre><code>[1] 5</code></pre>
+</div>
+<div id="mallows-cp-from-glm-model" class="section level1">
+<h1>Mallow’s Cp from GLM model</h1>
+<pre class="r"><code>Model &lt;- glm(GENDER ~ ., data = binary, family = binomial(link = &quot;logit&quot;))
+Type &lt;- &quot;GLM&quot;
+MallowsCp(Model = Model, y = binary$GENDER, x = binary[, -1], type = Type, Nlevels = 0)</code></pre>
+<pre><code>[1] 9</code></pre>
+</div>
+<div id="mallows-cp-from-other-models-splines-arima" class="section level1">
+<h1>Mallow’s Cp from other models: splines, ARIMA</h1>
+<pre class="r"><code>y &lt;- others$Total
+x &lt;- others$Series
+
+Model &lt;- lm(others$Total ~ bs(Series, knots = c(30, 115)), data = others)
+Type &lt;- &quot;LM&quot;
+MallowsCp(Model = Model, y = y, x = x, type = Type, Nlevels = 0)</code></pre>
+<pre><code>[1] 2</code></pre>
+<pre class="r"><code># smooth.spline is not a model
+Model &lt;- smooth.spline(others$Series, others$Total)
+Type &lt;- &quot;LM&quot;
+MallowsCp(Model = Model, y = y, x = x, type = Type, Nlevels = 0)</code></pre>
+<pre><code>[1] NaN</code></pre>
+<pre class="r"><code>Model &lt;- forecast::auto.arima(others$Total)
+Type &lt;- &quot;LM&quot;
+MallowsCp(Model = Model, y = x, x = x, type = Type, Nlevels = 0)</code></pre>
+<pre><code>[1] 2</code></pre>
+</div>
+
+    </div>
+
+    
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tags/rstats/">RStats</a>
+  
+  <a class="badge badge-light" href="/tags/mallows-cp/">Mallow&#39;s Cp</a>
+  
+  <a class="badge badge-light" href="/tags/machine-learning/">Machine Learning</a>
+  
+</div>
+
+
+
+    
+      
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+  
+  
+    
+  
+  
+  <div class="media author-card" itemscope itemtype="http://schema.org/Person">
+    
+
+    <div class="media-body">
+      <h5 class="card-title" itemprop="name"><a href="https://jobnmadu.com/">Job Nmadu</a></h5>
+      <h6 class="card-subtitle">Professor of Agricultural Economics and Dean, School of Agriculture and Agricultural Technology</h6>
+      <p class="card-text" itemprop="description">Research interests are economic efficiencies of small scale farming and welfare effects of agricultural interventions.</p>
+      <ul class="network-icon" aria-hidden="true">
+        
+          
+          
+          
+            
+          
+          
+          
+          
+          
+            
+          
+          <li>
+            <a itemprop="sameAs" href="/#contact" >
+              <i class="fas fa-envelope"></i>
+            </a>
+          </li>
+        
+          
+          
+          
+            
+          
+          
+          
+          
+          
+            
+          
+          <li>
+            <a itemprop="sameAs" href="/job.nmadu@gmail.com" >
+              <i class="fas fa-envelope"></i>
+            </a>
+          </li>
+        
+          
+          
+          
+            
+          
+          
+          
+          
+          
+            
+          
+          <li>
+            <a itemprop="sameAs" href="https://twitter.com/JobNmadu" target="_blank" rel="noopener">
+              <i class="fab fa-twitter"></i>
+            </a>
+          </li>
+        
+          
+          
+          
+          
+          
+          
+          
+            
+          
+          <li>
+            <a itemprop="sameAs" href="http://scholar.google.com/citations?user=C1_-HgIAAAAJ&amp;hl=en" target="_blank" rel="noopener">
+              <i class="ai ai-google-scholar"></i>
+            </a>
+          </li>
+        
+          
+          
+          
+            
+          
+          
+          
+          
+          
+            
+          
+          <li>
+            <a itemprop="sameAs" href="https://github.com/JobNmadu" target="_blank" rel="noopener">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+        
+          
+          
+          
+            
+          
+          
+          
+          
+          
+            
+          
+          <li>
+            <a itemprop="sameAs" href="https://www.linkedin.com/in/jobnmadu" target="_blank" rel="noopener">
+              <i class="fab fa-linkedin"></i>
+            </a>
+          </li>
+        
+          
+          
+          
+            
+          
+          
+          
+          
+          
+            
+          
+          <li>
+            <a itemprop="sameAs" href="https://t.me/Job_Nmadu" target="_blank" rel="noopener">
+              <i class="fab fa-telegram"></i>
+            </a>
+          </li>
+        
+          
+          
+          
+            
+          
+          
+          
+          
+          
+            
+          
+          <li>
+            <a itemprop="sameAs" href="https://jobnmadu.blogspot.com/" target="_blank" rel="noopener">
+              <i class="fab fa-blogger"></i>
+            </a>
+          </li>
+        
+          
+          
+          
+          
+          
+          
+          
+            
+          
+          <li>
+            <a itemprop="sameAs" href="https://orcid.org/0000-0002-1320-8957" target="_blank" rel="noopener">
+              <i class="ai ai-orcid"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+
+      
+      
+      <div class="article-widget">
+        <div class="hr-light"></div>
+        <h3>Related</h3>
+        <ul>
+          
+          <li><a href="/r-blog/2022-09-18-r-rmarkdown/fre_days/">Frequency of occurrence of COVID-19 cases across Nigeria</a></li>
+          
+          <li><a href="/r-blog/2020-12-01-r-rmarkdown/dynamic-forecast-from-regression-models/">Modelling of COVID-19 distribution in Nigeria</a></li>
+          
+          <li><a href="/r-blog/2021-05-20-r-rmarkdown/data-scrapping/">COVID19 data scrapping from Nigerian Centre for Disease Control (NCDC)</a></li>
+          
+          <li><a href="/publication/conference-paper/">African Continental Free Trade Area (AfCFTA):Potential Welfare Effects and Impacts on Nigerian Farmers</a></li>
+          
+          <li><a href="/publication/conference-napp2018/">Agriculture&#39;s share in Nigerian GDP:short and long-term effects of climate change and arable land availability</a></li>
+          
+        </ul>
+      </div>
+      
+    
+
+    
+    <div class="article-widget">
+      
+<div class="post-nav">
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">Next</div>
+    <a href="/r-blog/2023-03-12-r-rmarkdown/transform/" rel="next">Data transformation and standardization in r</a>
+  </div>
+  
+  
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">Previous</div>
+    <a href="/r-blog/2022-09-18-r-rmarkdown/fre_days/" rel="prev">Frequency of occurrence of COVID-19 cases across Nigeria</a>
+  </div>
+  
+</div>
+
+    </div>
+    
+
+    
+
+
+  </div>
+</article>
+
+      
+
+    
+    
+    
+    <script src="/js/mathjax-config.js"></script>
+    
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" integrity="sha256-X5PoE3KU5l+JcX+w09p/wHl9AzK333C4hJ2I9S5mD4M=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js" integrity="sha256-aYTdUrn6Ow1DDgh5JTc3aDGnnju48y/1c8s1dgkYPQ8=" crossorigin="anonymous"></script>
+        
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/languages/r.min.js"></script>
+        
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/languages/SQL.min.js"></script>
+        
+      
+
+      
+      
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_CHTML-full" integrity="sha256-GhM+5JHb6QUzOQPXSJLEWP7R73CbkisjzK5Eyij4U9w=" crossorigin="anonymous" async></script>
+      
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.js" integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log==" crossorigin="anonymous"></script>
+    
+
+    
+    
+    
+
+    
+    
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    
+    
+    <script>
+      const search_index_filename = "/index.json";
+      const i18n = {
+        'placeholder': "Search...",
+        'results': "results found",
+        'no_results': "No results found"
+      };
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academia.min.1864145399ae9e7997bb63a7a7dd152c.js"></script>
+
+    
+
+
+
+
+
+
+  
+  <div class="container">
+    <footer class="site-footer">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-6 mb-4 mb-md-0">
+        
+        <p class="mb-0">
+          JNNmadu © 2023 &middot; 
+          Powered by
+          <a href="https://gethugothemes.com" target="_blank" rel="noopener">Gethugothemes</a>
+        </p>
+      </div>
+      <div class="col-md-6">
+        <ul class="list-inline network-icon text-right mb-0">
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="https://www.twitter.com/JobNmadu" target="_blank" rel="noopener" title="DM Me"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+          </li>
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="skype:job.nda.nmadu"  title="Skype Me"><i class="fab fa-skype" aria-hidden="true"></i></a>
+          </li>
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="https://t.me/Job_Nmadu" target="_blank" rel="noopener" title="Telegram Me"><i class="fab fa-telegram" aria-hidden="true"></i></a>
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,3224 @@
+<!DOCTYPE html>
+<html lang="en-uk">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academia 4.3.1">
+  <meta name="generator" content="Hugo 0.81.0" />
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Job Nmadu">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="Job Nmadu, Agricultural Economics, Econometrics, Data Science, Machine Modelling in R.">
+
+  
+  <link rel="alternate" hreflang="en-uk" href="https://jobnmadu.com/">
+
+  
+
+
+  
+
+  
+  
+  
+  <meta name="theme-color" content="#3f51b5">
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css" integrity="sha384-aOkxzJ5uQz7WBObEZcHvV5JvRW3TUc2rNPA7pe3AwnsUohiw1Vj2Rgx2KSOkF5+h" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" integrity="sha256-ygkqlh3CYSUri3LhQxzdcm0n1EQvH2Y+U5S2idbLtxs=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.css" integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ==" crossorigin="anonymous">
+    
+
+    
+
+  
+
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Open+Sans|Roboto+Mono&display=swap">
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/css/academia.min.3632deb0096ca98c81e95314c5855a45.css">
+
+  
+
+  
+  
+  
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'G-V53DTDYQF5', 'auto');
+      ga('set', 'anonymizeIp', true);
+      ga('require', 'eventTracker');
+      ga('require', 'outboundLinkTracker');
+      ga('require', 'urlChangeTracker');
+      ga('send', 'pageview');
+    </script>
+    <script async src="//www.google-analytics.com/analytics.js"></script>
+    
+    <script async src="https://cdnjs.cloudflare.com/ajax/libs/autotrack/2.4.1/autotrack.js" integrity="sha512-HUmooslVKj4m6OBu0OgzjXXr+QuFYy/k7eLI5jdeEy/F4RSgMn6XRWRGkFi5IFaFgy7uFTkegp3Z0XnJf3Jq+g==" crossorigin="anonymous"></script>
+    
+  
+  
+
+  
+  <link rel="alternate" href="/index.xml" type="application/rss+xml" title="Data modelling to develop ...">
+  <link rel="feed" href="/index.xml" type="application/rss+xml" title="Data modelling to develop ...">
+  
+
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="icon" type="image/png" href="/img/icon.png">
+  <link rel="apple-touch-icon" type="image/png" href="/img/icon-192.png">
+
+  <link rel="canonical" href="https://jobnmadu.com/">
+
+  
+  
+  
+  
+    
+  
+  <meta property="twitter:card" content="summary_large_image">
+  
+  <meta property="twitter:site" content="@JobNmadu">
+  <meta property="twitter:creator" content="@JobNmadu">
+  
+  <meta property="og:site_name" content="Data modelling to develop ...">
+  <meta property="og:url" content="https://jobnmadu.com/">
+  <meta property="og:title" content="Data modelling to develop ...">
+  <meta property="og:description" content="Job Nmadu, Agricultural Economics, Econometrics, Data Science, Machine Modelling in R."><meta property="og:image" content="https://jobnmadu.com/img/haggai_04.jpg">
+  <meta property="twitter:image" content="https://jobnmadu.com/img/haggai_04.jpg"><meta property="og:locale" content="en-uk">
+  
+  <meta property="og:updated_time" content="2030-06-01T13:00:00&#43;00:00">
+  
+
+  
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+<script>
+  window.addEventListener("load", function(){
+    window.cookieconsent.initialise({
+      "palette": {
+        "popup": {
+          "background": "#3f51b5",
+          "text": "#fff"
+        },
+        "button": {
+          "background": "#fff",
+          "text": "#3f51b5"
+        }
+      },
+      "theme": "classic",
+      "content": {
+        "message": "This website uses cookies to ensure you get the best experience on our website.",
+        "dismiss": "Got it!",
+        "link": "Learn more",
+        "href": "https://cookies.insites.com"
+      }
+    })});
+</script>
+
+
+
+  
+
+
+
+
+
+  <title>Data modelling to develop ...</title>
+
+</head>
+
+
+<body id="top" data-spy="scroll" data-target="#navbar-main" data-offset="71" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" role="textbox" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+<nav class="navbar navbar-light fixed-top navbar-expand-lg py-0" id="navbar-main">
+  <div class="container">
+
+    
+      <a class="navbar-brand" href="/">Data modelling to develop ...</a>
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation"><span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+    
+    <div class="collapse navbar-collapse" id="navbar">
+      
+      
+      <ul class="navbar-nav ml-auto">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about" data-target="#about"><span>Home</span></a>
+        </li>
+
+        
+        
+
+        
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"><span>CV</span><span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu">
+            
+            <li class="dropdown-item my-0 py-0 mx-0 px-0">
+              <a href="/files/Nmadu_brief_CV.pdf" data-target="files/Nmadu_brief_CV.pdf"><span>Resume in brief</span></a>
+            </li>
+            
+            <li class="dropdown-item my-0 py-0 mx-0 px-0">
+              <a href="/files/Nmadu_biography.pdf" data-target="files/Nmadu_biography.pdf"><span>View Biographical notes</span></a>
+            </li>
+            
+            <li class="dropdown-item my-0 py-0 mx-0 px-0">
+              <a href="/files/Nmadu_timelineCV.pdf" data-target="files/Nmadu_timelineCV.pdf"><span>View Experience on timeline</span></a>
+            </li>
+            
+            <li class="dropdown-item my-0 py-0 mx-0 px-0">
+              <a href="/files/Nmadu_full_CV2022_1.pdf" data-target="files/Nmadu_full_CV2022_1.pdf"><span>View Full CV</span></a>
+            </li>
+            
+            <li class="dropdown-item my-0 py-0 mx-0 px-0">
+              <a href="/files/JobNmadu.html" data-target="files/JobNmadu.html"><span>View upadted publications list</span></a>
+            </li>
+            
+          </ul>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#publications" data-target="#publications"><span>Publications</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#r-blog" data-target="#r-blog"><span>R-Blog</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#software" data-target="#software"><span>Software</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#posts" data-target="#posts"><span>Posts</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#contact" data-target="#contact"><span>Contact</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link  active" href="/" data-target="[]"><span></span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+
+        
+        <li class="nav-item">
+          <a class="nav-link js-search" href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
+        </li>
+        
+
+        
+
+        
+        <li class="nav-item">
+          <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+        </li>
+        
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+  
+
+
+<span class="js-widget-page d-none"></span>
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+  
+  
+
+  
+    
+  
+
+  
+    
+  
+
+  
+    
+    
+      
+    
+    
+    
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+  
+  
+  
+
+  
+  
+
+  <section id="hero" class="home-section wg-hero dark parallax " style="background-color: #fff;background-image: linear-gradient(#4bb4e3, #000);background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url(&#39;https://jobnmadu.com/img/back_2021.jpg&#39;);" >
+    <div class="container">
+      
+
+
+
+
+<div class="row">
+  <div class="col-md-6 order-md-1 text-center text-md-left align-self-center">
+
+
+    
+    <div><h2 id="job-nmadu-professor-of-agricultural-economics-specializing-in-econometrics"><strong>Job Nmadu</strong>, <strong>Professor of Agricultural Economics</strong> specializing in <strong>Econometrics</strong></h2>
+<p>Proudly re-syndicated by <a href="http://r-bloggers.com/">R-bloggers</a></p>
+<p>Academic, Teacher, Researcher, Consultant, Administrator and Community Leader with skills in Data Science and Machine Learning Modelling with R; Computable General Equilibrium Modellng with GAMS and Students Advisor (Undergraduates, Masters and Doctoral).</p>
+</div>
+    
+
+    
+    
+      
+      
+      
+        
+      
+      
+      
+      
+      
+        
+      
+    <p class="mt-4">
+      <a href="/authors/admin"  class="btn btn-light btn-lg  page-scroll">Know more</a>
+
+      
+      
+        
+        
+        
+        
+          
+        
+      <a href="/#contact"  class="btn btn-lg btn-outline-light page-scroll">Contact me</a>
+      
+    </p>
+    
+
+  
+  
+  </div>
+  <div class="col-10 mx-auto col-md-6 order-md-2 hero-media">
+    <img class="hero-img img-fluid" src="/img/user_2021.jpg" alt="">
+  </div>
+</div>
+
+    </div>
+  </section>
+
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+  
+  
+  
+
+  
+  
+
+  <section id="skills" class="home-section wg-featurette   "  >
+    <div class="container">
+      
+
+
+<div class="row featurette">
+  
+  <div class="col-12 section-heading">
+    <h1>Skills</h1>
+    
+  </div>
+  
+
+  
+
+  
+  
+  
+  
+  
+  
+  <div class="col-lg-3 col-sm-6 mb-4 mb-lg-0">
+    <div class="position-relative py-2 shadow featurette-margin">
+      <div class="progress-bar" style="width:85%"></div>
+      <div class="featurette-icon"><i class="fas fa-chart-line"></i></div>
+      <h3>Data Collection, Wrangling, Analysis and Visualisation</h3>
+      <p>85%</p>
+    </div>
+  </div>
+  
+  
+  
+  
+  
+  
+  <div class="col-lg-3 col-sm-6 mb-4 mb-lg-0">
+    <div class="position-relative py-2 shadow featurette-margin">
+      <div class="progress-bar" style="width:80%"></div>
+      <div class="featurette-icon"><i class="fas fa-user-secret"></i></div>
+      <h3>Leadership, Administration and Coordination</h3>
+      <p>80%</p>
+    </div>
+  </div>
+  
+  
+  
+  
+  
+  
+  <div class="col-lg-3 col-sm-6 mb-4 mb-lg-0">
+    <div class="position-relative py-2 shadow featurette-margin">
+      <div class="progress-bar" style="width:70%"></div>
+      <div class="featurette-icon"><i class="fas fa-toolbox"></i></div>
+      <h3>Modelling, Data Science, Machine Learning, R/CGE Programming</h3>
+      <p>70%</p>
+    </div>
+  </div>
+  
+  
+  
+  
+  
+  
+  <div class="col-lg-3 col-sm-6 mb-4 mb-lg-0">
+    <div class="position-relative py-2 shadow featurette-margin">
+      <div class="progress-bar" style="width:75%"></div>
+      <div class="featurette-icon"><i class="fab fa-searchengin"></i></div>
+      <h3>Research, Consultancy, Collaboration and Networking</h3>
+      <p>75%</p>
+    </div>
+  </div>
+  
+</div>
+    </div>
+  </section>
+
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+  
+  
+  
+
+  
+  
+
+  <section id="about" class="home-section wg-about   "  >
+    <div class="container">
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="row" itemprop="author" itemscope itemtype="http://schema.org/Person"
+  itemref="person-email person-address">
+  <div class="col-lg-5">
+    <div id="profile">
+      
+      
+      <img class="img-fluid" src="/img/haggai_04.jpg" itemprop="image" alt="Avatar">
+      
+    </div>
+    <ul class="network-icon bg-white mx-2 py-2 text-center" aria-hidden="true">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <li class="mx-3">
+        <a itemprop="sameAs" href="/#contact" >
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <li class="mx-3">
+        <a itemprop="sameAs" href="/job.nmadu@gmail.com" >
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <li class="mx-3">
+        <a itemprop="sameAs" href="https://twitter.com/JobNmadu" target="_blank" rel="noopener">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <li class="mx-3">
+        <a itemprop="sameAs" href="http://scholar.google.com/citations?user=C1_-HgIAAAAJ&amp;hl=en" target="_blank" rel="noopener">
+          <i class="ai ai-google-scholar"></i>
+        </a>
+      </li>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <li class="mx-3">
+        <a itemprop="sameAs" href="https://github.com/JobNmadu" target="_blank" rel="noopener">
+          <i class="fab fa-github"></i>
+        </a>
+      </li>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <li class="mx-3">
+        <a itemprop="sameAs" href="https://www.linkedin.com/in/jobnmadu" target="_blank" rel="noopener">
+          <i class="fab fa-linkedin"></i>
+        </a>
+      </li>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <li class="mx-3">
+        <a itemprop="sameAs" href="https://t.me/Job_Nmadu" target="_blank" rel="noopener">
+          <i class="fab fa-telegram"></i>
+        </a>
+      </li>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <li class="mx-3">
+        <a itemprop="sameAs" href="https://jobnmadu.blogspot.com/" target="_blank" rel="noopener">
+          <i class="fab fa-blogger"></i>
+        </a>
+      </li>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <li class="mx-3">
+        <a itemprop="sameAs" href="https://orcid.org/0000-0002-1320-8957" target="_blank" rel="noopener">
+          <i class="ai ai-orcid"></i>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+  <div class="col-lg-7" itemprop="description">
+
+    <div class="portrait-title">
+      <h2 itemprop="name">Job Nmadu</h2>
+      <h3 class="d-inline-block" itemprop="jobTitle">Professor of Agricultural Economics and Dean, School of Agriculture and Agricultural Technology,</h3>
+
+      
+      <h3 class="d-inline-block" itemprop="worksFor" itemscope itemtype="http://schema.org/Organization">
+        <a href="https://www.futminna.edu.ng" target="_blank" itemprop="url" rel="noopener">
+          <span itemprop="name">Federal University of Technology, Minna, Nigeria</span>
+          </a>
+      </h3>
+      
+    </div>
+
+    <link itemprop="url" href="">
+
+
+
+    <p>Research interests are economic efficiencies of small scale farming and welfare effects of agricultural interventions.</p>
+<p><img src="../../img/certifacates.jpg" alt="reviews"></p>
+<p>Three decades of industry experience in teaching research and community development as Head of Department, Industrial Liaison Officer, Dean, Director, Consultant, Church and Community leader.</p>
+
+
+    
+
+
+    
+    <div class="row">
+
+      
+      <div class="col-md-7">
+        <h3>Education</h3>
+        <ul class="ul-edu fa-ul">
+          
+          <li>
+            <i class="fa-li fas fa-graduation-cap"></i>
+            <div class="description">
+              <p class="course">PhD in Agricultural Economics, 2002</p>
+              <p class="institution">Ahmadu Bello University, Zaria</p>
+            </div>
+          </li>
+          
+          <li>
+            <i class="fa-li fas fa-graduation-cap"></i>
+            <div class="description">
+              <p class="course">MSc in Agricultural Economics, 1998</p>
+              <p class="institution">Ahmadu Bello University, Zaria</p>
+            </div>
+          </li>
+          
+          <li>
+            <i class="fa-li fas fa-graduation-cap"></i>
+            <div class="description">
+              <p class="course">Diploma in Data Processing and Computer Programming, 1995</p>
+              <p class="institution">Soft Design Computer Institute, Zaria</p>
+            </div>
+          </li>
+          
+          <li>
+            <i class="fa-li fas fa-graduation-cap"></i>
+            <div class="description">
+              <p class="course">BSc in Agriculture, 1987</p>
+              <p class="institution">Ahmadu Bello University, Zaria</p>
+            </div>
+          </li>
+          
+        </ul>
+      </div>
+      
+
+      
+      <div class="col-md-5">
+        <h3>Interests</h3>
+        <ul class="ul-interests">
+          
+          <li>Economics and Efficiencies of Small Scale farming</li>
+          
+          <li>Econometric (Regressions) Modelling</li>
+          
+          <li>Data Science and Machine Learning with R</li>
+          
+          <li>Computable General Equilibrium (CGE) Modelling with GAMS</li>
+          
+        </ul>
+      </div>
+      
+
+    </div>
+    
+  </div>
+</div>
+
+    </div>
+  </section>
+
+  
+  
+  
+
+  
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+  
+  
+  
+
+  
+  
+
+  <section id="featured" class="home-section wg-featured   " style="background-color: antiquewhite;" >
+    <div class="container">
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="row">
+  <div class="col-12 section-heading text-center">
+    <h1>Featured Publications</h1>
+    
+  </div>
+  <div class="col-12">
+    <div class="row justify-content-center">
+
+    
+    
+      
+      <div class="col-lg-4 col-md-6 mb-4">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="card-simple" itemscope itemtype="http://schema.org/ScholarlyArticle">
+    
+    
+    
+
+    <div class="card-body">
+    <h3 class="article-title mb-1 mt-0" itemprop="name">
+      <a href="/publication/journal-article20222/" itemprop="url">Drivers and barriers to women&#39;s participation in agricultural activities in Nigeria</a>
+    </h3>
+    
+    
+
+
+
+<meta content="2022-07-05 00:00:00 &#43;0000 UTC" itemprop="datePublished">
+<meta content="2022-10-31 23:55:49 &#43;0100 WAT" itemprop="dateModified">
+
+<div class="article-metadata">
+
+  
+  
+  
+  
+  <div>
+    
+
+
+
+  <span itemprop="author name" itemtype="http://schema.org/Person"><a href="/authors/halima-sallawu/">Halima Sallawu</a></span>, <span itemprop="author name" itemtype="http://schema.org/Person"><a href="/authors/fatima-adebisi-olabiyi/">Fatima Adebisi Olabiyi</a></span>, <span itemprop="author name" itemtype="http://schema.org/Person"><a href="/authors/deborah-alabi/">Deborah Alabi</a></span>, <span itemprop="author name" itemtype="http://schema.org/Person"><a href="/authors/patrick-joshua/">Patrick Joshua</a></span>, <span itemprop="author name" itemtype="http://schema.org/Person"><a href="/authors/jeremiah-folorunsho-martins/">Jeremiah Folorunsho Martins</a></span>, <span itemprop="author name" itemtype="http://schema.org/Person"><a href="/authors/admin/">Job Nmadu</a></span>
+
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    <time>July 2022</time>
+  </span>
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="pub-publication">
+    
+      <em>Gaúcha Agricultural Research, 28</em>(1):156-173
+    
+  </span>
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+</div>
+
+    
+    
+    <div class="article-style" itemprop="articleBody">
+      .
+    </div>
+    
+
+
+    
+    <div class="btn-links">
+      
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+<button type="button" class="btn btn-outline-primary my-1 mr-1 btn-sm js-cite-modal"
+        data-filename="/publication/journal-article20222/cite.bib">
+  Cite
+</button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a class="btn btn-outline-primary my-1 mr-1 btn-sm" href="https://doi.org/https://doi.org/10.36812/pag.2022281156-173" target="_blank" rel="noopener">
+  DOI
+</a>
+
+
+
+    </div>
+    
+  </div>
+</div>
+        </div>
+      
+    
+
+  </div>
+  </div>
+</div>
+
+    </div>
+  </section>
+
+  
+  
+  
+
+  
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+  
+  
+  
+
+  
+  
+
+  <section id="publications" class="home-section wg-pages   " style="background-color: wheat;" >
+    <div class="container">
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="row">
+  <div class="col-12 section-heading text-center">
+    <h1>Recent Publications</h1>
+    
+    
+  </div>
+  <div class="col-12">
+    <div class="row justify-content-center">
+      
+      
+      <div class="pub-list-item" style="margin-bottom: 1rem" itemscope itemtype="http://schema.org/CreativeWork">
+  <i class="far fa-file-alt pub-icon" aria-hidden="true"></i>
+
+  
+  
+
+  <span itemprop="author" class="article-metadata li-cite-author">
+    
+
+
+
+  <span itemprop="author name" itemtype="http://schema.org/Person"><a href="/authors/admin/">Job Nmadu</a></span>, <span itemprop="author name" itemtype="http://schema.org/Person"><a href="/authors/ezekiel-yisa/">Ezekiel Yisa</a></span>, <span itemprop="author name" itemtype="http://schema.org/Person"><a href="/authors/usman-mohammed/">Usman Mohammed</a></span>, <span itemprop="author name" itemtype="http://schema.org/Person"><a href="/authors/halima-sallawu/">Halima Sallawu</a></span>, <span itemprop="author name" itemtype="http://schema.org/Person"><a href="/authors/yebosoko-nmadu/">Yebosoko Nmadu</a></span>, <span itemprop="author name" itemtype="http://schema.org/Person"><a href="/authors/sokoyami-nmadu/">Sokoyami Nmadu</a></span>
+
+  </span>
+  (2022).
+  <a href="/publication/conference-rais2022/" itemprop="name">Structural Analysis and Forecast of Nigerian Monthly Inflation Movement between 1996 and 2022</a>.
+  29th International RAIS Conference on Social Sciences and Humanities, American University, in Washington DC, USA, August 14- 15.
+  
+  <p>
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+<button type="button" class="btn btn-outline-primary my-1 mr-1 btn-sm js-cite-modal"
+        data-filename="/publication/conference-rais2022/cite.bib">
+  Cite
+</button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a class="btn btn-outline-primary my-1 mr-1 btn-sm" href="https://doi.org/10.5281/zenodo.7090175" target="_blank" rel="noopener">
+  DOI
+</a>
+
+
+</p>
+
+  
+  
+</div>
+
+      
+      
+      
+      <div class="pub-list-item" style="margin-bottom: 1rem" itemscope itemtype="http://schema.org/CreativeWork">
+  <i class="far fa-file-alt pub-icon" aria-hidden="true"></i>
+
+  
+  
+
+  <span itemprop="author" class="article-metadata li-cite-author">
+    
+
+
+
+  <span itemprop="author name" itemtype="http://schema.org/Person"><a href="/authors/i.-aguwa/">I. Aguwa</a></span>, <span itemprop="author name" itemtype="http://schema.org/Person"><a href="/authors/a.-s.-gana/">A. S. Gana</a></span>, <span itemprop="author name" itemtype="http://schema.org/Person"><a href="/authors/m.t.-salaudeen/">M.T. Salaudeen</a></span>, <span itemprop="author name" itemtype="http://schema.org/Person"><a href="/authors/k.-d.-tolorunse/">K. D. Tolorunse</a></span>, <span itemprop="author name" itemtype="http://schema.org/Person"><a href="/authors/admin/">Job Nmadu</a></span>, <span itemprop="author name" itemtype="http://schema.org/Person"><a href="/authors/k.-m.-baba/">K. M.  Baba</a></span>, <span itemprop="author name" itemtype="http://schema.org/Person"><a href="/authors/z.-d.-osunde/">Z. D. Osunde</a></span>, <span itemprop="author name" itemtype="http://schema.org/Person"><a href="/authors/j.-o.-okafor/">J. O.  Okafor</a></span>
+
+  </span>
+  (2022).
+  <a href="/publication/journal-article20220725/" itemprop="name">Effect of different concentrations of plant growth hormones on callus induction and regeneration of Shea tree (Vitellaria paradoxa)</a>.
+  <em>African Journal of Biotechnology 21(7)</em>:334-341.
+  
+  <p>
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+<button type="button" class="btn btn-outline-primary my-1 mr-1 btn-sm js-cite-modal"
+        data-filename="/publication/journal-article20220725/cite.bib">
+  Cite
+</button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a class="btn btn-outline-primary my-1 mr-1 btn-sm" href="https://doi.org/10.5897/AJB2022.17488" target="_blank" rel="noopener">
+  DOI
+</a>
+
+
+</p>
+
+  
+  
+</div>
+
+      
+      
+      
+      <div class="pub-list-item" style="margin-bottom: 1rem" itemscope itemtype="http://schema.org/CreativeWork">
+  <i class="far fa-file-alt pub-icon" aria-hidden="true"></i>
+
+  
+  
+
+  <span itemprop="author" class="article-metadata li-cite-author">
+    
+
+
+
+  <span itemprop="author name" itemtype="http://schema.org/Person"><a href="/authors/halima-sallawu/">Halima Sallawu</a></span>, <span itemprop="author name" itemtype="http://schema.org/Person"><a href="/authors/fatima-adebisi-olabiyi/">Fatima Adebisi Olabiyi</a></span>, <span itemprop="author name" itemtype="http://schema.org/Person"><a href="/authors/deborah-alabi/">Deborah Alabi</a></span>, <span itemprop="author name" itemtype="http://schema.org/Person"><a href="/authors/patrick-joshua/">Patrick Joshua</a></span>, <span itemprop="author name" itemtype="http://schema.org/Person"><a href="/authors/jeremiah-folorunsho-martins/">Jeremiah Folorunsho Martins</a></span>, <span itemprop="author name" itemtype="http://schema.org/Person"><a href="/authors/admin/">Job Nmadu</a></span>
+
+  </span>
+  (2022).
+  <a href="/publication/journal-article20222/" itemprop="name">Drivers and barriers to women&#39;s participation in agricultural activities in Nigeria</a>.
+  <em>Gaúcha Agricultural Research, 28</em>(1):156-173.
+  
+  <p>
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+<button type="button" class="btn btn-outline-primary my-1 mr-1 btn-sm js-cite-modal"
+        data-filename="/publication/journal-article20222/cite.bib">
+  Cite
+</button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a class="btn btn-outline-primary my-1 mr-1 btn-sm" href="https://doi.org/https://doi.org/10.36812/pag.2022281156-173" target="_blank" rel="noopener">
+  DOI
+</a>
+
+
+</p>
+
+  
+  
+</div>
+
+      
+      
+      
+      <div class="pub-list-item" style="margin-bottom: 1rem" itemscope itemtype="http://schema.org/CreativeWork">
+  <i class="far fa-file-alt pub-icon" aria-hidden="true"></i>
+
+  
+  
+
+  <span itemprop="author" class="article-metadata li-cite-author">
+    
+
+
+
+  <span itemprop="author name" itemtype="http://schema.org/Person"><a href="/authors/halima-sallawu/">Halima Sallawu</a></span>, <span itemprop="author name" itemtype="http://schema.org/Person"><a href="/authors/admin/">Job Nmadu</a></span>, <span itemprop="author name" itemtype="http://schema.org/Person"><a href="/authors/alexander-coker/">Alexander Coker</a></span>, <span itemprop="author name" itemtype="http://schema.org/Person"><a href="/authors/usman-mohammed/">Usman Mohammed</a></span>
+
+  </span>
+  (2022).
+  <a href="/publication/journal-article20221/" itemprop="name">Dynamic Relationship between Vulnerability to Climate Change, Livelihood Diversification, Perception on Climate Change and Income of the Farmers in North Central Nigeria</a>.
+  <em>Asian Research Journal of Agriculture 15(3)</em>:1-8.
+  
+  <p>
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+<button type="button" class="btn btn-outline-primary my-1 mr-1 btn-sm js-cite-modal"
+        data-filename="/publication/journal-article20221/cite.bib">
+  Cite
+</button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a class="btn btn-outline-primary my-1 mr-1 btn-sm" href="https://doi.org/10.9734/ARJA/2022/v15i330156" target="_blank" rel="noopener">
+  DOI
+</a>
+
+
+</p>
+
+  
+  
+</div>
+
+      
+      
+      
+      <div class="pub-list-item" style="margin-bottom: 1rem" itemscope itemtype="http://schema.org/CreativeWork">
+  <i class="far fa-file-alt pub-icon" aria-hidden="true"></i>
+
+  
+  
+
+  <span itemprop="author" class="article-metadata li-cite-author">
+    
+
+
+
+  <span itemprop="author name" itemtype="http://schema.org/Person"><a href="/authors/halima-sallawu/">Halima Sallawu</a></span>, <span itemprop="author name" itemtype="http://schema.org/Person"><a href="/authors/admin/">Job Nmadu</a></span>, <span itemprop="author name" itemtype="http://schema.org/Person"><a href="/authors/alexander-coker/">Alexander Coker</a></span>, <span itemprop="author name" itemtype="http://schema.org/Person"><a href="/authors/usman-mohammed/">Usman Mohammed</a></span>
+
+  </span>
+  (2021).
+  <a href="/publication/conference-naae2021/" itemprop="name">Drivers of extension services among IFAD-VCDP farmers in Central Nigeria</a>.
+  21st National Conference of the Nigerian Association of Agricultural Economists held at The Federal University of Lafia, between 18th and 20th October.
+  
+  <p>
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+<button type="button" class="btn btn-outline-primary my-1 mr-1 btn-sm js-cite-modal"
+        data-filename="/publication/conference-naae2021/cite.bib">
+  Cite
+</button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+
+  
+  
+</div>
+
+      
+      
+      
+      <div class="pub-list-item" style="margin-bottom: 1rem" itemscope itemtype="http://schema.org/CreativeWork">
+  <i class="far fa-file-alt pub-icon" aria-hidden="true"></i>
+
+  
+  
+
+  <span itemprop="author" class="article-metadata li-cite-author">
+    
+
+
+
+  <span itemprop="author name" itemtype="http://schema.org/Person"><a href="/authors/idris-yusuf/">Idris Yusuf</a></span>, <span itemprop="author name" itemtype="http://schema.org/Person"><a href="/authors/admin/">Job Nmadu</a></span>, <span itemprop="author name" itemtype="http://schema.org/Person"><a href="/authors/halima-sallawu/">Halima Sallawu</a></span>
+
+  </span>
+  (2021).
+  <a href="/publication/conference-adan2021/" itemprop="name">Ability to Minimize Cost or Maximize Income: Evidence from Women Marketers Participating in Donor-Assisted Programmes in Niger State, Nigeria</a>.
+  64th Annual Conference of Association of Deans of Agriculture in Nigeria Universities (ADAN). Faculty of Agriculture, Shabu-Lafia Campus, Nasarawa State University, Keffi, Nigeria, between 15th and 18th August.
+  
+  <p>
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+<button type="button" class="btn btn-outline-primary my-1 mr-1 btn-sm js-cite-modal"
+        data-filename="/publication/conference-adan2021/cite.bib">
+  Cite
+</button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+
+  
+  
+</div>
+
+      
+      
+
+      
+      <div class="see-all">
+        <a href="/publication/">
+          See all publications
+          <i class="fas fa-angle-right"></i>
+        </a>
+      </div>
+      
+
+    </div>
+  </div>
+</div>
+    </div>
+  </section>
+
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+  
+  
+  
+
+  
+  
+
+  <section id="r-blog" class="home-section wg-pages   "  >
+    <div class="container">
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="row">
+  <div class="col-12 section-heading text-center">
+    <h1>Recent R-Blogs</h1>
+    
+    
+  </div>
+  <div class="col-12">
+    <div class="row justify-content-center">
+      
+      
+      <div class="col-lg-4 col-md-6 mb-4">
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="card-simple" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    
+    
+
+    <div class="card-body">
+    <h3 class="article-title mb-1 mt-0" itemprop="name">
+      <a href="/r-blog/2023-09-29-r-markdown/likertsystems/" itemprop="url">Reveal the stories behind those Likert-type data</a>
+    </h3>
+    
+    
+
+
+
+<meta content="2023-09-29 01:00:00 &#43;0000 UTC" itemprop="datePublished">
+<meta content="2023-09-30 13:08:58 &#43;0100 WAT" itemprop="dateModified">
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+          Last updated on
+      
+    
+    <time>Sep 30, 2023</time>
+  </span>
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder"></i>
+    <a href="/categories/r/">R</a></span>
+  
+
+  
+
+</div>
+
+    
+    
+    <div class="article-style" itemprop="articleBody">
+      IntroductionThis blog is about two new functions, Model_factors and garrett_ranking that have been added to the Dyn4cast package. The two functions provides means for gaining deeper insights into the meaning behind Likert-type variables collected from respondents. Garrett ranking provides the ranks of the observations of the variables based on the level of seriousness attached to it by the respondents. On the other hand, Model factors determines and retrieve the latent factors inherent in such data which now becomes continuous data.
+    </div>
+    
+
+
+    
+  </div>
+</div>
+      </div>
+      
+      
+      
+      <div class="col-lg-4 col-md-6 mb-4">
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="card-simple" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    
+    
+
+    <div class="card-body">
+    <h3 class="article-title mb-1 mt-0" itemprop="name">
+      <a href="/r-blog/2023-07-31-r-markdown/linearsystems/" itemprop="url">Linear model and Transformations</a>
+    </h3>
+    
+    
+
+
+
+<meta content="2023-07-31 01:00:00 &#43;0000 UTC" itemprop="datePublished">
+<meta content="2023-09-30 02:00:14 &#43;0100 WAT" itemprop="dateModified">
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+          Last updated on
+      
+    
+    <time>Sep 30, 2023</time>
+  </span>
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder"></i>
+    <a href="/categories/r/">R</a></span>
+  
+
+  
+
+</div>
+
+    
+    
+    <div class="article-style" itemprop="articleBody">
+      IntroductionThe linear model still remains a reference point towards advanced modeling of some datasets as foundation for Machine Learning, Data Science and Artificial Intelligence in spite of some of her weaknesses. The major task in modeling is to compare various models before a selection is made for one or for advanced modeling. Often, some trial and error methods are used to decide which model to select. This is where this function is unique.
+    </div>
+    
+
+
+    
+  </div>
+</div>
+      </div>
+      
+      
+      
+      <div class="col-lg-4 col-md-6 mb-4">
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="card-simple" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    
+    
+
+    <div class="card-body">
+    <h3 class="article-title mb-1 mt-0" itemprop="name">
+      <a href="/r-blog/2023-03-12-r-rmarkdown/transform/" itemprop="url">Data transformation and standardization in r</a>
+    </h3>
+    
+    
+
+
+
+<meta content="2023-03-12 01:00:00 &#43;0000 UTC" itemprop="datePublished">
+<meta content="2023-03-12 09:01:36 &#43;0100 WAT" itemprop="dateModified">
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+          Last updated on
+      
+    
+    <time>Mar 12, 2023</time>
+  </span>
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder"></i>
+    <a href="/categories/r/">R</a></span>
+  
+
+  
+
+</div>
+
+    
+    
+    <div class="article-style" itemprop="articleBody">
+      IntroductionOften economic and other Machine Learning data are of different units or sizes making either estimation, interpretation or visualization difficult. The solution to these issues can be handled if the data can be transformed to unitless or data of similar magnitude. When the need to transform thus arises, then one finds it difficult to get handy function to achieve that.
+In this blog, I share with you a function data_transform from Dyn4cast package that can easily transform your data.
+    </div>
+    
+
+
+    
+  </div>
+</div>
+      </div>
+      
+      
+
+      
+      <div class="see-all">
+        <a href="/categories/r/">
+          See all
+          <i class="fas fa-angle-right"></i>
+        </a>
+      </div>
+      
+
+    </div>
+  </div>
+</div>
+    </div>
+  </section>
+
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+  
+  
+  
+
+  
+  
+
+  <section id="software" class="home-section wg-pages   "  >
+    <div class="container">
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="row">
+  <div class="col-12 section-heading text-center">
+    <h1>Software</h1>
+    
+    
+  </div>
+  <div class="col-12">
+    <div class="row justify-content-center">
+      
+      
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="col-md-10 col-lg-8">
+    <div class="media stream-item shadow p-4" itemscope itemtype="http://schema.org/CreativeWork">
+      <div class="media-body">
+
+        <h3 class="article-title mb-0 mt-0" itemprop="name">
+          <a href="/software/dyn4cast/" itemprop="url">Dyn4cast: An R-package for Dynamic Modelling and Machine Learning Environment</a>
+        </h3>
+
+        
+        <div class="article-style" itemprop="articleBody">
+          Time-varying dynamic forecast,  machine learning metrics, linear systems transformation, Mallow&rsquo;s Cp of economic data for …
+        </div>
+        
+
+        <div class="stream-meta article-metadata">
+
+          
+
+          
+          
+
+
+
+<meta content="2022-09-01 01:00:00 &#43;0000 UTC" itemprop="datePublished">
+<meta content="2022-10-12 16:23:40 &#43;0100 WAT" itemprop="dateModified">
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+          Last updated on
+      
+    
+    <time>Oct 12, 2022</time>
+  </span>
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder"></i>
+    <a href="/categories/r/">R</a>, <a href="/categories/dynamic-forecastng/">Dynamic Forecastng</a></span>
+  
+
+  
+
+</div>
+
+          
+        </div>
+
+        
+
+      </div>
+      <div class="ml-3">
+        
+        
+      </div>
+    </div>
+  </div>
+      
+      
+
+      
+
+    </div>
+  </div>
+</div>
+    </div>
+  </section>
+
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+  
+  
+  
+
+  
+  
+
+  <section id="posts" class="home-section wg-pages   "  >
+    <div class="container">
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="row">
+  <div class="col-12 section-heading text-center">
+    <h1>Recent Posts</h1>
+    
+    
+  </div>
+  <div class="col-12">
+    <div class="row justify-content-center">
+      
+
+      
+
+    </div>
+  </div>
+</div>
+    </div>
+  </section>
+
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+  
+  
+  
+
+  
+  
+
+  <section id="accomplishments" class="home-section wg-accomplishments   "  >
+    <div class="container">
+      
+
+
+
+<div class="row">
+  <div class="col-12 text-center section-heading">
+    <h1>Accomplish­ments</h1>
+    
+    
+  </div>
+
+  
+  
+  <div class="col-lg-6 col-md-6 mb-4">
+    <div class="card experience course shadow-sm rounded-0 border-0">
+      <div class="card-body"><h4 class="card-title exp-title text-muted my-0">Introduction to data Scieence</h4><div class="card-subtitle my-0 article-metadata"><a href="https://www.udemy.com" target="_blank" rel="noopener">Udemy</a><span class="middot-divider"></span>
+
+          Dec 2019
+          
+        </div>
+
+        
+
+        
+        <a class="card-link" href="https://www.ude.my./UC-0J47DLH0" target="_blank" rel="noopener">
+          See certificate
+        </a>
+        
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-lg-6 col-md-6 mb-4">
+    <div class="card experience course shadow-sm rounded-0 border-0">
+      <div class="card-body"><h4 class="card-title exp-title text-muted my-0">E-Platform on Weather and Climate Services for Resilience development: A Guide for Practitioners and Policy makers</h4><div class="card-subtitle my-0 article-metadata"><a href="https://olc.worldbank.org/" target="_blank" rel="noopener">The World Bank Group The Open Learning Campus</a><span class="middot-divider"></span>
+
+          May 2019
+          
+          – May 2019
+          
+        </div>
+
+        
+
+        
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-lg-6 col-md-6 mb-4">
+    <div class="card experience course shadow-sm rounded-0 border-0">
+      <div class="card-body"><h4 class="card-title exp-title text-muted my-0">Certified VIRT2UE Traine</h4><div class="card-subtitle my-0 article-metadata"><a href="https://embassy.science/wiki/Main_Page" target="_blank" rel="noopener">The Embassy of Good Science</a><span class="middot-divider"></span>
+
+          Feb 2019
+          
+          – Apr 2019
+          
+        </div>
+
+        
+
+        
+        <a class="card-link" href="https://embassy.science/wiki/AboutCertifiedTrainers" target="_blank" rel="noopener">
+          See certificate
+        </a>
+        
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-lg-6 col-md-6 mb-4">
+    <div class="card experience course shadow-sm rounded-0 border-0">
+      <div class="card-body"><h4 class="card-title exp-title text-muted my-0">Practical General Equilibrium Modelling with GAMS</h4><div class="card-subtitle my-0 article-metadata"><a href="https://ecomod.net/modeling-school" target="_blank" rel="noopener">EcoMod School</a><span class="middot-divider"></span>
+
+          Jun 2016
+          
+        </div>
+
+        
+
+        
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-lg-6 col-md-6 mb-4">
+    <div class="card experience course shadow-sm rounded-0 border-0">
+      <div class="card-body"><h4 class="card-title exp-title text-muted my-0">Advanced Leadership Seminar</h4><div class="card-subtitle my-0 article-metadata"><a href="https://www.haggai-international.org" target="_blank" rel="noopener">Haggai Institute</a><span class="middot-divider"></span>
+
+          Jul 2006
+          
+        </div>
+
+        
+
+        
+      </div>
+    </div>
+  </div>
+  
+  
+</div>
+</div>
+    </div>
+  </section>
+
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+  
+  
+  
+
+  
+  
+
+  <section id="experience" class="home-section wg-experience   "  >
+    <div class="container">
+      
+
+
+
+<div class="row">
+  <div class="col-12 col-lg-4 section-heading">
+    <h1>Experience</h1>
+    
+  </div>
+  <div class="col-12 col-lg-8">
+    
+
+    
+    
+    
+    <div class="row experience">
+      
+      <div class="col-auto text-center flex-column d-none d-sm-flex">
+        <div class="row h-50">
+          <div class="col ">&nbsp;</div>
+          <div class="col">&nbsp;</div>
+        </div>
+        <div class="m-2">
+          <span class="badge badge-pill border exp-fill">&nbsp;</span>
+        </div>
+        <div class="row h-50">
+          <div class="col border-right">&nbsp;</div>
+          <div class="col">&nbsp;</div>
+        </div>
+      </div>
+      
+      <div class="col py-2">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title exp-title text-muted mt-0 mb-1">Professor</h4>
+            <h4 class="card-title exp-company text-muted my-0"><a href="https://www.futminna.edu.ng" target="_blank" rel="noopener">The Federal University of Technology</a></h4>
+            <div class="text-muted exp-meta">
+              Oct 2006 –
+              
+                Present
+              
+              
+                <span class="middot-divider"></span>
+                <span>Minna</span>
+              
+            </div>
+            <div class="card-text"><p>Responsibilities include:</p>
+<ul>
+<li>Teaching, Research and Community Development</li>
+<li>Head of Department</li>
+<li>Director and industrial Liaison Officer</li>
+<li>Dean of Faculty</li>
+<li>Consultancies, Networking and Collaborations</li>
+</ul>
+</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row experience">
+      
+      <div class="col-auto text-center flex-column d-none d-sm-flex">
+        <div class="row h-50">
+          <div class="col border-right">&nbsp;</div>
+          <div class="col">&nbsp;</div>
+        </div>
+        <div class="m-2">
+          <span class="badge badge-pill border ">&nbsp;</span>
+        </div>
+        <div class="row h-50">
+          <div class="col ">&nbsp;</div>
+          <div class="col">&nbsp;</div>
+        </div>
+      </div>
+      
+      <div class="col py-2">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title exp-title text-muted mt-0 mb-1">Chief Lecturer</h4>
+            <h4 class="card-title exp-company text-muted my-0"><a href="https://fedpolybida.edu.ng" target="_blank" rel="noopener">The Federal Polytechic</a></h4>
+            <div class="text-muted exp-meta">
+              Jan 1992 –
+              
+                Sep 2006
+              
+              
+                <span class="middot-divider"></span>
+                <span>Bida</span>
+              
+            </div>
+            <div class="card-text">Lecturing, Research and Community Development.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+  </div>
+</div>
+
+    </div>
+  </section>
+
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+  
+  
+  
+
+  
+  
+
+  <section id="gallery" class="home-section wg-blank   "  >
+    <div class="container">
+      
+
+
+<div class="row">
+  
+    <div class="col-12 section-heading text-center">
+      <h1>Gallery</h1>
+      
+    </div>
+    <div class="col-12">
+      
+
+
+
+
+
+
+
+  
+  
+
+
+<div class="gallery">
+
+  
+  
+  
+  
+    
+    
+    
+    
+    
+  <a data-fancybox="gallery-gallery" href="/home/gallery/gallery/20210529_141551.jpg" >
+  <img src="/home/gallery/gallery/20210529_141551_hua9a8c9daee7bcbaf44a79ed53c3e5c90_616143_0x190_resize_q90_lanczos.jpg" alt="">
+  </a>
+  
+    
+    
+    
+    
+    
+  <a data-fancybox="gallery-gallery" href="/home/gallery/gallery/20210529_141710.jpg" >
+  <img src="/home/gallery/gallery/20210529_141710_hu77d96699d532584b34682d164ab697c4_653841_0x190_resize_q90_lanczos.jpg" alt="">
+  </a>
+  
+    
+    
+    
+    
+    
+  <a data-fancybox="gallery-gallery" href="/home/gallery/gallery/Global%20conference.png" >
+  <img src="/home/gallery/gallery/Global%20conference_hu512b7d420194f84b4e437074617b9ae1_429520_0x190_resize_lanczos_2.png" alt="">
+  </a>
+  
+    
+    
+    
+    
+    
+  <a data-fancybox="gallery-gallery" href="/home/gallery/gallery/VIRT2UE.png" >
+  <img src="/home/gallery/gallery/VIRT2UE_hu42db123f6ddb87667b5c2e44476ebb53_154150_0x190_resize_lanczos_2.png" alt="">
+  </a>
+  
+    
+    
+    
+    
+    
+  <a data-fancybox="gallery-gallery" href="/home/gallery/gallery/acse.png" >
+  <img src="/home/gallery/gallery/acse_hue874a39ce175e868b94a5bba85ef4f5b_255252_0x190_resize_lanczos_2.png" alt="">
+  </a>
+  
+    
+    
+    
+    
+    
+  <a data-fancybox="gallery-gallery" href="/home/gallery/gallery/drid.jpg" >
+  <img src="/home/gallery/gallery/drid_hu1bb7c9350e590970908f3f3025335bbc_659228_0x190_resize_q90_lanczos.jpg" alt="">
+  </a>
+  
+    
+    
+    
+    
+    
+  <a data-fancybox="gallery-gallery" href="/home/gallery/gallery/haggai_01.jpg" >
+  <img src="/home/gallery/gallery/haggai_01_hu4d31d68e89e18eb83bf3c2c790c28964_694272_0x190_resize_q90_lanczos.jpg" alt="">
+  </a>
+  
+    
+    
+    
+    
+    
+  <a data-fancybox="gallery-gallery" href="/home/gallery/gallery/haggai_02.jpg" >
+  <img src="/home/gallery/gallery/haggai_02_hubcd53d8d589f2311a100a6d68bc04a08_725787_0x190_resize_q90_lanczos.jpg" alt="">
+  </a>
+  
+    
+    
+    
+    
+    
+  <a data-fancybox="gallery-gallery" href="/home/gallery/gallery/naae.png" >
+  <img src="/home/gallery/gallery/naae_huab18511abf4553a944da3a1c547b2ea0_4399107_0x190_resize_lanczos_2.png" alt="">
+  </a>
+  
+    
+    
+    
+    
+    
+  <a data-fancybox="gallery-gallery" href="/home/gallery/gallery/pix_01.jpg" >
+  <img src="/home/gallery/gallery/pix_01_hu27cd24432d109b24b86c1ae01773f3ca_183215_0x190_resize_q90_lanczos.jpg" alt="">
+  </a>
+  
+    
+    
+    
+    
+    
+  <a data-fancybox="gallery-gallery" href="/home/gallery/gallery/pix_02.jpg" >
+  <img src="/home/gallery/gallery/pix_02_hu2742728045322620ed8133333311e28a_77412_0x190_resize_q90_lanczos.jpg" alt="">
+  </a>
+  
+    
+    
+    
+    
+    
+  <a data-fancybox="gallery-gallery" href="/home/gallery/gallery/pix_03.jpg" >
+  <img src="/home/gallery/gallery/pix_03_hu709c55f984b6bb82d883a93b2f5baf88_208549_0x190_resize_q90_lanczos.jpg" alt="">
+  </a>
+  
+    
+    
+    
+    
+    
+  <a data-fancybox="gallery-gallery" href="/home/gallery/gallery/pix_04.jpg" >
+  <img src="/home/gallery/gallery/pix_04_hu364c0524d31a5cb67ddbd4921c96d3f7_213866_0x190_resize_q90_lanczos.jpg" alt="">
+  </a>
+  
+    
+    
+    
+    
+    
+  <a data-fancybox="gallery-gallery" href="/home/gallery/gallery/pix_05.jpg" >
+  <img src="/home/gallery/gallery/pix_05_hu02f9dd554807f75e09cb7049e354f628_127239_0x190_resize_q90_lanczos.jpg" alt="">
+  </a>
+  
+    
+    
+    
+    
+    
+  <a data-fancybox="gallery-gallery" href="/home/gallery/gallery/pix_06.jpg" >
+  <img src="/home/gallery/gallery/pix_06_hu0d3de0903af45c486d3d3b6c90e4fd3d_117820_0x190_resize_q90_lanczos.jpg" alt="">
+  </a>
+  
+    
+    
+    
+    
+    
+  <a data-fancybox="gallery-gallery" href="/home/gallery/gallery/pix_07.jpg" >
+  <img src="/home/gallery/gallery/pix_07_hu6625fd161d3a4a3beec33e82a28d2d11_196767_0x190_resize_q90_lanczos.jpg" alt="">
+  </a>
+  
+    
+    
+    
+    
+    
+  <a data-fancybox="gallery-gallery" href="/home/gallery/gallery/pix_08.jpg" >
+  <img src="/home/gallery/gallery/pix_08_hua8a9f8ccff4af8ecf2e2db3ddf9ffe5b_160006_0x190_resize_q90_lanczos.jpg" alt="">
+  </a>
+  
+    
+    
+    
+    
+    
+  <a data-fancybox="gallery-gallery" href="/home/gallery/gallery/pix_09.jpg" >
+  <img src="/home/gallery/gallery/pix_09_hu7630807fc327a6bdeafb2362b33889fe_152014_0x190_resize_q90_lanczos.jpg" alt="">
+  </a>
+  
+    
+    
+    
+    
+    
+  <a data-fancybox="gallery-gallery" href="/home/gallery/gallery/pix_10.jpg" >
+  <img src="/home/gallery/gallery/pix_10_hudd0d8e8d958b57ce200586d68894c68d_227048_0x190_resize_q90_lanczos.jpg" alt="">
+  </a>
+  
+    
+    
+    
+    
+    
+  <a data-fancybox="gallery-gallery" href="/home/gallery/gallery/pix_11.jpg" >
+  <img src="/home/gallery/gallery/pix_11_hub09568087e61da767d314e359b82f860_107533_0x190_resize_q90_lanczos.jpg" alt="">
+  </a>
+  
+    
+    
+    
+    
+    
+  <a data-fancybox="gallery-gallery" href="/home/gallery/gallery/pix_12.jpg" >
+  <img src="/home/gallery/gallery/pix_12_hu93c3dfb8bff3d7ec6a97f546f325581a_139790_0x190_resize_q90_lanczos.jpg" alt="">
+  </a>
+  
+    
+    
+    
+    
+    
+  <a data-fancybox="gallery-gallery" href="/home/gallery/gallery/pix_13.jpg" >
+  <img src="/home/gallery/gallery/pix_13_hu187e3692f6adb22f1cbe33dada411bf2_102869_0x190_resize_q90_lanczos.jpg" alt="">
+  </a>
+  
+    
+    
+    
+    
+    
+  <a data-fancybox="gallery-gallery" href="/home/gallery/gallery/pix_14.jpg" >
+  <img src="/home/gallery/gallery/pix_14_hud6437c09a23a5c384ddd3b32009efaa1_265814_0x190_resize_q90_lanczos.jpg" alt="">
+  </a>
+  
+    
+    
+    
+    
+    
+  <a data-fancybox="gallery-gallery" href="/home/gallery/gallery/udemy.jpg" >
+  <img src="/home/gallery/gallery/udemy_hu3a09714ae2eb2587807c22f0ee3f1400_292713_0x190_resize_q90_lanczos.jpg" alt="">
+  </a>
+  
+
+  
+</div>
+
+    </div>
+  
+</div>
+
+    </div>
+  </section>
+
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+  
+  
+  
+
+  
+  
+
+  <section id="contact" class="home-section wg-contact   "  >
+    <div class="container">
+      
+
+
+
+
+<div class="row contact-widget">
+  <div class="col-12 text-center section-heading">
+    <h1>Contact</h1>
+    <p>Connect with me</p>
+  </div>
+  <div class="col-12">
+    
+  </div>
+  <div class="col-md-6">
+    
+
+    
+    
+    
+    
+    
+
+    <div class="mb-3">
+      <form name="contact" method="POST" action="https://formspree.io/job.nmadu@gmail.com">
+        <div class="form-group form-inline">
+          <label class="sr-only" for="inputName">Name</label>
+          <input type="text" name="name" class="form-control rounded-0 w-100" id="inputName"
+            placeholder="Name" required>
+        </div>
+        <div class="form-group form-inline">
+          <label class="sr-only" for="inputEmail">Email</label>
+          <input type="email" name="email" class="form-control rounded-0 w-100" id="inputEmail"
+            placeholder="Email" required>
+        </div>
+        <div class="form-group">
+          <label class="sr-only" for="inputMessage">Message</label>
+          <textarea name="message" class="form-control rounded-0" id="inputMessage" rows="5"
+            placeholder="Message" required></textarea>
+        </div>
+        <button type="submit"
+          class="btn btn-outline-primary px-3 py-2">Send</button>
+      </form>
+    </div>
+    
+
+  </div>
+  <div class="col-md-6">
+    <ul class="fa-ul" itemscope>
+      
+
+      
+
+      
+      <li>
+        <i class="fa-li fas fa-map-marker-alt mt-2" aria-hidden="true"></i>
+        <span id="person-address" itemprop="address">School of Agriculture and Agricultural Technology Building, Phase 2</span>
+      </li>
+      
+
+      
+
+      
+      <li>
+        <i class="fa-li fas fa-calendar-check mt-2" aria-hidden="true"></i>
+        <a href="https://calendly.com/job-nmadu" target="_blank"
+          rel="noopener">Book an appointment</a>
+      </li>
+      
+
+    </ul>
+  </div>
+  <div class="col-12">
+    
+    <div class="d-none">
+      <input id="map-provider" value="2">
+      <input id="map-lat" value="9.533023">
+      <input id="map-lng" value="6.451892">
+      <input id="map-dir" value="School of Agriculture and Agricultural Technology Building, Phase 2">
+      <input id="map-zoom" value="15">
+      <input id="map-api-key" value="AIzaSyBu5nZKbeK-WHQ70oqOWo-_4VmwOwKP9YQ">
+    </div>
+    <div id="map"></div>
+    
+  </div>
+</div>
+    </div>
+  </section>
+
+
+
+      
+
+    
+    
+    
+    <script src="/js/mathjax-config.js"></script>
+    
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" integrity="sha256-X5PoE3KU5l+JcX+w09p/wHl9AzK333C4hJ2I9S5mD4M=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js" integrity="sha256-aYTdUrn6Ow1DDgh5JTc3aDGnnju48y/1c8s1dgkYPQ8=" crossorigin="anonymous"></script>
+        
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/languages/r.min.js"></script>
+        
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/languages/SQL.min.js"></script>
+        
+      
+
+      
+      
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_CHTML-full" integrity="sha256-GhM+5JHb6QUzOQPXSJLEWP7R73CbkisjzK5Eyij4U9w=" crossorigin="anonymous" async></script>
+      
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.js" integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log==" crossorigin="anonymous"></script>
+    
+
+    
+    
+    
+
+    
+    
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    
+    
+    <script>
+      const search_index_filename = "/index.json";
+      const i18n = {
+        'placeholder': "Search...",
+        'results': "results found",
+        'no_results': "No results found"
+      };
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academia.min.1864145399ae9e7997bb63a7a7dd152c.js"></script>
+
+    
+
+
+
+
+
+
+  
+  <div class="container">
+    <footer class="site-footer">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-6 mb-4 mb-md-0">
+        
+        <p class="mb-0">
+          JNNmadu © 2023 &middot; 
+          Powered by
+          <a href="https://gethugothemes.com" target="_blank" rel="noopener">Gethugothemes</a>
+        </p>
+      </div>
+      <div class="col-md-6">
+        <ul class="list-inline network-icon text-right mb-0">
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="https://www.twitter.com/JobNmadu" target="_blank" rel="noopener" title="DM Me"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+          </li>
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="skype:job.nda.nmadu"  title="Skype Me"><i class="fab fa-skype" aria-hidden="true"></i></a>
+          </li>
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="https://t.me/Job_Nmadu" target="_blank" rel="noopener" title="Telegram Me"><i class="fab fa-telegram" aria-hidden="true"></i></a>
+          </li>
+          
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
