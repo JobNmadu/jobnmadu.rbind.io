@@ -33,7 +33,7 @@ tags:
 - Variances
 - Food sovereignty
 - R Software
-title: Dynamics of Global Agricultural Productivity and Democratic Governance Structure: Implications for Sustainable Food Supply
+title: 'Dynamics of Global Agricultural Productivity and Democratic Governance Structure: Implications for Sustainable Food Supply'
 ---
 {{% alert note %}}
 Click the *Cite* button above to demo the feature to enable visitors to import publication metadata into their reference management software.
