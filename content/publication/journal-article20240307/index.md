@@ -13,7 +13,7 @@ authors:
 - Taiwo Amos
 - Abigail Jirgi
 date: "2023-11-30T00:00:00Z"
-doi: ""
+doi: "https://sanad.iau.ir/Journal/IJASRT/Article/1033827"
 featured: true
 image:
   #caption: 'Image credit: [**Unsplash**](https://unsplash.com/photos/jdD8gXaTZsc)'
@@ -24,7 +24,7 @@ publication: '*International Journal of Agricultural Science Research & Technolo
 publication_short: ""
 publication_types:
 - "2"
-publishDate: ""
+publishDate: "2024-02-11T00:00:00Z"
 summary: .
 tags:
 - Multilevel modelling
