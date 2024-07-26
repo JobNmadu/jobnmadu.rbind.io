@@ -1,0 +1,318 @@
+---
+title: "Global movement of Happiness ladder with Machine learning in R"
+output:
+  prettydoc::html_pretty:
+    theme: cayman #tactile, architect, leonids, hpstr
+    highlight: vignette #github
+    math: katex #latex
+  html_document: default
+  word_document: default
+  pdf_document: 
+    latex_engine: xelatex
+description: |
+  This blog is about the global happinness ladder capturing the changes in countries between 2002 and 2023.
+author:
+  - name: Job Nmadu
+    url: https://jobnmadu.com/
+categories:
+  - R
+date: "2024-07-26T01:00:00Z"
+tags: [RStats, Data Science, Machine Learning, Factor analysis, Structural equation modelling]
+---
+
+# Introduction
+
+This blog is about world happiness ladder using the world happiness report data sets (Helliwell et. al., 2024). The basic objective is to demonstrate the use of panel data which is quite distinct from cross-sectional or time series data. 
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(tidy      = "styler",
+                      fig.align = "center",
+                      comment   = NA,
+                      warning   = FALSE,
+                      error     = FALSE,
+                      message   = FALSE,
+                      collapse  = FALSE,
+                      out.width = "100%",
+                      dev = "ragg_png", #<- prevent default Windows device to
+                      # render plots
+                      dpi       = 132,
+                      echo      = FALSE)
+
+options(tidyverse.quiet = TRUE)
+library(psych)
+library(tidyverse)
+library(lavaan)
+library(semPlot)
+library(car)       # Companion to applied regression 
+library(gplots)    # Various programing tools for plotting data
+library(tseries)   # For timeseries analysis
+library(lmtest)    # For hetoroskedasticity analysis
+library(plm)
+library(car)       # Companion to applied regression 
+library(gplots)    # Various programing tools for plotting data
+library(tseries)   # For timeseries analysis
+library(lmtest)    # For hetoroskedasticity analysis
+library(plm)
+
+```
+
+
+```{r}
+
+Data <- read_csv("data/DataForTable2.1.csv")
+
+Data$Regional <- case_match(Data$Region,
+  "Australia and New Zealand"           ~ 1,
+  "Central and Eastern Europe"          ~ 2,
+  "Commonwealth of Independent States"  ~ 3,
+  "East Asia"                           ~ 4,
+  "Eastern Asia"                        ~ 4,
+  "Latin America and Caribbean"         ~ 5,
+  "Middle East and North Africa"        ~ 6,
+  "Middle East and Northern Africa"     ~ 6,
+  "North America"                       ~ 7,
+  "North America and ANZ"               ~ 7,
+  "South Asia"                          ~ 8,
+  "Southern Asia"                       ~ 8,
+  "Southeast Asia"                      ~ 9,
+  "Southeastern Asia"                   ~ 9,
+  "Sub-Saharan Africa"                  ~ 10,
+  "Western Europe"                      ~ 11)
+
+Data$Region1 <- case_match(Data$Region,
+  "Australia and New Zealand"           ~ "Australiasia",
+  "Central and Eastern Europe"          ~ "Central Europe",
+  "Commonwealth of Independent States"  ~ "Com. Ind. States",
+  "East Asia"                           ~ "East Asia",
+  "Eastern Asia"                        ~ "East Asia",
+  "Latin America and Caribbean"         ~ "Latin America",
+  "Middle East and North Africa"        ~ "MENA",
+  "Middle East and Northern Africa"     ~ "MENA",
+  "North America"                       ~ "North America",
+  "South Asia"                          ~ "South Asia",
+  "Southern Asia"                       ~ "South Asia",
+  "Southeast Asia"                      ~ "South East Asia",
+  "Southeastern Asia"                   ~ "South East Asia",
+  "Sub-Saharan Africa"                  ~ "SSA",
+  "Western Europe"                      ~ "Western Europe")
+
+ranked_data = Data %>%
+  group_by(Year) %>%
+  mutate(rank = min_rank(-Happiness), 
+         Value_lbl = paste0(" ", Country, ": ",
+                            format(Happiness, big.mark = ",",
+                                   scientific = F)))%>%
+  ungroup()
+
+ranked_data_2023 <- ranked_data %>% 
+  filter(Year == 2023)
+
+year_data = Data %>%
+  group_by(Year) %>%
+  mutate(Mean = mean(Happiness)) %>%
+  ungroup()
+
+year_data_2023 <- year_data %>% 
+  filter(Year == 2023)
+
+tt_caption <- "Source: World Happiness Report  |  Graphics: Job Nmadu (@JobNmadu)"
+
+```
+
+# Global happiness ladder
+
+## Cross-sectional happiness ladder for 2023
+
+```{r}
+ggplot(ranked_data_2023) +
+  aes(x = Region1, y = Happiness, fill = Region1) +
+  geom_col(position = "dodge") +
+  theme_minimal() +
+  coord_flip() +
+  theme(legend.position = "none") +
+ # facet_wrap(vars(Region1), scales = "free_y")+
+  labs(x = "Region",
+       y = "Happiness ladder",
+       title = "Happiness order: 2023",
+       subtitle = " ",
+       #fill = "Regions",
+       caption = tt_caption)
+```
+
+Fixed time, it is cross-sectional
+
+## Times series vs. panel data visualisation
+
+```{r}
+
+ggplot(ranked_data) +
+  aes(x = Year,
+    y = Happiness,
+    color = Region1) +
+  #geom_area(size = 0.5) +
+  geom_smooth(aes(color = Region1), method = "loess", se = FALSE,
+              show.legend = TRUE) +
+  scale_fill_hue(direction = 1) +
+  scale_color_hue(direction = 1) +
+  theme_minimal() +
+ # theme(legend.position = "none") +
+ # facet_wrap(vars(Region1), scales = "free_y")+
+  labs(x = "Year",
+       y = "Happiness ladder",
+       title = "Happiness order: 2005 - 2023",
+       subtitle = " ",
+        color = "Regions",
+       caption = tt_caption)
+
+ggplot(ranked_data) +
+  aes(x = Year,
+    y = Happiness,
+    fill = Region1,
+    colour = Region1) +
+  #geom_area(size = 0.5) +
+  geom_smooth(aes(color = Region1), method = "loess", se = FALSE,
+              show.legend = FALSE) +
+  scale_fill_hue(direction = 1) +
+  scale_color_hue(direction = 1) +
+  theme_minimal() +
+  theme(legend.position = "none") +
+  facet_wrap(vars(Region1), scales = "free_y")+
+  labs(x = "Year",
+       y = "Happiness ladder",
+       title = "Happiness order: 2005 - 2023",
+       subtitle = " ",
+       caption = tt_caption)
+```
+
+Each line is a timeseries but together, it is panel data
+
+# Mean global happiness lalder
+
+## Cross-sectional mean happiness ladder for 2023
+
+```{r}
+ggplot(year_data_2023) +
+  aes(x = Region1, y = Happiness, fill = Region1) +
+  geom_col(position = "dodge") +
+  theme_minimal() +
+  coord_flip() +
+  theme(legend.position = "none") +
+ # facet_wrap(vars(Region1), scales = "free_y")+
+  labs(x = "Region",
+       y = "Happiness ladder",
+       title = "Mean happiness order: 2023",
+       subtitle = " ",
+      # fill = "Regions",
+       caption = tt_caption)
+```
+
+Time is fixed, cross-sectional
+
+## Times series vs. panel data visualisation
+
+```{r}
+
+ggplot(year_data) +
+  aes(x = Year,
+    y = Mean,
+    color = Region1) +
+  #geom_area(size = 0.5) +
+  geom_smooth(aes(color = Region1), method = "loess", se = FALSE,
+              show.legend = TRUE) +
+  scale_fill_hue(direction = 1) +
+  scale_color_hue(direction = 1) +
+  theme_minimal() +
+  #theme(legend.position = "none") +
+  #facet_wrap(vars(Region1), scales = "free_y")+
+  labs(x = "Year",
+       y = "Happiness ladder",
+       title = "Mean Happiness for individual regions: 2005 - 2023",
+       subtitle = " ",
+        color = "Regions",
+       caption = tt_caption)
+
+ggplot(year_data) +
+  aes(x = Year,
+    y = Mean,
+    colour = Region1) +
+  #geom_area(size = 0.5) +
+  geom_smooth(aes(color = Region1), method = "loess", se = FALSE,
+              show.legend = FALSE) +
+  scale_fill_hue(direction = 1) +
+  scale_color_hue(direction = 1) +
+  theme_minimal() +
+  #theme(legend.position = "none") +
+  facet_wrap(vars(Region1), scales = "free_y")+
+  labs(x = "Year",
+       y = "Happiness ladder",
+       title = "Mean Happiness for individual regions: 2005 - 2023",
+       subtitle = " ",
+       caption = tt_caption)
+```
+
+Each line is a timeseires but together, they are panel data
+
+# Factor analysis of panel global happiness ladder
+
+```{r}
+
+source("docs/pca_summary.R")
+source("docs/printloadings.R")
+
+ll <- factoring(Data = Data[, -c(1:3,15)], exclude = 0)
+
+printLoadings(ll$Extrated_factors$loadings)
+
+fa.diagram(ll$Extrated_factors)
+
+kableExtra::kable_styling(knitr::kable(ll$Parameters_of_Extracted_factos, digits = 2), "striped", position = "center", font_size = 12)
+
+#load libraries
+library(lavaan)
+library(semPlot)
+library(semTools)
+library(nonnest2)
+library(htmlTable)
+
+#constructing the measurement model
+mea_model <- 'MR1 =~ GDP + Life_Exp + Happiness + Support
+              MR2 =~ Positive + Freedom + Generosity + Regional
+              MR4 =~ Corruption 
+              MR3 =~ Year '
+
+#fitting the measurement model
+mea_fit <- sem(mea_model,
+               data = Data)
+
+#summary statistics of the measurement model
+summary(mea_fit,
+        fit.measures = TRUE)
+
+# 2.3 Obtain goodness of fit indicators of the model
+
+kableExtra::kable_styling(knitr::kable(fitMeasures(mea_fit), rsqaure = TRUE), "striped", position = "center", font_size = 12)
+
+kableExtra::kable_styling(knitr::kable(reliability(mea_fit)), "striped", position = "center", font_size = 12)
+
+semPaths(mea_fit, "par", 
+         edge.label.cex = 1.2, 
+         fade = FALSE,
+         edge.label.postition = 1,
+         edge.label.font = 70,
+         edge.label.by = TRUE, 
+         layout = "tree",
+         sizeMan = 10)
+
+semPaths(mea_fit, what = "eq", whatLabels = "est", style = "lisrel",
+         layout="spring", rotation=1, color = list(
+           lat = rgb(255, 200, 135, maxColorValue = 255), 
+           man = rgb(155, 240, 175, maxColorValue = 255)))
+```
+
+The inter-connectivity between the latent variables and the various variables used to measure hapiiness.
+
+
+# References
+
+Helliwell, J. F., Layard, R., Sachs, J. D., De Neve, J.-E., Aknin, L. B., & Wang, S. (Eds.). (2024). World Happiness Report 2024. University of Oxford: Wellbeing Research Centre.
