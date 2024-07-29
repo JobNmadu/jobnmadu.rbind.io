@@ -1,0 +1,110 @@
+---
+title: "Taking Treatment Effects Analysis and Visualisation to Higher Levels with R"
+output:
+  prettydoc::html_pretty:
+    theme: cayman #tactile, architect, leonids, hpstr
+    highlight: vignette #github
+    math: katex #latex
+  html_document: default
+  word_document: default
+  pdf_document: 
+    latex_engine: xelatex
+description: |
+  This blog is about a new function in my R package `Dyn4cast`. Again, there is a work horse behind the one line of code technology!
+author:
+  - name: Job Nmadu
+    url: https://jobnmadu.com/
+categories:
+  - R
+date: "2024-07-29T01:00:00Z"
+tags: [RStats, Propensity Score, Treatment Effects, Data Science, Machine Learning]
+---
+
+
+
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>This blog is a new function, <code>treatment_model</code> that have been added to the <code>Dyn4cast</code> package. The function provides means for enhanced estimation of propensity score and treatments effects from randomized controlled designed experiments.</p>
+<p>Observational study involves the evaluation of outcomes of participants not randomly assigned treatments or exposures. To be able to assess the effects of the outcome, the participants are matched using propensity scores (PSM). This then enables the determination of the effects of the treatments on those treated against those who were not treated. Most of the earlier functions available for this analysis only enables the determination of the average treatments effects on the treated (ATT) while the other treatment effects are optional. This is where this functions is unique because five different average treatment effects are estimated simultaneously, in spite of the <em>one line code</em> arguments. The five treatment effects are:</p>
+<p>Average treatment effect for the entire (ATE) population</p>
+<p>Average treatment effect for the treated (ATT) population</p>
+<p>Average treatment effect for the controlled (ATC) population</p>
+<p>Average treatment effect for the evenly matched (ATM) population</p>
+<p>Average treatment effect for the overlap (ATO) population.</p>
+<p>There excellent materials dealing with each of the treatment effects, please <a href="https://livefreeordichotomize.com/posts/2019-01-17-understanding-propensity-score-weighting/">see</a></p>
+<p>The basic usage of the codes are:</p>
+<p><code>treatment_model(Treatment, x_data)</code></p>
+<p>Arguments</p>
+<p><code>Treatment</code> Vector of binary data (0, 1) LHS for the treatment effects estimation</p>
+<p><code>x_data</code> Data frame of explanatory variables for the RHS of the estimation</p>
+<p>Let us go!</p>
+</div>
+<div id="load-library" class="section level1">
+<h1>Load library</h1>
+<pre class="r"><code>library(Dyn4cast)</code></pre>
+</div>
+<div id="estimation-of-treatment-effects-model" class="section level1">
+<h1>Estimation of treatment effects model</h1>
+<pre class="r"><code>Treatment &lt;- treatments$treatment
+data &lt;- treatments[, c(2:3)]
+treat &lt;- treatment_model(Treatment, data)</code></pre>
+<div id="estimated-treatment-effects-model" class="section level2">
+<h2>Estimated treatment effects model</h2>
+<pre class="r"><code>summary(treat)</code></pre>
+<pre><code>                Length Class      Mode   
+P_score         500    -none-     numeric
+Effect            5    data.frame list   
+Fitted_estimate 500    -none-     numeric
+Residuals       500    -none-     numeric
+Model            30    glm        list   
+Experiment plot  11    gg         list   
+ATE plot         11    gg         list   
+ATT plot         11    gg         list   
+ATC plot         11    gg         list   
+ATM plot         11    gg         list   
+ATO plot         11    gg         list   
+weights           5    data.frame list   </code></pre>
+</div>
+<div id="estimated-various-treatment-effects" class="section level2">
+<h2>Estimated various treatment effects</h2>
+<pre class="r"><code>treat$Effect</code></pre>
+<pre><code>       ATE      ATT        ATC      ATM      ATO
+1 2.465581 4.481578 -0.2272903 1.968055 2.056329</code></pre>
+</div>
+</div>
+<div id="estimated-propensity-scores-from-the-model" class="section level1">
+<h1>Estimated propensity scores from the model</h1>
+<pre class="r"><code>head(treat$P_score)</code></pre>
+<pre><code>         1          2          3          4          5          6 
+0.98347730 0.97153060 0.63093981 0.69944426 0.07971976 0.90935715 </code></pre>
+<p>##Ffitted values from the model</p>
+<pre class="r"><code>head(treat$Fitted_estimate)</code></pre>
+<pre><code>         1          2          3          4          5          6 
+0.98347730 0.97153060 0.63093981 0.69944426 0.07971976 0.90935715 </code></pre>
+<div id="residuals-of-the-estimated-model" class="section level2">
+<h2>Residuals of the estimated model</h2>
+<pre class="r"><code>tail(treat$Residuals)</code></pre>
+<pre><code>      495       496       497       498       499       500 
+-2.250645 -1.757826  1.402062  1.010765 -1.151789  1.898509 </code></pre>
+</div>
+<div id="plots-of-the-propensity-scores-from-the-model" class="section level2">
+<h2>Plots of the propensity scores from the model</h2>
+<p>Quite a number of plots are in the works e.g. </p>
+<div id="treatment-effects-ate" class="section level3">
+<h3>Treatment effects (ATE)</h3>
+<pre class="r"><code>treat$`ATE plot`</code></pre>
+<p><img src="/r-blog/2024-07-29-r-markdown/TreatmentModels_files/figure-html/unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="treatment-effects-on-the-treated-att" class="section level3">
+<h3>Treatment effects on the treated (ATT)</h3>
+<pre class="r"><code>treat$`ATT plot`</code></pre>
+<p><img src="/r-blog/2024-07-29-r-markdown/TreatmentModels_files/figure-html/unnamed-chunk-9-1.png" width="100%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="treatment-effects-on-the-evenly-matched-atm" class="section level3">
+<h3>Treatment effects on the evenly matched (ATM)</h3>
+<pre class="r"><code>treat$`ATM plot`</code></pre>
+<p><img src="/r-blog/2024-07-29-r-markdown/TreatmentModels_files/figure-html/unnamed-chunk-10-1.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>Welcome to the world of easy Data Science and easy Machine Learning!</p>
+</div>
+</div>
+</div>
