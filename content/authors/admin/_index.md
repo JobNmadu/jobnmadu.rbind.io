@@ -101,6 +101,6 @@ user_groups:
 
 Research interests are economic efficiencies of small scale farming and welfare effects of agricultural interventions.
 
-![reviews](../../img/rank.jpg)
+![reviews](../../img/ranks.jpg)
 
 Three decades of industry experience in teaching research and community development as Head of Department, Industrial Liaison Officer, Dean, Director, Consultant, Church and Community leader.
