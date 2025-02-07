@@ -22,7 +22,7 @@ publication_types:
 publishDate: "2024-11-23T00:00:00Z"
 summary: .
 tags:
-- Livelihood; ; 
+- Livelihood
 - analytic hierarchy process
 - central Nigeria
 title: 'Livelihood Diversification Strategies and Their Prioritization among Farmers in North Central Nigeria'
