@@ -30,7 +30,7 @@ tags:
 - odds and risk ratios
 - latent variable
 - gender
-title: "Mediating and Non mediating Factors Influencing Couples and Non couples' Cooperative Membership : Modelling Behaviors of Actors in Selected States of Nigeria"
+title: "Mediating and Non mediating Factors Influencing Couples and Non-couples' Cooperative Membership : Modelling Behaviors of Actors in Selected States of Nigeria"
 ---
 {{% alert note %}}
 Click the *Cite* button above to demo the feature to enable visitors to import publication metadata into their reference management software.
